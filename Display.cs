@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Display {
-        const int RegisterNum = 0xA0;
+        
 
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
@@ -19,7 +19,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
         public Display() {
-            BrainPad.UnRegisterObject(RegisterNum);
+            BrainPad.UnRegisterObject(BrainPad.DISPLAY_REGISTER_ID);
 
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
@@ -31,7 +31,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     this.messages[i] = "";
             }
 
-            BrainPad.RegisterObject(this, RegisterNum);
+            BrainPad.RegisterObject(this, BrainPad.DISPLAY_REGISTER_ID);
 
             this.Clear();
         }

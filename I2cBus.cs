@@ -9,9 +9,6 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class I2cBus : IOModule {
 
-
-        const int RegisterNum = 0xA1;
-
         private I2cDevice i2cDevice;
         private I2cController controller;
 
@@ -29,7 +26,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         void Initialize(int address, int scl, int sda) {
             var addr = (byte)(address & 0xFF);
 
-            BrainPad.UnRegisterObject(RegisterNum);
+            BrainPad.UnRegisterObject(BrainPad.I2C_REGISTER_ID);
 
             if (scl != -1 && sda != -1) {
                 this.sclPin = GpioController.GetDefault().OpenPin(scl);
@@ -43,7 +40,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             var settings = new I2cConnectionSettings(addr, 100_000);
             this.i2cDevice = this.controller.GetDevice(settings);
 
-            BrainPad.RegisterObject(this, RegisterNum);
+            BrainPad.RegisterObject(this, BrainPad.I2C_REGISTER_ID);
         }
 
         public override void Out(double data) => this.i2cDevice.Write(new byte[] { (byte)data });

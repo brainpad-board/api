@@ -8,6 +8,9 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
+        internal const int DISPLAY_REGISTER_ID = 0xA0;
+        internal const int I2C_REGISTER_ID = 0xA1;
+        internal const int DISTANCESENSOR_REGISTER_ID = 0xA2;
 
         public enum Button {
             A = SC13048.GpioPin.PC13,
