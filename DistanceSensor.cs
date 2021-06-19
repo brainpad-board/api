@@ -16,13 +16,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         static GpioController controller = GpioController.GetDefault();
 
-        public DistanceSensor(BrainPad.Pin trigger, BrainPad.Pin echo) {
-            var triggerPin = BrainPad.GetGpioFromBpPin(trigger);
-            var echoPin = BrainPad.GetGpioFromBpPin(echo);
-
-            this.Initialize(triggerPin, echoPin);
-        }
-
         public DistanceSensor(string trigger, string echo) {
             var triggerPin = BrainPad.GetGpioFromBpPin(trigger);
             var echoPin = BrainPad.GetGpioFromBpPin(echo);

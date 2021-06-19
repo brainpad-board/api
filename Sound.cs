@@ -12,15 +12,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private PwmChannel pwmChannel;
         private double playTime;
         private double frequency = 1000;
-        public Sound(BrainPad.Pin pinBp, double playtime) {
-            var pin = BrainPad.GetGpioFromBpPin(pinBp);
-            this.Initialize(this.frequency, playtime, pin);
-        }
 
         public Sound(string pinBp, double playtime) {
             pinBp = pinBp.ToLower();
 
-            if (pinBp.CompareTo("builtin") == 0) {
+            if (pinBp.CompareTo(BrainPad.TEXT_BUILTIN) == 0) {
                 this.Initialize(this.frequency, playtime, SC13048.GpioPin.PB8);
             }
             else {

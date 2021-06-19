@@ -32,14 +32,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             set => this.wasPressed = value == false ? false : true;
         }
 
-        public Buttons(Button button, double detectPeriod) => this.Initialize((int)button, detectPeriod);
-
-        public Buttons(BrainPad.Pin pinBp, double expireTime) {
-            var pinNum = BrainPad.GetGpioFromBpPin(pinBp);
-
-            this.Initialize(pinNum, expireTime);
-        }
-
         public Buttons(string button, double detectPeriod) {
             var pinNum = -1;
 
