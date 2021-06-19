@@ -12,7 +12,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private I2cDevice i2cDevice;
         private I2cController controller;
 
-        public I2cBus(int address) => this.Initialize(address);        
+        public I2cBus(int address) => this.Initialize(address);
 
         void Initialize(int address) {
             var addr = (byte)(address & 0xFF);
@@ -45,14 +45,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
 
-        public override void Dispose(bool disposing) {
-            if (disposing) {
-                this.i2cDevice?.Dispose();
-              
-            }
+        public override void Dispose() {
+            this.i2cDevice?.Dispose();
 
             this.i2cDevice = null;
-
         }
 
         public override double OutIn(byte[] data, byte[] result) {

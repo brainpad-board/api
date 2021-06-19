@@ -89,9 +89,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return 0;
         }
 
-        public override void Dispose(bool disposing) {
-            if (disposing)
-                this.gpioPin?.Dispose(); ;
+        public override void Dispose() {
+            this.gpioPin?.Dispose();
 
             this.gpioPin = null;
         }

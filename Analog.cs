@@ -37,12 +37,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
 
-        public override void Dispose(bool disposing) {
-            if (disposing) {
-
-                this.adcChannel?.Dispose();
-                this.pwmChannel?.Dispose();
-            }
+        public override void Dispose() {
+            this.adcChannel?.Dispose();
+            this.pwmChannel?.Dispose();
 
             this.adcChannel = null;
             this.pwmChannel = null;

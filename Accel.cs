@@ -74,10 +74,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return this.GetZ();
         }
 
-        public override void Dispose(bool disposing) {
-            if (disposing)
-                this.accel?.Dispose();
-
+        public override void Dispose() {
+            this.accel?.Dispose();
             this.accel = null;
         }
 
