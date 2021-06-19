@@ -9,10 +9,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public virtual void Out(double data) { }
         public virtual void Out(double[] data) { }
         public virtual double OutIn(byte[] data, byte[] result) => 0;
-        public abstract void Dispose(bool disposing);
-        public void Dispose() {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        public abstract void Dispose();
     }
 }

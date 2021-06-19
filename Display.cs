@@ -125,13 +125,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.pulseGfx.DrawString(s, 1, x, y, xs, ys);
         }
 
-        public override void Dispose(bool disposing) {
-            if (disposing) {
-                this.lcdReset?.Dispose();
-                this.pulseLcd?.Dispose();
-                this.tickGfx?.Dispose();
-                this.i2cDevice?.Dispose();
-            }
+        public override void Dispose() {
+            this.lcdReset?.Dispose();
+            this.pulseLcd?.Dispose();
+            this.tickGfx?.Dispose();
+            this.i2cDevice?.Dispose();
 
             this.lcdReset = null;
             this.pulseLcd = null;

@@ -8,7 +8,7 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class DistanceSensor : IOModule {
 
-       
+
 
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
@@ -55,11 +55,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return (double)distance;
         }
 
-        public override void Dispose(bool disposing) {
-            if (disposing) {
-                this.distanceTrigger?.Dispose();
-                this.distanceEcho?.Dispose();
-            }
+        public override void Dispose() {
+            this.distanceTrigger?.Dispose();
+            this.distanceEcho?.Dispose();
 
             this.distanceTrigger = null;
             this.distanceEcho = null;
