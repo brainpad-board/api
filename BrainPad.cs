@@ -234,7 +234,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         }
 
-        public static void Cls() {
+        public static void Clear() {
             if (display == null)
                 display = new Display();
 
