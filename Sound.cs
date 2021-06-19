@@ -34,7 +34,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.volume = Scale(volume, 0, 100, 1, 5) / 10.0; // /10 to get 0.1 to 0.5
+            this.volume = Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
 
             this.playTime = playtime;
 
