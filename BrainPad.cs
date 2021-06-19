@@ -8,9 +8,11 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
+
         internal const int DISPLAY_REGISTER_ID = 0xA0;
         internal const int I2C_REGISTER_ID = 0xA1;
         internal const int DISTANCESENSOR_REGISTER_ID = 0xA2;
+        internal const int ACCEL_REGISTER_ID = 0xA3;
 
         public enum Button {
             A = SC13048.GpioPin.PC13,
@@ -111,6 +113,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
             else if (module is I2cBus i2c) {
                 return i2c.In();
+            }
+            else if (module is DistanceSensor ds) {
+                return ds.In();
             }
             else throw new Exception("Module is not supported.");
         }
