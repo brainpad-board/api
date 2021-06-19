@@ -8,7 +8,7 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
-        
+
         public enum Button {
             A = SC13048.GpioPin.PC13,
             B = SC13048.GpioPin.PB7,
@@ -19,49 +19,49 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public static Hashtable Modules = new Hashtable();
 
         private static Display display;
-  
+
         public static int GetGpioFromString(string pin) {
             pin = pin.ToLower();
 
             switch (pin) {
                 case "p0":
-                    return SC13048.GpioPin.PA5;
+                    return Type.IsPulse ? SC13048.GpioPin.PA5 : SC13048.GpioPin.PA5; // same P12 on tick
 
                 case "p1":
-                    return SC13048.GpioPin.PA3;
+                    return Type.IsPulse ? SC13048.GpioPin.PA3 : SC13048.GpioPin.PA3; // same P16 on tick
 
                 case "p2":
                     return SC13048.GpioPin.PA2;
 
                 case "p3":
-                    return SC13048.GpioPin.PA1;
+                    return Type.IsPulse ? SC13048.GpioPin.PA1 : -1;
 
                 case "p4":
-                    return SC13048.GpioPin.PA0;
+                    return Type.IsPulse ? SC13048.GpioPin.PA0 : -1;
 
                 case "p5":
-                    return SC13048.GpioPin.PA7;
+                    return Type.IsPulse ? SC13048.GpioPin.PA7 : -1;
 
                 case "p6":
-                    return SC13048.GpioPin.PA4;
+                    return Type.IsPulse ? SC13048.GpioPin.PA4 : -1;
 
                 case "p7":
-                    return SC13048.GpioPin.PB0;
+                    return Type.IsPulse ? SC13048.GpioPin.PB0 : -1;
 
                 case "p8":
-                    return SC13048.GpioPin.PA9;
+                    return Type.IsPulse ? SC13048.GpioPin.PA9 : -1;
 
                 case "p9":
-                    return SC13048.GpioPin.PB1;
+                    return Type.IsPulse ? SC13048.GpioPin.PB1 : -1;
 
                 case "p10":
-                    return SC13048.GpioPin.PA6;
+                    return Type.IsPulse ? SC13048.GpioPin.PA6 : -1;
 
                 case "p11":
-                    return SC13048.GpioPin.PB6;
+                    return Type.IsPulse ? SC13048.GpioPin.PB6 : -1;
 
                 case "p12":
-                    return SC13048.GpioPin.PA10;
+                    return Type.IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
 
                 case "p13":
                     return SC13048.GpioPin.PB3;
@@ -73,7 +73,13 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.GpioPin.PB5;
 
                 case "p16":
-                    return SC13048.GpioPin.PB12;
+                    return Type.IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
+
+                case "p19":
+                    return SC13048.GpioPin.PB10;
+
+                case "p20":
+                    return SC13048.GpioPin.PB11;
             }
 
             return -1;

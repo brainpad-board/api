@@ -23,6 +23,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.Initialize(pinNum);
         }
         private void Initialize(int pinNum) {
+            if (pinNum < 0)
+                throw new ArgumentException("Invalid pin number.");
+
             this.pinNum = pinNum;
 
             BrainPad.UnRegisterObject(pinNum);

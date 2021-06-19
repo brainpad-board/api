@@ -74,9 +74,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.i2cDevice = null;
             this.sdaPin = null;
             this.sdaPin = null;
-
-
-
         }
 
         public override double OutIn(byte[] data, byte[] result) {

@@ -22,7 +22,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private void Initialize(int pinNum) {
 
             if (pinNum < 0) {
-                throw new ArgumentException("Invalid button.");
+                throw new ArgumentException("Invalid pin number.");
             }
 
             BrainPad.UnRegisterObject(pinNum);

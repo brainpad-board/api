@@ -28,6 +28,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
 
         private void Initialize(double frequency, double playtime, int pinNum, double volume) {
+            if (pinNum < 0) {
+                throw new ArgumentException("Invalid pin number.");
+            }
+
             BrainPad.UnRegisterObject(pinNum);
 
             this.volume = Scale(volume, 0,100, 1,5) / 10.0; // /10 to get 0.1 to 0.5
@@ -71,9 +75,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.pwmChannel?.Dispose();
 
             this.pwmChannel = null;
-
-
         }
-
     }
 }
