@@ -19,10 +19,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             driverMode = driverMode.ToLower();
 
-            if (driverMode.IndexOf("up") >= 0) {
+            if (driverMode.IndexOf(BrainPad.TEXT_PULLUP) >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullUp;
             }
-            else if (driverMode.IndexOf("down") >= 0) {
+            else if (driverMode.IndexOf(BrainPad.TEXT_PULLDOWN) >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullDown;
             }
             else
