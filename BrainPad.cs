@@ -20,7 +20,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         private static Display display;
   
-        public static int GetGpioFromBpPin(string pin) {
+        public static int GetGpioFromString(string pin) {
             pin = pin.ToLower();
 
             switch (pin) {

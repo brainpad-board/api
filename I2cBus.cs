@@ -20,8 +20,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public I2cBus(int address) => this.Initialize(address, -1, -1);
         public I2cBus(int address, string sclPin, string sdaPin) {
 
-            var scl = BrainPad.GetGpioFromBpPin(sclPin);
-            var sda = BrainPad.GetGpioFromBpPin(sdaPin);
+            var scl = BrainPad.GetGpioFromString(sclPin);
+            var sda = BrainPad.GetGpioFromString(sdaPin);
 
             this.Initialize(address, scl, sda);
         }

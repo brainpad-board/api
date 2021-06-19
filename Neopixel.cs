@@ -15,7 +15,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         WS2812Controller ws2812;
         public Neopixel(string bpPin, int numleds) {
             this.numLeds = numleds;
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 

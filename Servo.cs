@@ -12,7 +12,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         PwmChannel pwmChannel;
         ServoController servo;
         public Servo(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 

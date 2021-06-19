@@ -47,7 +47,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
 
             if (pinNum == -1) {
-                pinNum = BrainPad.GetGpioFromBpPin(button);
+                pinNum = BrainPad.GetGpioFromString(button);
             }
 
             this.Initialize(pinNum, detectPeriod);

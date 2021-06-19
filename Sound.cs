@@ -21,7 +21,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.Initialize(this.frequency, playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
-                var pin = BrainPad.GetGpioFromBpPin(pinBp);
+                var pin = BrainPad.GetGpioFromString(pinBp);
                 this.Initialize(this.frequency, playtime, pin, volume);
             }
         }

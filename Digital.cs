@@ -15,7 +15,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public GpioPinDriveMode DriverMode { get; set; } = GpioPinDriveMode.Input;
 
         public Digital(string bpPin, string driverMode) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
 
             driverMode = driverMode.ToLower();
 

@@ -18,7 +18,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private double dutyCycle = 0;
 
         public Analog(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
 
             this.Initialize(pinNum);
         }
