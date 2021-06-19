@@ -66,7 +66,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return Type.IsPulse ? SC13048.GpioPin.PB6 : -1;
 
                 case "p12":
-                    return Type.IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
+                    return Type.IsPulse ? SC13048.GpioPin.PA10 : -1;
 
                 case "p13":
                     return SC13048.GpioPin.PB3;
@@ -78,7 +78,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.GpioPin.PB5;
 
                 case "p16":
-                    return Type.IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
+                    return Type.IsPulse ? SC13048.GpioPin.PB12 : -1;
 
                 case "p19":
                     return SC13048.GpioPin.PB10;
