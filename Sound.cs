@@ -11,7 +11,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         static PwmController controller = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
         private PwmChannel pwmChannel;
         private double playTime;
-        private double frequency = 1000;        
+        private double frequency = 1000;
         public Sound(BrainPad.Pin pinBp, double playtime) {
             var pin = BrainPad.GetGpioFromBpPin(pinBp);
             this.Initialize(this.frequency, playtime, pin);
@@ -60,15 +60,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
         }
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.pwmChannel?.Dispose();
 
             this.pwmChannel = null;
 
-            
+
         }
-       
+
     }
 }

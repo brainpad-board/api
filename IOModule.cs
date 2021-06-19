@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public abstract class IOModule : IDisposable{
+    public abstract class IOModule : IDisposable {
         public virtual double In() => 0;
         public virtual void Out(double data) {
 

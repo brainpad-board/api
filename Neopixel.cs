@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812;
 using System;
 using System.Collections;
@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public class Neopixel : IOModule{
-        
+    public class Neopixel : IOModule {
+
         private int numLeds;
         private GpioPin gpioPin;
 
@@ -35,7 +35,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.gpioPin = Controller.OpenPin(pinNum);
 
-            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);        
+            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);
 
             BrainPad.RegisterObject(this, pinNum);
         }
@@ -52,7 +52,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.ws2812.Flush();
             }
 
-            
+
         }
         public override void Out(double data) {
             var v = (int)data;
@@ -68,12 +68,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.gpioPin?.Dispose(); ;
 
-            this.gpioPin = null;            
+            this.gpioPin = null;
         }
     }
 }

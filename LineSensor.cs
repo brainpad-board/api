@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using System;
 using System.Collections;
 using System.Text;
@@ -9,7 +9,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         private GpioPin gpioPin;
 
-        static GpioController Controller = GpioController.GetDefault();        
+        static GpioController Controller = GpioController.GetDefault();
         public LineSensor(BrainPad.Pin bpPin) {
             var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
             this.Initialize(pinNum);

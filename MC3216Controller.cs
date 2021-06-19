@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.I2c;
+using GHIElectronics.TinyCLR.Devices.I2c;
 using System;
 using System.Collections;
 using System.Text;
@@ -21,8 +21,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         public MC3216Controller(I2cController i2cController) {
 
-            var setting = new I2cConnectionSettings(0x4C)
-            {
+            var setting = new I2cConnectionSettings(0x4C) {
                 BusSpeed = 400000,
                 AddressFormat = I2cAddressFormat.SevenBit,
             };
@@ -40,7 +39,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             if ((id[0] & 0x01) != 0x01) {
                 throw new InvalidOperationException("Unexpected init!");
             }
-            
+
 
         }
 

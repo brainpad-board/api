@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         private GpioPin gpioPin;
 
-        static GpioController Controller = GpioController.GetDefault();
+        static GpioController controller = GpioController.GetDefault();
 
         public GpioPinDriveMode DriverMode { get; set; } = GpioPinDriveMode.Input;
         public Digital(BrainPad.Pin bpPin, GpioPinDriveMode driverMode) {
@@ -20,15 +20,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         }
 
-        public Digital(string bpPin, string driverMode) {
+        public Digital(BrainPad.Pin bpPin, string driverMode) {
             var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
-            
+
             driverMode = driverMode.ToLower();
 
-            if (driverMode.IndexOf("up") >=0) {
+            if (driverMode.IndexOf("up") >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullUp;
             }
-            else if(driverMode.IndexOf("down") >= 0) {
+            else if (driverMode.IndexOf("down") >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullDown;
             }
             else
@@ -37,7 +37,25 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.Initialize(pinNum);
         }
 
-        private void Initialize(int pinNum) {            
+
+        public Digital(string bpPin, string driverMode) {
+            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+
+            driverMode = driverMode.ToLower();
+
+            if (driverMode.IndexOf("up") >= 0) {
+                this.DriverMode = GpioPinDriveMode.InputPullUp;
+            }
+            else if (driverMode.IndexOf("down") >= 0) {
+                this.DriverMode = GpioPinDriveMode.InputPullDown;
+            }
+            else
+                this.DriverMode = GpioPinDriveMode.Input;
+
+            this.Initialize(pinNum);
+        }
+
+        private void Initialize(int pinNum) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
             }
@@ -45,9 +63,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.gpioPin = Controller.OpenPin(pinNum);
+            this.gpioPin = controller.OpenPin(pinNum);
 
-            BrainPad.RegisterObject(this, pinNum);            
+            BrainPad.RegisterObject(this, pinNum);
 
         }
 
@@ -63,15 +81,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.gpioPin.Write(oValue > 0 ? GpioPinValue.High : GpioPinValue.Low);
         }
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.gpioPin?.Dispose();
 
             this.gpioPin = null;
 
-            
+
         }
-      
+
     }
 }

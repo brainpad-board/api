@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Adc;
+using GHIElectronics.TinyCLR.Devices.Adc;
 using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
 using System;
@@ -41,7 +41,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         }
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing) {
 
@@ -94,7 +94,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.pwmChannel.Start();
             }
         }
-     
+
         static int GetChannelFromPin(int pin) {
             switch (pin) {
                 case SC13048.GpioPin.PA5:

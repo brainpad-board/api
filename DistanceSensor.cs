@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Signals;
 using System;
 using System.Collections;
@@ -31,7 +31,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         }
 
-        void Initialize(int triggerPin, int echoPin ) {
+        void Initialize(int triggerPin, int echoPin) {
 
             if (triggerPin < 0 || echoPin < 0) {
                 throw new ArgumentException("trigger or echo pin invalid.");
@@ -42,8 +42,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.distanceTrigger = Controller.OpenPin(triggerPin);
             this.distanceEcho = Controller.OpenPin(echoPin);
 
-            this.pulseFeedback = new PulseFeedback(this.distanceTrigger, this.distanceEcho, PulseFeedbackMode.EchoDuration)
-            {
+            this.pulseFeedback = new PulseFeedback(this.distanceTrigger, this.distanceEcho, PulseFeedbackMode.EchoDuration) {
                 DisableInterrupts = false,
                 Timeout = TimeSpan.FromSeconds(1),
                 PulseLength = TimeSpan.FromTicks(100),
@@ -62,15 +61,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             return (double)distance;
         }
-        
+
         public override void Dispose(bool disposing) {
             if (disposing) {
                 this.distanceTrigger?.Dispose();
                 this.distanceEcho?.Dispose();
-            }            
+            }
 
             this.distanceTrigger = null;
-            this.distanceEcho =  null;
+            this.distanceEcho = null;
         }
     }
 }

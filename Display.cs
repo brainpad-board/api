@@ -136,13 +136,13 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.lcdReset.Dispose();
 
             if (this.pulseLcd != null)
-                this.pulseLcd.Dispose();            
-            
+                this.pulseLcd.Dispose();
+
             if (this.tickGfx != null)
                 this.tickGfx.Dispose();
 
             if (this.i2cDevice != null)
                 this.i2cDevice.Dispose();
-        }        
+        }
     }
 }

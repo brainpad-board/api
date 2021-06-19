@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public class Servo : IOModule {        
+    public class Servo : IOModule {
         PwmController controller = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
         PwmChannel pwmChannel;
         ServoController servo;
@@ -45,10 +45,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.pwmChannel = null;
 
-          
-           
+
+
 
         }
-       
+
     }
 }

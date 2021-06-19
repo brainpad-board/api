@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
@@ -38,7 +38,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.Initialize((int)button, expireTime);
         }
 
-        public Buttons(BrainPad.Pin pinBp, object expireTime) { 
+        public Buttons(BrainPad.Pin pinBp, object expireTime) {
             var pinNum = BrainPad.GetGpioFromBpPin(pinBp);
 
             this.Initialize(pinNum, expireTime);
@@ -107,15 +107,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.gpioPin?.Dispose(); ;
 
             this.gpioPin = null;
 
-           
+
         }
-       
+
     }
 }

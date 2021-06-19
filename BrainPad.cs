@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Pins;
+using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -179,7 +179,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
             else throw new Exception("Module is not supported.");
         }
-        public static void Out(IOModule module, double[] oValue) {           
+        public static void Out(IOModule module, double[] oValue) {
             if (module is Neopixel neopixel) {
                 neopixel.Out(oValue);
 
@@ -214,18 +214,18 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 i2c.Out(oValue);
             }
             else throw new Exception("Module is not supported.");
-        }     
+        }
         public static double OutIn(IOModule module, double[] dataOut, double[] dataIn) {
-   
+
             if (module is I2cBus i2c) {
-                return  i2c.OutIn(dataOut, dataIn);
+                return i2c.OutIn(dataOut, dataIn);
             }
             else
                 throw new Exception("Module is not supported.");
 
-            
+
         }
-      
+
         public static void Print(string text) {
             if (display == null)
                 display = new Display();
@@ -241,18 +241,18 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             display.Clear();
 
         }
-      
+
         internal static void Dispose(object module) {
             if (module is Analog analog) {
                 analog.Dispose();
             }
-           
+
             else if (module is Digital digitalIn) {
                 digitalIn.Dispose();
             }
-           
 
-            else if (module is Sound sound) {                
+
+            else if (module is Sound sound) {
                 sound.Dispose();
             }
 

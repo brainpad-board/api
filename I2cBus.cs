@@ -1,4 +1,4 @@
-﻿using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Pins;
 using System;
@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public class I2cBus : IOModule {        
-      
+    public class I2cBus : IOModule {
+
 
         const int registerNum = 0xA1;
 
@@ -22,7 +22,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.Initialize(address, -1, -1);
         }
 
-        public I2cBus( int address, BrainPad.Pin sclPin, BrainPad.Pin sdaPin) {
+        public I2cBus(int address, BrainPad.Pin sclPin, BrainPad.Pin sdaPin) {
             var scl = BrainPad.GetGpioFromBpPin(sclPin);
             var sda = BrainPad.GetGpioFromBpPin(sdaPin);
 
@@ -53,7 +53,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             var settings = new I2cConnectionSettings(addr, 100_000);
             this.i2cDevice = this.Controller.GetDevice(settings);
-          
+
             BrainPad.RegisterObject(this, registerNum);
         }
 
@@ -74,7 +74,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return (int)readBuffer[0];
         }
 
-        
+
         public override void Dispose(bool disposing) {
             if (disposing) {
                 this.i2cDevice?.Dispose();
