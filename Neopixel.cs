@@ -42,11 +42,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 var b = (byte)((v >> 0) & 0xFF);
 
                 this.ws2812.SetColor(i, r, g, b);
-
-                this.ws2812.Flush();
             }
 
-
+            this.ws2812.Flush();
         }
         public override void Out(double data) {
             var v = (int)data;
