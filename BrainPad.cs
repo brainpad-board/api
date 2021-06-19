@@ -8,25 +8,7 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
-        public enum Pin {
-            P0,
-            P1,
-            P2,
-            P3,
-            P4,
-            P5,
-            P6,
-            P7,
-            P8,
-            P9,
-            P10,
-            P11,
-            P12,
-            P13,
-            P14,
-            P15,
-            P16
-        }
+        
         public enum Button {
             A = SC13048.GpioPin.PC13,
             B = SC13048.GpioPin.PB7,
@@ -37,64 +19,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public static Hashtable Modules = new Hashtable();
 
         private static Display display;
-        //public static int GetGpioFromBpPin(Pin pin) {
-        //    switch (pin) {
-        //        case Pin.P0:
-        //            return SC13048.GpioPin.PA5;
-
-        //        case Pin.P1:
-        //            return SC13048.GpioPin.PA3;
-
-        //        case Pin.P2:
-        //            return SC13048.GpioPin.PA2;
-
-        //        case Pin.P3:
-        //            return SC13048.GpioPin.PA1;
-
-        //        case Pin.P4:
-        //            return SC13048.GpioPin.PA0;
-
-        //        case Pin.P5:
-        //            return SC13048.GpioPin.PA7;
-
-        //        case Pin.P6:
-        //            return SC13048.GpioPin.PA4;
-
-        //        case Pin.P7:
-        //            return SC13048.GpioPin.PB0;
-
-        //        case Pin.P8:
-        //            return SC13048.GpioPin.PA9;
-
-        //        case Pin.P9:
-        //            return SC13048.GpioPin.PB1;
-
-        //        case Pin.P10:
-        //            return SC13048.GpioPin.PA6;
-
-        //        case Pin.P11:
-        //            return SC13048.GpioPin.PB6;
-
-        //        case Pin.P12:
-        //            return SC13048.GpioPin.PA10;
-
-        //        case Pin.P13:
-        //            return SC13048.GpioPin.PB3;
-
-        //        case Pin.P14:
-        //            return SC13048.GpioPin.PB4;
-
-        //        case Pin.P15:
-        //            return SC13048.GpioPin.PB5;
-
-        //        case Pin.P16:
-        //            return SC13048.GpioPin.PB12;
-        //    }
-
-        //    return -1;
-
-        //}
-
+  
         public static int GetGpioFromBpPin(string pin) {
             pin = pin.ToLower();
 
