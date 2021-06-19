@@ -11,7 +11,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private int numLeds;
         private GpioPin gpioPin;
 
-        static GpioController Controller = GpioController.GetDefault();
+        static GpioController controller = GpioController.GetDefault();
         WS2812Controller ws2812;
         public Neopixel(BrainPad.Pin bpPin, int numleds) {
             this.numLeds = numleds;
@@ -33,7 +33,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.gpioPin = Controller.OpenPin(pinNum);
+            this.gpioPin = controller.OpenPin(pinNum);
 
             this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);
 

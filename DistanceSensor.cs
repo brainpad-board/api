@@ -8,13 +8,13 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class DistanceSensor : IOModule {
 
-        const int registerNum = 0xA2;
+        const int RegisterNum = 0xA2;
 
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
         GpioPin distanceEcho;
 
-        static GpioController Controller = GpioController.GetDefault();
+        static GpioController controller = GpioController.GetDefault();
 
         public DistanceSensor(BrainPad.Pin trigger, BrainPad.Pin echo) {
             var triggerPin = BrainPad.GetGpioFromBpPin(trigger);
@@ -37,10 +37,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new ArgumentException("trigger or echo pin invalid.");
             }
 
-            BrainPad.UnRegisterObject(registerNum);
+            BrainPad.UnRegisterObject(RegisterNum);
 
-            this.distanceTrigger = Controller.OpenPin(triggerPin);
-            this.distanceEcho = Controller.OpenPin(echoPin);
+            this.distanceTrigger = controller.OpenPin(triggerPin);
+            this.distanceEcho = controller.OpenPin(echoPin);
 
             this.pulseFeedback = new PulseFeedback(this.distanceTrigger, this.distanceEcho, PulseFeedbackMode.EchoDuration) {
                 DisableInterrupts = false,
@@ -50,7 +50,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 EchoValue = GpioPinValue.High,
             };
 
-            BrainPad.RegisterObject(this, registerNum);
+            BrainPad.RegisterObject(this, RegisterNum);
         }
 
         public override double In() {
