@@ -82,38 +82,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                gpio.OpenPin(SC13048.GpioPin.PA0),
                gpio.OpenPin(SC13048.GpioPin.PH0),
             };
-            /*OLDledMatrix = new GpioPin[]
-            {
-               gpio.OpenPin(SC13048.GpioPin.PA8),//D1
-               gpio.OpenPin(SC13048.GpioPin.PA10),
-               gpio.OpenPin(SC13048.GpioPin.PA14),
-               gpio.OpenPin(SC13048.GpioPin.PA15),
-               gpio.OpenPin(SC13048.GpioPin.PA13),
-
-               gpio.OpenPin(SC13048.GpioPin.PA9),//D6
-               gpio.OpenPin(SC13048.GpioPin.PB15),
-               gpio.OpenPin(SC13048.GpioPin.PB6),
-               gpio.OpenPin(SC13048.GpioPin.PH1),
-               gpio.OpenPin(SC13048.GpioPin.PH0),
-
-               gpio.OpenPin(SC13048.GpioPin.PB14),//D11
-               gpio.OpenPin(SC13048.GpioPin.PB13),
-               gpio.OpenPin(SC13048.GpioPin.PA6),
-               gpio.OpenPin(SC13048.GpioPin.PC15),
-               gpio.OpenPin(SC13048.GpioPin.PC14),
-
-               gpio.OpenPin(SC13048.GpioPin.PB12),//D16
-               gpio.OpenPin(SC13048.GpioPin.PB10),
-               gpio.OpenPin(SC13048.GpioPin.PB1),
-               gpio.OpenPin(SC13048.GpioPin.PA1),
-               gpio.OpenPin(SC13048.GpioPin.PA0),
-
-               gpio.OpenPin(SC13048.GpioPin.PB11),//D21
-               gpio.OpenPin(SC13048.GpioPin.PB2),
-               gpio.OpenPin(SC13048.GpioPin.PB0),
-               gpio.OpenPin(SC13048.GpioPin.PA7),
-               gpio.OpenPin(SC13048.GpioPin.PA4),
-            };*/
+            
             foreach (var pin in this.ledMatrix) {
                 pin.SetDriveMode(GpioPinDriveMode.Output);
                 pin.Write(GpioPinValue.Low);
@@ -121,17 +90,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         }
 
-        bool disposed = false;
         internal void Dispose() {
-            if (this.disposed)
-                return;
+            this.brightnessChannel?.Dispose();
 
-            this.disposed = true;
+            this.brightnessChannel = null;
 
-            this.brightnessChannel.Dispose();
-
-            foreach (var pin in this.ledMatrix) {
-                pin.Dispose();
+            for (var i = 0; i < this.ledMatrix.Length; i++) {
+                this.ledMatrix[i]?.Dispose();
+                this.ledMatrix[i] = null;
             }
         }
     }

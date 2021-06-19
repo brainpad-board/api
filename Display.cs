@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public class Display {
-        const int RegisterNum = 0xA0;
+    public class Display : IOModule {
+
 
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
@@ -19,7 +19,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
         public Display() {
-            BrainPad.UnRegisterObject(RegisterNum);
+            BrainPad.UnRegisterObject(BrainPad.DISPLAY_REGISTER_ID);
 
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
@@ -31,7 +31,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     this.messages[i] = "";
             }
 
-            BrainPad.RegisterObject(this, RegisterNum);
+            BrainPad.RegisterObject(this, BrainPad.DISPLAY_REGISTER_ID);
 
             this.Clear();
         }
@@ -125,24 +125,18 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.pulseGfx.DrawString(s, 1, x, y, xs, ys);
         }
 
-        bool disposed = false;
-        public void Dispose() {
-            if (this.disposed)
-                return;
+        public override void Dispose(bool disposing) {
+            if (disposing) {
+                this.lcdReset?.Dispose();
+                this.pulseLcd?.Dispose();
+                this.tickGfx?.Dispose();
+                this.i2cDevice?.Dispose();
+            }
 
-            this.disposed = true;
-
-            if (this.lcdReset != null)
-                this.lcdReset.Dispose();
-
-            if (this.pulseLcd != null)
-                this.pulseLcd.Dispose();
-
-            if (this.tickGfx != null)
-                this.tickGfx.Dispose();
-
-            if (this.i2cDevice != null)
-                this.i2cDevice.Dispose();
+            this.lcdReset = null;
+            this.pulseLcd = null;
+            this.tickGfx = null;
+            this.i2cDevice = null;
         }
     }
 }

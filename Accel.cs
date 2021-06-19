@@ -15,16 +15,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         bool doY = false;
         bool doZ = false;
         public Accel(string xyz) {
+            xyz = xyz.ToLower();
             switch (xyz) {
-                case "X":
                 case "x":
                     this.doX = true;
                     break;
-                case "Y":
                 case "y":
                     this.doY = true;
                     break;
-                case "Z":
                 case "z":
                     this.doZ = true;
                     break;

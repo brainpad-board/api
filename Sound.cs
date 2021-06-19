@@ -12,26 +12,29 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private PwmChannel pwmChannel;
         private double playTime;
         private double frequency = 1000;
-        public Sound(BrainPad.Pin pinBp, double playtime) {
-            var pin = BrainPad.GetGpioFromBpPin(pinBp);
-            this.Initialize(this.frequency, playtime, pin);
-        }
+        private double volume = 100;
 
-        public Sound(string pinBp, double playtime) {
+        public Sound(string pinBp, double playtime, double volume) {
             pinBp = pinBp.ToLower();
 
-            if (pinBp.CompareTo("builtin") == 0) {
-                this.Initialize(this.frequency, playtime, SC13048.GpioPin.PB8);
+            if (pinBp.CompareTo(BrainPad.TEXT_BUILTIN) == 0) {
+                this.Initialize(this.frequency, playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
-                var pin = BrainPad.GetGpioFromBpPin(pinBp);
-                this.Initialize(this.frequency, playtime, pin);
+                var pin = BrainPad.GetGpioFromString(pinBp);
+                this.Initialize(this.frequency, playtime, pin, volume);
             }
         }
 
 
-        private void Initialize(double frequency, double playtime, int pinNum) {
+        private void Initialize(double frequency, double playtime, int pinNum, double volume) {
+            if (pinNum < 0) {
+                throw new ArgumentException("Invalid pin number.");
+            }
+
             BrainPad.UnRegisterObject(pinNum);
+
+            this.volume = Scale(volume, 0,100, 1,5) / 10.0; // /10 to get 0.1 to 0.5
 
             this.playTime = playtime;
 
@@ -39,7 +42,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.pwmChannel = controller.OpenChannel(pinNum);
 
-            this.pwmChannel.SetActiveDutyCyclePercentage(0.5);
+            this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
 
             BrainPad.RegisterObject(this, pinNum);
         }
@@ -60,15 +63,18 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
         }
 
+        static int Scale(double value, int originalMin, int originalMax, int scaleMin, int scaleMax) {
+            var scale = (double)(scaleMax - scaleMin) / (originalMax - originalMin);
+            var ret = (int)(scaleMin + ((value - originalMin) * scale));
+
+            return ret > scaleMax ? scaleMax : (ret < scaleMin ? scaleMin : ret);
+        }
 
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.pwmChannel?.Dispose();
 
             this.pwmChannel = null;
-
-
         }
-
     }
 }

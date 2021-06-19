@@ -11,13 +11,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         PwmController controller = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
         PwmChannel pwmChannel;
         ServoController servo;
-        public Servo(BrainPad.Pin bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
-            this.Initialize(pinNum);
-        }
-
         public Servo(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 

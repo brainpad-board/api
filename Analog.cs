@@ -17,20 +17,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private int pinNum;
         private double dutyCycle = 0;
 
-        public Analog(BrainPad.Pin bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
-            this.Initialize(pinNum);
-        }
-
-
         public Analog(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
 
             this.Initialize(pinNum);
         }
-
-
         private void Initialize(int pinNum) {
+            if (pinNum < 0)
+                throw new ArgumentException("Invalid pin number.");
+
             this.pinNum = pinNum;
 
             BrainPad.UnRegisterObject(pinNum);

@@ -11,29 +11,23 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private int numLeds;
         private GpioPin gpioPin;
 
-        static GpioController Controller = GpioController.GetDefault();
+        static GpioController controller = GpioController.GetDefault();
         WS2812Controller ws2812;
-        public Neopixel(BrainPad.Pin bpPin, int numleds) {
-            this.numLeds = numleds;
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
-            this.Initialize(pinNum);
-        }
-
         public Neopixel(string bpPin, int numleds) {
             this.numLeds = numleds;
-            var pinNum = BrainPad.GetGpioFromBpPin(bpPin);
+            var pinNum = BrainPad.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 
         private void Initialize(int pinNum) {
 
             if (pinNum < 0) {
-                throw new ArgumentException("Invalid button.");
+                throw new ArgumentException("Invalid pin number.");
             }
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.gpioPin = Controller.OpenPin(pinNum);
+            this.gpioPin = controller.OpenPin(pinNum);
 
             this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);
 
@@ -48,11 +42,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 var b = (byte)((v >> 0) & 0xFF);
 
                 this.ws2812.SetColor(i, r, g, b);
-
-                this.ws2812.Flush();
             }
 
-
+            this.ws2812.Flush();
         }
         public override void Out(double data) {
             var v = (int)data;
