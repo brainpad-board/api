@@ -84,22 +84,5 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             return 0;
         }
-        public override double OutIn(double[] data, double[] result) {
-
-            var bData = new byte[data.Length];
-            var bResult = new byte[result.Length];
-
-            for (var i = 0; i < bData.Length; i++) {
-                bData[i] = (byte)(data[i]);
-            }
-
-            this.i2cDevice.WriteRead(bData, bResult);
-
-            for (var i = 0; i < result.Length; i++) {
-                result[i] = bResult[i];
-            }
-
-            return result.Length;
-        }
     }
 }

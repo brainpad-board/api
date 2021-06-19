@@ -16,7 +16,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public virtual void Out(byte[] data) {
 
         }
-        public virtual double OutIn(double[] data, double[] result) => 0;
 
         public virtual double OutIn(byte[] data, byte[] result) => 0;
 

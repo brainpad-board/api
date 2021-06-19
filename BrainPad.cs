@@ -216,7 +216,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             }
             else throw new Exception("Module is not supported.");
         }
-        public static double OutIn(IOModule module, double[] dataOut, double[] dataIn) {
+        public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) {
             if (module is I2cBus i2c) {
                 return i2c.OutIn(dataOut, dataIn);
             }
