@@ -8,6 +8,9 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
+        internal const string TEXT_PULLUP = "pullup";
+        internal const string TEXT_PULLDOWN = "pulldown";
+        internal const string TEXT_NOPULL = "nopull";
 
         internal const int DISPLAY_REGISTER_ID = 0xA0;
         internal const int I2C_REGISTER_ID = 0xA1;
