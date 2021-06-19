@@ -9,8 +9,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Accel : IOModule {
         MC3216Controller accel;
 
-        const int RegisterNum = 0x80;
-
         bool doX = false;
         bool doY = false;
         bool doZ = false;
@@ -32,14 +30,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             if (this.doX == false && this.doY == false && this.doZ == false)
                 throw new ArgumentException("Argument must be X or Y or Z");
 
-            BrainPad.UnRegisterObject(RegisterNum);
+            BrainPad.UnRegisterObject(BrainPad.ACCEL_REGISTER_ID);
 
             if (BrainPad.Type.IsPulse) {
                 var i2ccon = I2cController.FromName(SC13048.I2cBus.I2c2);
                 this.accel = new MC3216Controller(i2ccon);
             }
 
-            BrainPad.RegisterObject(this, RegisterNum);
+            BrainPad.RegisterObject(this, BrainPad.ACCEL_REGISTER_ID);
         }
 
         private double GetX() {
