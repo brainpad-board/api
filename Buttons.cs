@@ -10,9 +10,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Buttons : IOModule {
         private GpioPin gpioPin;
 
-        static GpioController Controller = GpioController.GetDefault();
+        static GpioController controller = GpioController.GetDefault();
         private bool wasPressed;
-        private double expireTime = 0;
+        private double detectPeriod = 0;
         private DateTime lastPressed;
         private bool WasPressed {
             get {
@@ -20,7 +20,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     this.wasPressed = false;
                     var diff = (DateTime.Now - this.lastPressed).TotalMilliseconds;
 
-                    if (diff <= this.expireTime)
+                    if (diff <= this.detectPeriod)
                         return true;
                     else
                         return false;
@@ -29,22 +29,18 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 return false;
             }
 
-            set {
-                this.wasPressed = value == false ? false : true;
-            }
+            set => this.wasPressed = value == false ? false : true;
         }
 
-        public Buttons(Button button, object expireTime) {
-            this.Initialize((int)button, expireTime);
-        }
+        public Buttons(Button button, double detectPeriod) => this.Initialize((int)button, detectPeriod);
 
-        public Buttons(BrainPad.Pin pinBp, object expireTime) {
+        public Buttons(BrainPad.Pin pinBp, double expireTime) {
             var pinNum = BrainPad.GetGpioFromBpPin(pinBp);
 
             this.Initialize(pinNum, expireTime);
         }
 
-        public Buttons(string button, object expireTime) {
+        public Buttons(string button, double detectPeriod) {
             var pinNum = -1;
 
             button = button.ToLower();
@@ -62,10 +58,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 pinNum = BrainPad.GetGpioFromBpPin(button);
             }
 
-            this.Initialize(pinNum, expireTime);
+            this.Initialize(pinNum, detectPeriod);
         }
 
-        private void Initialize(int pinNum, object expireTime) {
+        private void Initialize(int pinNum, double detectPeriod) {
 
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid button.");
@@ -73,14 +69,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            if (expireTime is double d) {
-                this.expireTime = d * 1000;
-            }
-            else if (expireTime is int i) {
-                this.expireTime = i * 1000;
-            }
+            this.detectPeriod = detectPeriod * 1000;
 
-            this.gpioPin = Controller.OpenPin(pinNum);
+            this.gpioPin = controller.OpenPin(pinNum);
 
             this.gpioPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
 
@@ -106,15 +97,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return 0;
         }
 
-
-
         public override void Dispose(bool disposing) {
             if (disposing)
                 this.gpioPin?.Dispose(); ;
 
             this.gpioPin = null;
-
-
         }
 
     }
