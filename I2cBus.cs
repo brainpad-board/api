@@ -12,30 +12,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private I2cDevice i2cDevice;
         private I2cController controller;
 
-        GpioPin sclPin;
-        GpioPin sdaPin;
-        public I2cBus(int address) => this.Initialize(address, -1, -1);
-        public I2cBus(int address, string sclPin, string sdaPin) {
+        public I2cBus(int address) => this.Initialize(address);        
 
-            var scl = BrainPad.GetGpioFromString(sclPin);
-            var sda = BrainPad.GetGpioFromString(sdaPin);
-
-            this.Initialize(address, scl, sda);
-        }
-
-        void Initialize(int address, int scl, int sda) {
+        void Initialize(int address) {
             var addr = (byte)(address & 0xFF);
 
             BrainPad.UnRegisterObject(BrainPad.I2C_REGISTER_ID);
 
-            if (scl != -1 && sda != -1) {
-                this.sclPin = GpioController.GetDefault().OpenPin(scl);
-                this.sdaPin = GpioController.GetDefault().OpenPin(sda);
-                this.controller = I2cController.FromName(SC13048.I2cBus.Software, this.sdaPin, this.sclPin);
-            }
-            else {
-                this.controller = I2cController.FromName(SC13048.I2cBus.I2c4);
-            }
+            this.controller = I2cController.FromName(SC13048.I2cBus.I2c4);
 
             var settings = new I2cConnectionSettings(addr, 100_000);
             this.i2cDevice = this.controller.GetDevice(settings);
@@ -64,13 +48,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public override void Dispose(bool disposing) {
             if (disposing) {
                 this.i2cDevice?.Dispose();
-                this.sdaPin?.Dispose();
-                this.sdaPin?.Dispose();
+              
             }
 
             this.i2cDevice = null;
-            this.sdaPin = null;
-            this.sdaPin = null;
+
         }
 
         public override double OutIn(byte[] data, byte[] result) {
