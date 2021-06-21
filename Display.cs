@@ -89,11 +89,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
         }
 
         public void Print(string s) {
-            this.Clear();
             if (BrainPad.Type.IsPulse == false) {
+                this.tickGfx.Clear();
                 this.tickGfx.DrawText(s);
             }
             else {
+                this.pulseGfx.Clear();
                 Array.Copy(this.messages, 1, this.messages, 0, this.messages.Length - 1);
                 this.messages[7] = s;
                 for (var i = 0; i < 8; i++)
