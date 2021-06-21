@@ -1,3 +1,4 @@
+using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
@@ -17,6 +18,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const int DISTANCESENSOR_REGISTER_ID = 0xA2;
         internal const int ACCEL_REGISTER_ID = 0xA3;
 
+        internal const uint PIN_RESERVED_0 = (1 << 0);
+        internal const uint PIN_RESERVED_1 = (1 << 1);
+        internal const uint PIN_RESERVED_12 = (1 << 12);
+        internal const uint PIN_RESERVED_16 = (1 << 16);
+
         public enum Button {
             A = SC13048.GpioPin.PC13,
             B = SC13048.GpioPin.PB7,
@@ -26,10 +32,88 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         public static Hashtable Modules = new Hashtable();
 
-        private static Display display;
+        private static uint pinReserved = 0;
 
+        internal static void ClearPinReserved(int pin) {
+            if (Type.IsPulse)
+                return;
+           
+
+            switch (pin) {
+                case SC13048.GpioPin.PA5:               
+                    pinReserved &= ~(PIN_RESERVED_0 | PIN_RESERVED_12);
+                    return;
+
+                case SC13048.GpioPin.PA3:                
+                    pinReserved &= ~(PIN_RESERVED_1 | PIN_RESERVED_16);
+                    return;
+            }
+
+        }
+
+        internal static void AddPinReserved(string pin) {
+            if (Type.IsPulse)
+                return;
+
+            pin = pin.ToLower();
+            switch (pin) {
+                case "p0":
+                    pinReserved |= PIN_RESERVED_0;
+                    return;
+                case "p1":
+                    pinReserved |= PIN_RESERVED_1;
+                    return;
+                case "p12":
+                    pinReserved |= PIN_RESERVED_12;
+                    return;
+                case "p16":
+                    pinReserved |= PIN_RESERVED_16;
+                    return;
+
+            }
+
+        }
+        internal static bool IsPinReserved(string pin) {
+            if (Type.IsPulse)
+                return false;
+
+            pin = pin.ToLower();
+
+            switch (pin) {
+                case "p0":
+                    if ((pinReserved & (PIN_RESERVED_12)) != 0) {
+                        return true;
+                    }
+                    break;
+
+                case "p1":
+                    if ((pinReserved & (PIN_RESERVED_16)) != 0) {
+                        return true;
+                    }
+                    break;
+
+                case "p12":
+                    if ((pinReserved & (PIN_RESERVED_0)) != 0) {
+                        return true;
+                    }
+                    break;
+
+                case "p16":
+                    if ((pinReserved & (PIN_RESERVED_1)) != 0) {
+                        return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
         public static int GetGpioFromString(string pin) {
             pin = pin.ToLower();
+
+            if (IsPinReserved(pin))
+                return -1;
+
+            AddPinReserved(pin);
 
             switch (pin) {
                 case "p0":
@@ -69,7 +153,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return Type.IsPulse ? SC13048.GpioPin.PB6 : -1;
 
                 case "p12":
-                    return Type.IsPulse ? SC13048.GpioPin.PA10 : -1;
+                    return Type.IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
 
                 case "p13":
                     return SC13048.GpioPin.PB3;
@@ -81,7 +165,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.GpioPin.PB5;
 
                 case "p16":
-                    return Type.IsPulse ? SC13048.GpioPin.PB12 : -1;
+                    return Type.IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
 
                 case "p19":
                     return SC13048.GpioPin.PB10;
@@ -166,21 +250,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new Exception("Module is not supported.");
         }
 
-        public static void Print(string text) {
-            if (display == null)
-                display = new Display();
-
-            display.Print(text);
-
-        }
-
-        public static void Clear() {
-            if (display == null)
-                display = new Display();
-
-            display.Clear();
-
-        }
 
         internal static void Dispose(object module) {
             if (module is Analog analog) {
@@ -203,7 +272,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             else if (module is Accel accel) {
                 accel.Dispose();
             }
-            else if (module is Display display) {
+            else if (module is DisplayController display) {
                 display.Dispose();
             }
 
@@ -220,6 +289,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
         internal static void RegisterObject(object obj, int pinNum) => BrainPad.Modules[pinNum] = obj;
+
+
         internal static void UnRegisterObject(int pinNum) {
             if (BrainPad.Modules.Contains(pinNum)) {
                 var module = BrainPad.Modules[pinNum];
@@ -227,6 +298,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 BrainPad.Dispose(module);
 
                 BrainPad.Modules.Remove(module);
+
+                ClearPinReserved(pinNum);
             }
         }
     }

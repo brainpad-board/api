@@ -8,8 +8,36 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    public class Display : IOModule {
+namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
+
+    public static class Display {
+        private static DisplayController displayController;
+
+        private static DisplayController Controller {
+            get {
+                if (displayController == null)
+                    displayController = new DisplayController();
+
+                return displayController;
+            }
+
+        }
+
+        public static void Print(string text) => Controller?.Print(text);
+        public static void Clear() => Controller?.Clear();
+        public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
+        public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r);
+        public static void Line(int x1, int y1, int x2, int y2) => Controller?.Line(x1, y1, x2, y2);
+        public static void Rect(int x, int y, int w, int h) => Controller?.Rect(x, y, w, h);
+        public static void Point(int x, int y) => Controller?.Point(x, y);
+        public static void Text(string s, int x, int y) => Controller?.Text(s, x, y);
+        public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller?.TextEx(s, x, y, scalewidth, scaleheight);
+
+        
+
+    }
+
+    internal class DisplayController : IOModule {
 
 
         private GpioPin lcdReset;
@@ -18,7 +46,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private TickMatrixController tickGfx;
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
-        public Display() {
+        public DisplayController() {
             BrainPad.UnRegisterObject(BrainPad.DISPLAY_REGISTER_ID);
 
             if (BrainPad.Type.IsPulse == false) {
@@ -137,4 +165,5 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.i2cDevice = null;
         }
     }
+
 }
