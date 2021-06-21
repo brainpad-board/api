@@ -26,14 +26,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
         public static void Print(string text) => Controller?.Print(text);
         public static void Clear() => Controller?.Clear();
         public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
-        public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r);
-        public static void Line(int x1, int y1, int x2, int y2) => Controller?.Line(x1, y1, x2, y2);
-        public static void Rect(int x, int y, int w, int h) => Controller?.Rect(x, y, w, h);
-        public static void Point(int x, int y) => Controller?.Point(x, y);
+        public static void Circle(int x, int y, int r, int c) => Controller?.Circle(x, y, r, c);
+        public static void Line(int x1, int y1, int x2, int y2, int c) => Controller?.Line(x1, y1, x2, y2, c);
+        public static void Rect(int x, int y, int w, int h, int c) => Controller?.Rect(x, y, w, h, c);
+        public static void Point(int x, int y, int c) => Controller?.Point(x, y, c);
         public static void Text(string s, int x, int y) => Controller?.Text(s, x, y);
         public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller?.TextEx(s, x, y, scalewidth, scaleheight);
-
-        
+        public static Image CreateImage(int width, int height, byte[] data) => Controller?.CreateImage(width, height, data);
+        public static void DrawImage(object img, int x, int y) => Controller?.DrawImage((Image)img, x, y);
+        public static void Show() => Controller?.Show();
 
     }
 
@@ -120,26 +121,26 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 
             }
         }
-        public void Circle(int x, int y, int r) {
+        public void Circle(int x, int y, int r, int c) {
             if (BrainPad.Type.IsPulse == false)
                 return;
-            this.pulseGfx.DrawCircle(1, x, y, r);
+            this.pulseGfx.DrawCircle((uint)c, x, y, r);
         }
-        public void Line(int x1, int y1, int x2, int y2) {
+        public void Line(int x1, int y1, int x2, int y2, int c) {
             if (BrainPad.Type.IsPulse == false)
                 return;
-            this.pulseGfx.DrawLine(1, x1, y1, x2, y2);
+            this.pulseGfx.DrawLine((uint)c, x1, y1, x2, y2);
         }
-        public void Rect(int x, int y, int w, int h) {
+        public void Rect(int x, int y, int w, int h, int c) {
             if (BrainPad.Type.IsPulse == false)
                 return;
-            this.pulseGfx.DrawRectangle(1, x, y, w, h);
+            this.pulseGfx.DrawRectangle((uint)c, x, y, w, h);
         }
-        public void Point(int x, int y) {
+        public void Point(int x, int y, int c) {
             if (BrainPad.Type.IsPulse)
-                this.pulseGfx.SetPixel(x, y, 1);
+                this.pulseGfx.SetPixel(x, y, (uint)c);
             else {
-                this.tickGfx.SetPixel(x, y, 1);
+                this.tickGfx.SetPixel(x, y, (uint)c);
             }
         }
         public void Text(string s, int x, int y) {
@@ -151,6 +152,15 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, 1, x, y, xs, ys);
+        }
+
+        public Image CreateImage(int width, int height, byte[] data) => new Image(data, width, height);
+
+        public void DrawImage(Image img, int x, int y) {
+            if (BrainPad.Type.IsPulse == false)
+                return;
+
+            this.pulseGfx.DrawImage(img, x, y);
         }
 
         public override void Dispose() {
