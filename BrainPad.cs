@@ -1,3 +1,4 @@
+using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
@@ -25,8 +26,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal static BrainPadType Type = new BrainPadType();
 
         public static Hashtable Modules = new Hashtable();
-
-        private static Display display;
 
         public static int GetGpioFromString(string pin) {
             pin = pin.ToLower();
@@ -166,22 +165,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new Exception("Module is not supported.");
         }
 
-        public static void Print(string text) {
-            if (display == null)
-                display = new Display();
-
-            display.Print(text);
-
-        }
-
-        public static void Clear() {
-            if (display == null)
-                display = new Display();
-
-            display.Clear();
-
-        }
-
+       
         internal static void Dispose(object module) {
             if (module is Analog analog) {
                 analog.Dispose();
@@ -203,7 +187,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             else if (module is Accel accel) {
                 accel.Dispose();
             }
-            else if (module is Display display) {
+            else if (module is DisplayController display) {
                 display.Dispose();
             }
 
