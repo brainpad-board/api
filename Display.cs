@@ -94,8 +94,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
                 this.tickGfx.DrawText(s);
             }
             else {
-                for (var i = 0; i < 7; i++)
-                    this.messages[i] = this.messages[i + 1];
+                Array.Copy(this.messages, 1, this.messages, 0, this.messages.Length - 1);
                 this.messages[7] = s;
                 for (var i = 0; i < 8; i++)
                     this.pulseGfx.DrawString(this.messages[i], 1, 0, i * 8);
@@ -116,9 +115,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
             else {
                 this.pulseGfx.Clear();
-
-                this.Show();
-
+                for(var i=0; i < 8; i++) {
+                    this.messages[i] = "";
+                }
             }
         }
         public void Circle(int x, int y, int r, int c) {
