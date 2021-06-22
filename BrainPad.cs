@@ -1,3 +1,5 @@
+using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
@@ -22,6 +24,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const uint PIN_RESERVED_1 = (1 << 1);
         internal const uint PIN_RESERVED_12 = (1 << 12);
         internal const uint PIN_RESERVED_16 = (1 << 16);
+
+        internal static GpioController Gpio = GpioController.GetDefault();
+        internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
 
         public enum Button {
             A = SC13048.GpioPin.PC13,
@@ -184,6 +189,25 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             var t = (int)(seconds * 1000);
             Thread.Sleep(t);
         }
+
+        public static IOModule Analog(string pin) => new Analog(pin);
+
+        public static IOModule Digital(string pin, string pull) => new Digital(pin, pull);
+
+        public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
+
+        public static IOModule Buttons(string button, double detectPeriod) => new Buttons(button, detectPeriod);
+
+        public static IOModule Accel(string xyz) => new Accel(xyz);
+
+        public static IOModule Servo(string pin) => new Servo(pin);
+
+        public static IOModule Neopixel(string pin, int lednums) => new Neopixel(pin, lednums);
+
+        public static IOModule I2cBus(int address) => new I2cBus(address);
+
+        public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
+
         public static double In(IOModule module) {
             if (module is Analog analog) {
                 return analog.In();

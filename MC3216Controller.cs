@@ -22,7 +22,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public MC3216Controller(I2cController i2cController) {
 
             var setting = new I2cConnectionSettings(0x4C) {
-                BusSpeed = 400000,
+                BusSpeed = 400_000,
                 AddressFormat = I2cAddressFormat.SevenBit,
             };
 

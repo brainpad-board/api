@@ -4,13 +4,11 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
-using static GHIElectronics.TinyCLR.Drivers.BrainPadController.BrainPad;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Buttons : IOModule {
         private GpioPin gpioPin;
 
-        static GpioController controller = GpioController.GetDefault();
         private bool wasPressed;
         private double detectPeriod = 0;
         private DateTime lastPressed;
@@ -39,10 +37,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             switch (button) {
                 case "a":
-                    pinNum = (int)Button.A;
+                    pinNum = (int)BrainPad.Button.A;
                     break;
                 case "b":
-                    pinNum = (int)Button.B;
+                    pinNum = (int)BrainPad.Button.B;
                     break;
             }
 
@@ -63,7 +61,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.detectPeriod = detectPeriod * 1000;
 
-            this.gpioPin = controller.OpenPin(pinNum);
+            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
 
             this.gpioPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
 

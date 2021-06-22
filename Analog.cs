@@ -8,11 +8,9 @@ using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Analog : IOModule {
-
-
         static AdcController adcController = AdcController.FromName(SC13048.Adc.Controller1.Id);
         private AdcChannel adcChannel;
-        static PwmController pwmController = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
+     
         private PwmChannel pwmChannel;
         private int pinNum;
         private double dutyCycle = 0;
@@ -30,7 +28,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            pwmController.SetDesiredFrequency(1000);
+            BrainPad.PwmSoftware.SetDesiredFrequency(1000);
 
             BrainPad.RegisterObject(this, pinNum);
 
@@ -72,7 +70,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             }
             if (this.pwmChannel == null) {
-                this.pwmChannel = pwmController.OpenChannel(this.pinNum);
+                this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
                 this.dutyCycle = 0;
             }
 

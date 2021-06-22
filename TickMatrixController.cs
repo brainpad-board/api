@@ -42,8 +42,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
         GpioPin[] ledMatrix;
         public TickMatrixController() {
-            var gpio = GpioController.GetDefault();
-
+            var gpio = BrainPad.Gpio;
             var pwmController1 = PwmController.FromName(SC13048.Timer.Pwm.Controller1.Id);
             this.brightnessChannel = pwmController1.OpenChannel(SC13048.Timer.Pwm.Controller1.PA9);
             this.brightnessChannel.Controller.SetDesiredFrequency(1000);

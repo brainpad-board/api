@@ -8,7 +8,6 @@ using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Sound : IOModule {
-        static PwmController controller = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
         private PwmChannel pwmChannel;
         private double playTime;
         private double frequency = 1000;
@@ -38,9 +37,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.playTime = playtime;
 
-            controller.SetDesiredFrequency(this.frequency);
+            BrainPad.PwmSoftware.SetDesiredFrequency(this.frequency);
 
-            this.pwmChannel = controller.OpenChannel(pinNum);
+            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(pinNum);
 
             this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
 
@@ -53,7 +52,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             if (this.frequency != oValue) {
                 this.frequency = oValue;
-                controller.SetDesiredFrequency(this.frequency);
+                BrainPad.PwmSoftware.SetDesiredFrequency(this.frequency);
             }
             this.pwmChannel.Start();
 

@@ -10,8 +10,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         private GpioPin gpioPin;
 
-        static GpioController controller = GpioController.GetDefault();
-
         public GpioPinDriveMode DriverMode { get; set; } = GpioPinDriveMode.Input;
 
         public Digital(string bpPin, string driverMode) {
@@ -39,7 +37,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.gpioPin = controller.OpenPin(pinNum);
+            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
 
             BrainPad.RegisterObject(this, pinNum);
 

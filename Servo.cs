@@ -8,7 +8,6 @@ using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Servo : IOModule {
-        PwmController controller = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
         PwmChannel pwmChannel;
         ServoController servo;
         public Servo(string bpPin) {
@@ -24,9 +23,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(pinNum);
 
-            this.pwmChannel = this.controller.OpenChannel(pinNum);
+            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(pinNum);
 
-            this.servo = new ServoController(this.controller, this.pwmChannel);
+            this.servo = new ServoController(BrainPad.PwmSoftware, this.pwmChannel);
 
             BrainPad.RegisterObject(this, pinNum);
 

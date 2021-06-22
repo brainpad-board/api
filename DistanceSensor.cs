@@ -7,14 +7,9 @@ using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class DistanceSensor : IOModule {
-
-
-
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
         GpioPin distanceEcho;
-
-        static GpioController controller = GpioController.GetDefault();
 
         public DistanceSensor(string trigger, string echo) {
             var triggerPin = BrainPad.GetGpioFromString(trigger);
@@ -32,8 +27,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             BrainPad.UnRegisterObject(BrainPad.DISTANCESENSOR_REGISTER_ID);
 
-            this.distanceTrigger = controller.OpenPin(triggerPin);
-            this.distanceEcho = controller.OpenPin(echoPin);
+            this.distanceTrigger = BrainPad.Gpio.OpenPin(triggerPin);
+            this.distanceEcho = BrainPad.Gpio.OpenPin(echoPin);
 
             this.pulseFeedback = new PulseFeedback(this.distanceTrigger, this.distanceEcho, PulseFeedbackMode.EchoDuration) {
                 DisableInterrupts = false,

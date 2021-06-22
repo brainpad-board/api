@@ -39,8 +39,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
     }
 
     internal class DisplayController : IOModule {
-
-
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
         private GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics pulseGfx;
