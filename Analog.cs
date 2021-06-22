@@ -10,10 +10,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Analog : IOModule {
         static AdcController adcController = AdcController.FromName(SC13048.Adc.Controller1.Id);
         private AdcChannel adcChannel;
-     
+
         private PwmChannel pwmChannel;
         private int pinNum;
-        private double dutyCycle = 0;
 
         public Analog(string bpPin) {
             var pinNum = BrainPad.GetGpioFromString(bpPin);
@@ -25,9 +24,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new ArgumentException("Invalid pin number.");
 
             this.pinNum = pinNum;            
-
-            BrainPad.PwmSoftware.SetDesiredFrequency(1000);            
-
         }
 
 
@@ -43,7 +39,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             if (this.pwmChannel != null) {
                 this.pwmChannel.Dispose();
                 this.pwmChannel = null;
-                this.dutyCycle = 0;
             }
             if (this.adcChannel == null) {
                 var channelNum = GetChannelFromPin(this.pinNum);
@@ -65,20 +60,16 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.adcChannel = null;
 
             }
-            if (this.pwmChannel == null) {
-                this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
-                this.dutyCycle = 0;
-            }
 
-            if (this.dutyCycle != oValue) {
-                this.dutyCycle = oValue;
+            this.pwmChannel?.Dispose();
 
-                this.pwmChannel.Stop();
+            BrainPad.PwmSoftware.SetDesiredFrequency(1000);
 
-                this.pwmChannel.SetActiveDutyCyclePercentage(this.dutyCycle / 100);
+            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
 
-                this.pwmChannel.Start();
-            }
+            this.pwmChannel.SetActiveDutyCyclePercentage(oValue / 100);
+
+            this.pwmChannel.Start();
         }
 
         static int GetChannelFromPin(int pin) {
@@ -93,46 +84,25 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.Adc.Controller1.PA2;
 
                 case SC13048.GpioPin.PA1:
-                    return SC13048.Adc.Controller1.PA1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA1 : -1;
 
                 case SC13048.GpioPin.PA0:
-                    return SC13048.Adc.Controller1.PA0;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA0 : -1;
 
                 case SC13048.GpioPin.PA7:
-                    return SC13048.Adc.Controller1.PA7;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA7 : -1;
 
                 case SC13048.GpioPin.PA4:
-                    return SC13048.Adc.Controller1.PA4;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA4 : -1;
 
                 case SC13048.GpioPin.PB0:
-                    return SC13048.Adc.Controller1.PB0;
-
-                case SC13048.GpioPin.PA9:
-                    return -1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB0 : -1;
 
                 case SC13048.GpioPin.PB1:
-                    return SC13048.Adc.Controller1.PB1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB1 : -1;
 
                 case SC13048.GpioPin.PA6:
-                    return SC13048.Adc.Controller1.PA6;
-
-                case SC13048.GpioPin.PB6:
-                    return -1;
-
-                case SC13048.GpioPin.PA10:
-                    return -1;
-
-                case SC13048.GpioPin.PB3:
-                    return -1;
-
-                case SC13048.GpioPin.PB4:
-                    return -1;
-
-                case SC13048.GpioPin.PB5:
-                    return -1;
-
-                case SC13048.GpioPin.PB12:
-                    return -1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA6 : -1;
             }
 
             return -1;

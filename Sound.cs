@@ -9,47 +9,64 @@ using System.Threading;
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Sound : IOModule {
         private PwmChannel pwmChannel;
+        private PwmController pwmController;
         private double playTime;
-        private double frequency = 1000;
         private double volume = 100;
+        private string timer;
+        private int channel;
 
         public Sound(string pinBp, double playtime, double volume) {
             pinBp = pinBp.ToLower();
 
             if (pinBp.CompareTo(BrainPad.TEXT_BUILTIN) == 0) {
-                this.Initialize(this.frequency, playtime, SC13048.GpioPin.PB8, volume);
+                this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
                 var pin = BrainPad.GetGpioFromString(pinBp);
-                this.Initialize(this.frequency, playtime, pin, volume);
+
+                if (!BrainPad.IsPwmFromString(pinBp)) {
+                    throw new ArgumentException("Not support on this pin.");
+                }
+
+                this.Initialize(playtime, pin, volume);
             }
         }
 
 
-        private void Initialize(double frequency, double playtime, int pinNum, double volume) {
+        private void Initialize(double playtime, int pinNum, double volume) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }            
+            }
+
+            this.channel = BrainPad.GetPwmChannelFromPin(pinNum);
+            this.timer = BrainPad.GetPwmTimerFromPin(pinNum);
+
+            if (this.channel < 0 || this.timer == null) {
+                throw new ArgumentException("Not supported on this pin.");
+            }
 
             this.volume = Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
 
             this.playTime = playtime;
 
-            BrainPad.PwmSoftware.SetDesiredFrequency(this.frequency);
+            this.pwmController = PwmController.FromName(this.timer);
+            this.pwmChannel = this.pwmController.OpenChannel(this.channel);
 
-            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(pinNum);
-
-            this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);            
         }
 
         public override void Out(double oValue) {
 
             var milisecond = this.playTime * 1000;
 
-            if (this.frequency != oValue) {
-                this.frequency = oValue;
-                BrainPad.PwmSoftware.SetDesiredFrequency(this.frequency);
-            }
+            BrainPad.PwmSoftware = null;
+            this.pwmController?.Dispose();
+            this.pwmChannel?.Dispose();
+
+            this.pwmController = PwmController.FromName(this.timer);
+            this.pwmChannel = this.pwmController.OpenChannel(this.channel);
+
+            this.pwmController.SetDesiredFrequency(oValue);
+            this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
             this.pwmChannel.Start();
 
             if (milisecond > 0) {
@@ -66,8 +83,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
         public override void Dispose() {
+            this.pwmController?.Dispose();
             this.pwmChannel?.Dispose();
             this.pwmChannel = null;
+            this.pwmController = null;
         }
     }
 }
