@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Accel.cs" />
     <Compile Include="Analog.cs" />
+    <Compile Include="BasicGraphics.cs" />
     <Compile Include="BrainPad.cs" />
     <Compile Include="BrainPadType.cs" />
     <Compile Include="I2cBus.cs" />
@@ -69,9 +70,6 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Devices.Signals.2.1.0\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
-    </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.BasicGraphics, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.BasicGraphics.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.BasicGraphics.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Motor.Servo, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.Motor.Servo.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Motor.Servo.dll</HintPath>
