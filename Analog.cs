@@ -84,46 +84,25 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.Adc.Controller1.PA2;
 
                 case SC13048.GpioPin.PA1:
-                    return SC13048.Adc.Controller1.PA1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA1 : -1;
 
                 case SC13048.GpioPin.PA0:
-                    return SC13048.Adc.Controller1.PA0;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA0 : -1;
 
                 case SC13048.GpioPin.PA7:
-                    return SC13048.Adc.Controller1.PA7;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA7 : -1;
 
                 case SC13048.GpioPin.PA4:
-                    return SC13048.Adc.Controller1.PA4;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA4 : -1;
 
                 case SC13048.GpioPin.PB0:
-                    return SC13048.Adc.Controller1.PB0;
-
-                case SC13048.GpioPin.PA9:
-                    return -1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB0 : -1;
 
                 case SC13048.GpioPin.PB1:
-                    return SC13048.Adc.Controller1.PB1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB1 : -1;
 
                 case SC13048.GpioPin.PA6:
-                    return SC13048.Adc.Controller1.PA6;
-
-                case SC13048.GpioPin.PB6:
-                    return -1;
-
-                case SC13048.GpioPin.PA10:
-                    return -1;
-
-                case SC13048.GpioPin.PB3:
-                    return -1;
-
-                case SC13048.GpioPin.PB4:
-                    return -1;
-
-                case SC13048.GpioPin.PB5:
-                    return -1;
-
-                case SC13048.GpioPin.PB12:
-                    return -1;
+                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA6 : -1;
             }
 
             return -1;
