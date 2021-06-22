@@ -22,15 +22,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }
-
-            BrainPad.UnRegisterObject(pinNum);
+            }            
 
             this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
 
-            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);
-
-            BrainPad.RegisterObject(this, pinNum);
+            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);            
         }
 
         public override void Out(double[] data) {

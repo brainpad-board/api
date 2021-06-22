@@ -13,17 +13,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const string TEXT_BUILTIN = "builtin";
         internal const string TEXT_PULLUP = "pullup";
         internal const string TEXT_PULLDOWN = "pulldown";
-        internal const string TEXT_NOPULL = "nopull";
-
-        internal const int DISPLAY_REGISTER_ID = 0xA0;
-        internal const int I2C_REGISTER_ID = 0xA1;
-        internal const int DISTANCESENSOR_REGISTER_ID = 0xA2;
-        internal const int ACCEL_REGISTER_ID = 0xA3;
-
-        internal const uint PIN_RESERVED_0 = (1 << 0);
-        internal const uint PIN_RESERVED_1 = (1 << 1);
-        internal const uint PIN_RESERVED_12 = (1 << 12);
-        internal const uint PIN_RESERVED_16 = (1 << 16);
+        internal const string TEXT_NOPULL = "nopull";      
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
@@ -34,91 +24,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
         internal static BrainPadType Type = new BrainPadType();
-
-        public static Hashtable Modules = new Hashtable();
-
-        private static uint pinReserved = 0;
-
-        internal static void ClearPinReserved(int pin) {
-            if (Type.IsPulse)
-                return;
-           
-
-            switch (pin) {
-                case SC13048.GpioPin.PA5:               
-                    pinReserved &= ~(PIN_RESERVED_0 | PIN_RESERVED_12);
-                    return;
-
-                case SC13048.GpioPin.PA3:                
-                    pinReserved &= ~(PIN_RESERVED_1 | PIN_RESERVED_16);
-                    return;
-            }
-
-        }
-
-        internal static void AddPinReserved(string pin) {
-            if (Type.IsPulse)
-                return;
-
-            pin = pin.ToLower();
-            switch (pin) {
-                case "p0":
-                    pinReserved |= PIN_RESERVED_0;
-                    return;
-                case "p1":
-                    pinReserved |= PIN_RESERVED_1;
-                    return;
-                case "p12":
-                    pinReserved |= PIN_RESERVED_12;
-                    return;
-                case "p16":
-                    pinReserved |= PIN_RESERVED_16;
-                    return;
-
-            }
-
-        }
-        internal static bool IsPinReserved(string pin) {
-            if (Type.IsPulse)
-                return false;
-
-            pin = pin.ToLower();
-
-            switch (pin) {
-                case "p0":
-                    if ((pinReserved & (PIN_RESERVED_12)) != 0) {
-                        return true;
-                    }
-                    break;
-
-                case "p1":
-                    if ((pinReserved & (PIN_RESERVED_16)) != 0) {
-                        return true;
-                    }
-                    break;
-
-                case "p12":
-                    if ((pinReserved & (PIN_RESERVED_0)) != 0) {
-                        return true;
-                    }
-                    break;
-
-                case "p16":
-                    if ((pinReserved & (PIN_RESERVED_1)) != 0) {
-                        return true;
-                    }
-                    break;
-            }
-
-            return false;
-        }
+       
         public static int GetGpioFromString(string pin) {
-            pin = pin.ToLower();
-
-            if (IsPinReserved(pin))
-                return -1;
-
-            AddPinReserved(pin);
+            pin = pin.ToLower();                    
 
             switch (pin) {
                 case "p0":
@@ -310,22 +218,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 i2c.Dispose();
             }
 
-        }
-
-        internal static void RegisterObject(object obj, int pinNum) => BrainPad.Modules[pinNum] = obj;
-
-
-        internal static void UnRegisterObject(int pinNum) {
-            if (BrainPad.Modules.Contains(pinNum)) {
-                var module = BrainPad.Modules[pinNum];
-
-                BrainPad.Dispose(module);
-
-                BrainPad.Modules.Remove(module);
-
-                ClearPinReserved(pinNum);
-            }
-        }
+        }     
     }
 
 }

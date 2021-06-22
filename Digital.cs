@@ -32,14 +32,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private void Initialize(int pinNum) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }
+            }            
 
-
-            BrainPad.UnRegisterObject(pinNum);
-
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
-
-            BrainPad.RegisterObject(this, pinNum);
+            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);            
 
         }
 
@@ -60,7 +55,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             this.gpioPin?.Dispose();
 
             this.gpioPin = null;
-
 
         }
 
