@@ -13,17 +13,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const string TEXT_BUILTIN = "builtin";
         internal const string TEXT_PULLUP = "pullup";
         internal const string TEXT_PULLDOWN = "pulldown";
-        internal const string TEXT_NOPULL = "nopull";
-
-        internal const int DISPLAY_REGISTER_ID = 0xA0;
-        internal const int I2C_REGISTER_ID = 0xA1;
-        internal const int DISTANCESENSOR_REGISTER_ID = 0xA2;
-        internal const int ACCEL_REGISTER_ID = 0xA3;
-
-        internal const uint PIN_RESERVED_0 = (1 << 0);
-        internal const uint PIN_RESERVED_1 = (1 << 1);
-        internal const uint PIN_RESERVED_12 = (1 << 12);
-        internal const uint PIN_RESERVED_16 = (1 << 16);
+        internal const string TEXT_NOPULL = "nopull";      
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
