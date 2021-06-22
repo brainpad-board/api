@@ -55,9 +55,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid button.");
-            }
-
-            BrainPad.UnRegisterObject(pinNum);
+            }            
 
             this.detectPeriod = detectPeriod * 1000;
 
@@ -67,9 +65,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.gpioPin.ValueChangedEdge = GpioPinEdge.FallingEdge;
 
-            this.gpioPin.ValueChanged += this.Btn_ValueChanged;
-
-            BrainPad.RegisterObject(this, pinNum);
+            this.gpioPin.ValueChanged += this.Btn_ValueChanged;            
 
             this.lastPressed = DateTime.Now;
         }

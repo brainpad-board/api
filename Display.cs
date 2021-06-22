@@ -45,8 +45,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
         private TickMatrixController tickGfx;
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
-        public DisplayController() {
-            BrainPad.UnRegisterObject(BrainPad.DISPLAY_REGISTER_ID);
+        public DisplayController() {            
 
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
@@ -56,9 +55,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
                 this.pulseGfx = new GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics(128, 64, ColorFormat.OneBpp);
                 for (var i = 0; i < 8; i++)
                     this.messages[i] = "";
-            }
-
-            BrainPad.RegisterObject(this, BrainPad.DISPLAY_REGISTER_ID);
+            }            
 
             this.Clear();
         }
@@ -173,5 +170,4 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             this.i2cDevice = null;
         }
     }
-
 }

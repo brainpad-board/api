@@ -15,16 +15,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public I2cBus(int address) => this.Initialize(address);
 
         void Initialize(int address) {
-            var addr = (byte)(address & 0xFF);
-
-            BrainPad.UnRegisterObject(BrainPad.I2C_REGISTER_ID);
+            var addr = (byte)(address & 0xFF);            
 
             this.controller = I2cController.FromName(SC13048.I2cBus.I2c4);
 
             var settings = new I2cConnectionSettings(addr, 100_000);
-            this.i2cDevice = this.controller.GetDevice(settings);
-
-            BrainPad.RegisterObject(this, BrainPad.I2C_REGISTER_ID);
+            this.i2cDevice = this.controller.GetDevice(settings);            
         }
 
         public override void Out(double data) => this.i2cDevice.Write(new byte[] { (byte)data });

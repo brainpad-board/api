@@ -23,9 +23,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             if (triggerPin < 0 || echoPin < 0) {
                 throw new ArgumentException("trigger or echo pin invalid.");
-            }
-
-            BrainPad.UnRegisterObject(BrainPad.DISTANCESENSOR_REGISTER_ID);
+            }            
 
             this.distanceTrigger = BrainPad.Gpio.OpenPin(triggerPin);
             this.distanceEcho = BrainPad.Gpio.OpenPin(echoPin);
@@ -36,9 +34,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 PulseLength = TimeSpan.FromTicks(100),
                 PulseValue = GpioPinValue.High,
                 EchoValue = GpioPinValue.High,
-            };
-
-            BrainPad.RegisterObject(this, BrainPad.DISTANCESENSOR_REGISTER_ID);
+            };            
         }
 
         public override double In() {

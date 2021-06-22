@@ -18,20 +18,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         private void Initialize(int pinNum) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }
-
-
-            BrainPad.UnRegisterObject(pinNum);
+            }            
 
             this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(pinNum);
 
-            this.servo = new ServoController(BrainPad.PwmSoftware, this.pwmChannel);
-
-            BrainPad.RegisterObject(this, pinNum);
+            this.servo = new ServoController(BrainPad.PwmSoftware, this.pwmChannel);            
 
         }
         public override void Out(double oValue) => this.servo.Set(oValue);
-
 
         public override void Dispose() {
             this.pwmChannel?.Dispose(); ;
