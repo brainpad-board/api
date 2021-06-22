@@ -10,10 +10,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Analog : IOModule {
         static AdcController adcController = AdcController.FromName(SC13048.Adc.Controller1.Id);
         private AdcChannel adcChannel;
-     
+
         private PwmChannel pwmChannel;
         private int pinNum;
-        private double dutyCycle = 0;
 
         public Analog(string bpPin) {
             var pinNum = BrainPad.GetGpioFromString(bpPin);
@@ -25,9 +24,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new ArgumentException("Invalid pin number.");
 
             this.pinNum = pinNum;            
-
-            BrainPad.PwmSoftware.SetDesiredFrequency(1000);            
-
         }
 
 
@@ -43,7 +39,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             if (this.pwmChannel != null) {
                 this.pwmChannel.Dispose();
                 this.pwmChannel = null;
-                this.dutyCycle = 0;
             }
             if (this.adcChannel == null) {
                 var channelNum = GetChannelFromPin(this.pinNum);
@@ -65,20 +60,16 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.adcChannel = null;
 
             }
-            if (this.pwmChannel == null) {
-                this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
-                this.dutyCycle = 0;
-            }
 
-            if (this.dutyCycle != oValue) {
-                this.dutyCycle = oValue;
+            this.pwmChannel?.Dispose();
 
-                this.pwmChannel.Stop();
+            BrainPad.PwmSoftware.SetDesiredFrequency(1000);
 
-                this.pwmChannel.SetActiveDutyCyclePercentage(this.dutyCycle / 100);
+            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
 
-                this.pwmChannel.Start();
-            }
+            this.pwmChannel.SetActiveDutyCyclePercentage(oValue / 100);
+
+            this.pwmChannel.Start();
         }
 
         static int GetChannelFromPin(int pin) {

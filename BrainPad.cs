@@ -16,7 +16,21 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const string TEXT_NOPULL = "nopull";      
 
         internal static GpioController Gpio = GpioController.GetDefault();
-        internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
+        private static PwmController pwmSoftwareController;
+        internal static PwmController PwmSoftware {
+            get {
+                if (pwmSoftwareController == null)
+                    pwmSoftwareController = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
+
+                return pwmSoftwareController;
+            }
+            set {
+                if (value == null)
+                    pwmSoftwareController?.Dispose();
+
+               pwmSoftwareController = value;
+            }
+        }
 
         public enum Button {
             A = SC13048.GpioPin.PC13,
@@ -24,7 +38,82 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
         internal static BrainPadType Type = new BrainPadType();
-       
+
+        public static int GetPwmChannelFromPin(int pin) {
+            switch (pin) {
+                case SC13048.GpioPin.PA8: return SC13048.Timer.Pwm.Controller1.PA8;
+                case SC13048.GpioPin.PA9: return SC13048.Timer.Pwm.Controller1.PA9;
+                case SC13048.GpioPin.PA10: return SC13048.Timer.Pwm.Controller1.PA10;
+
+                case SC13048.GpioPin.PA5: return SC13048.Timer.Pwm.Controller2.PA5;
+                case SC13048.GpioPin.PA1: return SC13048.Timer.Pwm.Controller2.PA1;
+                case SC13048.GpioPin.PB10: return SC13048.Timer.Pwm.Controller2.PB10;
+                case SC13048.GpioPin.PB11: return SC13048.Timer.Pwm.Controller2.PB11;
+
+
+                case SC13048.GpioPin.PA2: return SC13048.Timer.Pwm.Controller15.PA2;
+                case SC13048.GpioPin.PA3: return SC13048.Timer.Pwm.Controller15.PA3;
+                 
+
+                case SC13048.GpioPin.PB8: return SC13048.Timer.Pwm.Controller16.PB8;               
+            }
+
+            return -1;
+        }
+
+        public static string GetPwmTimerFromPin(int pin) {
+            switch (pin) {
+                case SC13048.GpioPin.PA8:
+                case SC13048.GpioPin.PA9:
+                case SC13048.GpioPin.PA10:
+                    return SC13048.Timer.Pwm.Controller1.Id;
+
+                case SC13048.GpioPin.PA5:
+                case SC13048.GpioPin.PA1:
+                case SC13048.GpioPin.PB10:
+                case SC13048.GpioPin.PB11:
+                    return SC13048.Timer.Pwm.Controller2.Id;
+
+                case SC13048.GpioPin.PA2:
+                case SC13048.GpioPin.PA3:
+                    return SC13048.Timer.Pwm.Controller15.Id;
+
+                case SC13048.GpioPin.PB8:
+                    return SC13048.Timer.Pwm.Controller16.Id;
+            }
+
+            return null;
+
+        }
+
+        public static bool IsPwmFromString(string pin) {
+            pin = pin.ToLower();
+
+            if (Type.IsPulse) {
+                switch (pin) {
+                    case "p3":
+                    case "p0":
+                    case "p1":
+                    case "p8":
+                    case "p12":
+                    case "p2":
+                        return true;
+
+                }
+            }
+            else {
+                switch (pin) {
+                    case "p0":
+                    case "p2":
+                    case "p1":
+                    case "p15":
+                    case "p16":
+                        return true;
+                }
+            }
+
+            return false;
+        }
         public static int GetGpioFromString(string pin) {
             pin = pin.ToLower();                    
 
