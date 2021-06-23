@@ -13,24 +13,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         internal const string TEXT_BUILTIN = "builtin";
         internal const string TEXT_PULLUP = "pullup";
         internal const string TEXT_PULLDOWN = "pulldown";
-        internal const string TEXT_NOPULL = "nopull";      
+        internal const string TEXT_NOPULL = "nopull";
 
         internal static GpioController Gpio = GpioController.GetDefault();
-        private static PwmController pwmSoftwareController;
-        internal static PwmController PwmSoftware {
-            get {
-                if (pwmSoftwareController == null)
-                    pwmSoftwareController = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
-
-                return pwmSoftwareController;
-            }
-            set {
-                if (value == null)
-                    pwmSoftwareController?.Dispose();
-
-               pwmSoftwareController = value;
-            }
-        }
+        internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
 
         public enum Button {
             A = SC13048.GpioPin.PC13,
@@ -53,9 +39,9 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
                 case SC13048.GpioPin.PA2: return SC13048.Timer.Pwm.Controller15.PA2;
                 case SC13048.GpioPin.PA3: return SC13048.Timer.Pwm.Controller15.PA3;
-                 
 
-                case SC13048.GpioPin.PB8: return SC13048.Timer.Pwm.Controller16.PB8;               
+
+                case SC13048.GpioPin.PB8: return SC13048.Timer.Pwm.Controller16.PB8;
             }
 
             return -1;
@@ -115,7 +101,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
             return false;
         }
         public static int GetGpioFromString(string pin) {
-            pin = pin.ToLower();                    
+            pin = pin.ToLower();
 
             switch (pin) {
                 case "p0":
@@ -307,7 +293,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 i2c.Dispose();
             }
 
-        }     
+        }
     }
 
 }
