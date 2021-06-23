@@ -57,14 +57,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public override void Out(double oValue) {
 
             var milisecond = this.playTime * 1000;
-
-            BrainPad.PwmSoftware = null;
-            this.pwmController?.Dispose();
-            this.pwmChannel?.Dispose();
-
-            this.pwmController = PwmController.FromName(this.timer);
-            this.pwmChannel = this.pwmController.OpenChannel(this.channel);
-
+   
             this.pwmController.SetDesiredFrequency(oValue);
             this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
             this.pwmChannel.Start();
