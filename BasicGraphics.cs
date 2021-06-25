@@ -451,12 +451,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BasicGraphics {
     }
     public class Image {
         public enum Transform {
+            None,
             FlipHorizontal,
             FlipVertical,
             Rotate90,
             Rotate180,
             Rotate270,
-            None
         }
         public int Height { get; internal set; }
         public int Width { get; internal set; }

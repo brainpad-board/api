@@ -1,5 +1,6 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
+using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
@@ -190,6 +191,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public static IOModule I2cBus(int address) => new I2cBus(address);
 
         public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
+        
+        public static void Print(string text) => Display.Display.Print(text); 
+        
+        public static void Clear() => Display.Display.Clear();
 
         public static double In(IOModule module) {
             if (module is Analog analog) {
