@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
+using static GHIElectronics.TinyCLR.Drivers.BasicGraphics.Image;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 
@@ -32,7 +33,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
         public static void Point(int x, int y, uint c) => Controller?.Point(x, y, c);
         public static void Text(string s, int x, int y) => Controller?.Text(s, x, y, color);
         public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller?.TextEx(s, x, y, scalewidth, scaleheight, color);
-        public static Image CreateImage(int width, int height, byte[] data) => Controller?.CreateImage(width, height, data);
+        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, object transform) => Controller?.CreateImage(width, height, data, hScale, vScale, (Transform)transform);
         public static void Image(object img, int x, int y) => Controller?.DrawImage((Image)img, x, y);
         public static void Show() => Controller?.Show();
         public static void Color(uint c) => color = c;
@@ -149,7 +150,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             this.pulseGfx.DrawString(s, c, x, y, xs, ys);
         }
 
-        public Image CreateImage(int width, int height, byte[] data) => new Image(data, width, height);
+        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
             if (BrainPad.Type.IsPulse == false)
