@@ -116,6 +116,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
                     this.messages[i] = "";
                 }
             }
+
+            this.Show();
         }
         public void Circle(int x, int y, int r, uint c) {
             if (BrainPad.Type.IsPulse == false)
