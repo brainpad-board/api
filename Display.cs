@@ -33,7 +33,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
         public static void Point(int x, int y, uint c) => Controller?.Point(x, y, c);
         public static void Text(string s, int x, int y) => Controller?.Text(s, x, y, color);
         public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller?.TextEx(s, x, y, scalewidth, scaleheight, color);
-        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, object transform) => Controller?.CreateImage(width, height, data, hScale, vScale, (Transform)transform);
+        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, int transform) => Controller?.CreateImage(width, height, data, hScale, vScale, (Transform)transform);
         public static void Image(object img, int x, int y) => Controller?.DrawImage((Image)img, x, y);
         public static void Show() => Controller?.Show();
         public static void Color(uint c) => color = c;
