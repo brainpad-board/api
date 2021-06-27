@@ -262,6 +262,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new Exception("Module is not supported.");
         }
 
+        public static void Release(object o) {
+            if (o is IDisposable disposable) disposable.Dispose();
+        }
+
 
         internal static void Dispose(object module) {
             if (module is Analog analog) {
