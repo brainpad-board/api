@@ -13,7 +13,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public void DrawText(string text) {
             if (text.Length == 1) {
                 this.DrawTinyCharacter(text[0], this.white, 0, 0, true);
-                Thread.Sleep(80);
             }
             else {
                 var len = text.Length * 6;

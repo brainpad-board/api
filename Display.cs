@@ -40,14 +40,16 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
     }
 
     internal class DisplayController : IOModule {
+#if !DEBUG
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
         private BasicGraphics.BasicGraphics pulseGfx;
         private TickMatrixController tickGfx;
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
-        public DisplayController() {            
-
+#endif
+        public DisplayController() {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
             }
@@ -59,18 +61,22 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }            
 
             this.Clear();
+#endif
         }
 
         public void SetBrightness(double brightness) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx.SetBrightness(brightness);
             }
             else {
 
             }
+#endif
         }
 
         private void InitPulseDisplay() {
+#if !DEBUG
             this.lcdReset = GpioController.GetDefault().OpenPin(SC13048.GpioPin.PB2);
             this.lcdReset.SetDriveMode(GpioPinDriveMode.Output);
             this.lcdReset.Write(GpioPinValue.Low);
@@ -82,9 +88,11 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             this.i2cDevice = i2c.GetDevice(SSD1306Controller.GetConnectionSettings());
 
             this.pulseLcd = new SSD1306Controller(this.i2cDevice);
+#endif
         }
 
         public void Print(string s) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
                 this.tickGfx.DrawText(s);
@@ -97,16 +105,22 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
                     this.pulseGfx.DrawString(this.messages[i], 1, 0, i * 8);
             }
             this.Show();
+#endif
         }
+
         public void Show() {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 // nothing!
             }
             else {
                 this.pulseLcd.DrawBufferNative(this.pulseGfx.Buffer);
             }
+#endif
         }
+
         public void Clear() {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
             }
@@ -118,50 +132,71 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
 
             this.Show();
+#endif
         }
         public void Circle(int x, int y, int r, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawCircle((uint)c, x, y, r);
+#endif
         }
+
         public void Line(int x1, int y1, int x2, int y2, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawLine((uint)c, x1, y1, x2, y2);
+#endif
         }
+
         public void Rect(int x, int y, int w, int h, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawRectangle((uint)c, x, y, w, h);
+#endif
         }
+
         public void Point(int x, int y, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse)
                 this.pulseGfx.SetPixel(x, y, c);
             else {
                 this.tickGfx.SetPixel(x, y, c);
             }
+#endif
         }
+
         public void Text(string s, int x, int y, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y);
+#endif
         }
+
         public void TextEx(string s, int x, int y, int xs, int ys, uint c) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y, xs, ys);
+#endif
         }
 
         public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
+#if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
 
             this.pulseGfx.DrawImage(img, x, y);
+#endif
         }
 
         public override void Dispose() {
+#if !DEBUG
             this.lcdReset?.Dispose();
             this.pulseLcd?.Dispose();
             this.tickGfx?.Dispose();
@@ -171,6 +206,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             this.pulseLcd = null;
             this.tickGfx = null;
             this.i2cDevice = null;
+#endif
         }
     }
 }
