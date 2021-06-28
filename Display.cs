@@ -55,7 +55,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
             else {
                 this.InitPulseDisplay();
-                this.pulseGfx = new GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics(128, 64, ColorFormat.OneBpp);
+                this.pulseGfx = new GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics(128, 64);
                 for (var i = 0; i < 8; i++)
                     this.messages[i] = "";
             }            

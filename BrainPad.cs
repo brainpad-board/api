@@ -106,10 +106,10 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             switch (pin) {
                 case "p0":
-                    return Type.IsPulse ? SC13048.GpioPin.PA5 : SC13048.GpioPin.PA5; // same P12 on tick
+                    return SC13048.GpioPin.PA5; // same P12 on tick
 
                 case "p1":
-                    return Type.IsPulse ? SC13048.GpioPin.PA3 : SC13048.GpioPin.PA3; // same P16 on tick
+                    return SC13048.GpioPin.PA3; // same P16 on tick
 
                 case "p2":
                     return SC13048.GpioPin.PA2;
@@ -169,10 +169,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         public static bool IsPulse() => BrainPad.Type.IsPulse == true ? true : false;
 
-        public static void Wait(double seconds) {
-            var t = (int)(seconds * 1000);
-            Thread.Sleep(t);
-        }
+        public static void Wait(double seconds) => Thread.Sleep((int)seconds * 1000);
 
         public static IOModule Analog(string pin) => new Analog(pin);
 
@@ -196,113 +193,16 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         
         public static void Clear() => Display.Display.Clear();
 
-        public static double In(IOModule module) {
-            if (module is Analog analog) {
-                return analog.In();
-            }
+        public static double In(IOModule module) => module.In();
+        public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
 
-            else if (module is Digital digitalIn) {
-                return digitalIn.In();
-            }
-            else if (module is Buttons buttons) {
-                return buttons.In();
-            }
-            else if (module is Accel accel) {
-                return accel.In();
-            }
-            else if (module is I2cBus i2c) {
-                return i2c.In();
-            }
-            else if (module is DistanceSensor ds) {
-                return ds.In();
-            }
-            else throw new Exception("Module is not supported.");
-        }
-        public static void Out(IOModule module, double[] oValue) {
-            if (module is Neopixel neopixel) {
-                neopixel.Out(oValue);
-
-            }
-            else if (module is I2cBus i2c) {
-                i2c.Out(oValue);
-            }
-            else throw new Exception("Module is not supported.");
-        }
-
-        public static void Out(IOModule module, double oValue) {
-            if (module is Analog analog) {
-                analog.Out(oValue);
-            }
-            else if (module is Digital digital) {
-                digital.Out(oValue);
-            }
-
-            else if (module is Sound sound) {
-                sound.Out(oValue);
-            }
-
-            else if (module is Servo servo) {
-                servo.Out(oValue);
-
-            }
-            else if (module is Neopixel neopixel) {
-                neopixel.Out(oValue);
-
-            }
-            else if (module is I2cBus i2c) {
-                i2c.Out(oValue);
-            }
-            else throw new Exception("Module is not supported.");
-        }
-        public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) {
-            if (module is I2cBus i2c) {
-                return i2c.OutIn(dataOut, dataIn);
-            }
-            else
-                throw new Exception("Module is not supported.");
-        }
+        public static void Out(IOModule module, double oValue) => module.Out(oValue);
+        public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) => module.OutIn(dataOut, dataIn);
 
         public static void Release(object o) {
             if (o is IDisposable disposable) disposable.Dispose();
         }
-
-
-        internal static void Dispose(object module) {
-            if (module is Analog analog) {
-                analog.Dispose();
-            }
-
-            else if (module is Digital digitalIn) {
-                digitalIn.Dispose();
-            }
-
-
-            else if (module is Sound sound) {
-                sound.Dispose();
-            }
-
-            else if (module is Buttons buttons) {
-                buttons.Dispose();
-            }
-
-            else if (module is Accel accel) {
-                accel.Dispose();
-            }
-            else if (module is DisplayController display) {
-                display.Dispose();
-            }
-
-            else if (module is Servo servo) {
-                servo.Dispose();
-            }
-            else if (module is Neopixel neopixel) {
-                neopixel.Dispose();
-            }
-            else if (module is I2cBus i2c) {
-                i2c.Dispose();
-            }
-
-        }
+        
     }
 
 }
