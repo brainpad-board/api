@@ -43,6 +43,7 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="Digital.cs" />
     <Compile Include="Display.cs" />
+    <Compile Include="Infrared.cs" />
     <Compile Include="IOModule.cs" />
     <Compile Include="MC3216Controller.cs" />
     <Compile Include="Neopixel.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="DistanceSensor.cs" />
     <Compile Include="Sound.cs" />
     <Compile Include="TickMatrixController.cs" />
+    <Compile Include="Touch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -71,11 +73,17 @@
     <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Devices.Signals.2.1.0\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
     </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Infrared, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Infrared.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Infrared.dll</HintPath>
+    </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Motor.Servo, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.Motor.Servo.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Motor.Servo.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\TinyCLR-DUE\packages\GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.dll</HintPath>

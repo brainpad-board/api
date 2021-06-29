@@ -24,7 +24,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
         }
 
-        public static void Print(string text) => Controller?.Print(text);
+        public static void PrintText(string text) => Controller?.Print(text);
         public static void Clear() => Controller?.Clear();
         public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
         public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r, color);
