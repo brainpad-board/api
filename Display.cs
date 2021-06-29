@@ -130,8 +130,6 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
                     this.messages[i] = "";
                 }
             }
-
-            this.Show();
 #endif
         }
         public void Circle(int x, int y, int r, uint c) {
