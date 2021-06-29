@@ -51,6 +51,7 @@
     <Compile Include="DistanceSensor.cs" />
     <Compile Include="Sound.cs" />
     <Compile Include="TickMatrixController.cs" />
+    <Compile Include="Touch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -76,6 +77,9 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\TinyCLR-DUE\packages\GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.dll</HintPath>
