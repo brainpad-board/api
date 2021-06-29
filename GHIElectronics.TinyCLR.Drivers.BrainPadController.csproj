@@ -43,6 +43,7 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="Digital.cs" />
     <Compile Include="Display.cs" />
+    <Compile Include="Infrared.cs" />
     <Compile Include="IOModule.cs" />
     <Compile Include="MC3216Controller.cs" />
     <Compile Include="Neopixel.cs" />
@@ -71,6 +72,9 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Devices.Signals.2.1.0\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Infrared, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Infrared.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Infrared.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Motor.Servo, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Drivers.Motor.Servo.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Motor.Servo.dll</HintPath>
