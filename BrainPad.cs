@@ -169,7 +169,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
         public static bool IsPulse() => BrainPad.Type.IsPulse == true ? true : false;
 
-        public static void Wait(double seconds) => Thread.Sleep((int)seconds * 1000);
+        public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
 
         public static IOModule Analog(string pin) => new Analog(pin);
 

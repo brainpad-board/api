@@ -55,15 +55,17 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         }
 
         public override void Out(double oValue) {
+            if (oValue > 0) {
+                this.pwmController.SetDesiredFrequency(oValue);
+                this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
+                this.pwmChannel.Start();
 
-            var milisecond = this.playTime * 1000;
-   
-            this.pwmController.SetDesiredFrequency(oValue);
-            this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
-            this.pwmChannel.Start();
-
-            if (milisecond > 0) {
-                Thread.Sleep((int)milisecond);
+                var milisecond = this.playTime * 1000;
+                if (milisecond > 0) {
+                    Thread.Sleep((int)milisecond);
+                    this.pwmChannel.Stop();
+                }
+            } else {
                 this.pwmChannel.Stop();
             }
         }
