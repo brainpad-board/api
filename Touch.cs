@@ -3,7 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Gpio;
-using GHIElectronics.TinyCLR.Drivers.Touch.CapacitiveTouch;
+using GHIElectronics.TinyCLR.Devices.Signals;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
     public class Touch : IOModule {
@@ -26,5 +26,47 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
 
             this.gpioPin = null;
         }
+    }
+
+    internal class CapacitiveTouchController {
+        private int level;
+        private PulseFeedback pulseFeedback;
+        const double CalibrateMinValue = 0.008;
+        const double CalibrateMaxValue  = 0.015;
+
+        /// <summary>
+        /// Capacitive Touch constructor
+        /// </summary>
+        /// <param name="touchPin"> Gpio pin</param>
+        /// <param name="sensitiveLevel">Sensitive level [0..100].</param>
+        public CapacitiveTouchController(GpioPin touchPin, int sensitiveLevel) {
+            if (sensitiveLevel < 0 || sensitiveLevel > 100)
+                throw new ArgumentException("Level must be in range [0,100]");
+
+            this.level = 100 - sensitiveLevel;
+
+            this.pulseFeedback = new PulseFeedback(touchPin,
+                PulseFeedbackMode.DrainDuration) {
+
+                DisableInterrupts = false,
+                Timeout = TimeSpan.FromSeconds(1),
+                PulseLength = TimeSpan.FromTicks(10000),
+                PulseValue = GpioPinValue.High,
+            };
+
+        }        
+        public bool IsTouched {
+            get {
+                var scale = BrainPad.Scale(this.pulseFeedback.Trigger().TotalMilliseconds * 10000, (int)(CalibrateMinValue * 10000), (int)(CalibrateMaxValue * 10000), 0, 100);
+
+                if (scale >= this.level)
+                    return true;
+
+                else return false;
+            }
+
+        }
+
+       
     }
 }

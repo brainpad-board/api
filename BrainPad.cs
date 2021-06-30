@@ -186,7 +186,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public static void Release(object o) {
             if (o is IDisposable disposable) disposable.Dispose();
         }
-        
+
+        public static int Scale(double value, int originalMin, int originalMax, int scaleMin, int scaleMax) {
+            var scale = (double)(scaleMax - scaleMin) / (originalMax - originalMin);
+            var ret = (int)(scaleMin + ((value - originalMin) * scale));
+
+            return ret > scaleMax ? scaleMax : (ret < scaleMin ? scaleMin : ret);
+        }
+
     }
 
 }
