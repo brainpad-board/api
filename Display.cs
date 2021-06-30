@@ -24,7 +24,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
         }
 
-        public static void PrintText(string text) => Controller?.Print(text);
+        public static void PrintText(string text) {
+            if (text.IndexOf("\f") == 0) {
+                Controller?.Clear();
+                Controller?.Show();
+            }
+            else
+                Controller?.PrintText(text);
+        }
         public static void Clear() => Controller?.Clear();
         public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
         public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r, color);
@@ -91,7 +98,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 #endif
         }
 
-        public void Print(string s) {
+        public void PrintText(string s) {
 #if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
@@ -182,7 +189,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 #endif
         }
 
-        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);       
+        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
 #if !DEBUG
