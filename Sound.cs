@@ -45,7 +45,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 throw new ArgumentException("Not supported on this pin.");
             }
 
-            this.volume = Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
+            this.volume = BrainPad.Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
 
             this.playTime = playtime;
 
@@ -69,14 +69,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                 this.pwmChannel.Stop();
             }
         }
-
-        static int Scale(double value, int originalMin, int originalMax, int scaleMin, int scaleMax) {
-            var scale = (double)(scaleMax - scaleMin) / (originalMax - originalMin);
-            var ret = (int)(scaleMin + ((value - originalMin) * scale));
-
-            return ret > scaleMax ? scaleMax : (ret < scaleMin ? scaleMin : ret);
-        }
-
+      
         public override void Dispose() {
             this.pwmController?.Dispose();
             this.pwmChannel?.Dispose();

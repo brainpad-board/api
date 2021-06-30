@@ -7,7 +7,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
-using static GHIElectronics.TinyCLR.Drivers.BasicGraphics.Image;
+using static GHIElectronics.TinyCLR.Drivers.BrainPadController.Image;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 
@@ -24,7 +24,14 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             }
         }
 
-        public static void PrintText(string text) => Controller?.Print(text);
+        public static void PrintText(string text) {
+            if (text.IndexOf("\f") == 0) {
+                Controller?.Clear();
+                Controller?.Show();
+            }
+            else
+                Controller?.PrintText(text);
+        }
         public static void Clear() => Controller?.Clear();
         public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
         public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r, color);
@@ -91,7 +98,7 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 #endif
         }
 
-        public void Print(string s) {
+        public void PrintText(string s) {
 #if !DEBUG
             if (BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
@@ -189,7 +196,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
             if (BrainPad.Type.IsPulse == false)
                 return;
 
-            this.pulseGfx.DrawImage(img, x, y);
+            var index = 0;
+            for (var vsize = 0; vsize < img.Height; vsize++) {
+                for (var hsize = 0; hsize < img.Width; hsize++) {
+                    this.pulseGfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
+                }
+            }
 #endif
         }
 
