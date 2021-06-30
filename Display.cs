@@ -7,7 +7,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
-using static GHIElectronics.TinyCLR.Drivers.BasicGraphics.Image;
+using static GHIElectronics.TinyCLR.Drivers.BrainPadController.Image;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 
@@ -182,14 +182,19 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
 #endif
         }
 
-        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
+        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);       
 
         public void DrawImage(Image img, int x, int y) {
 #if !DEBUG
             if (BrainPad.Type.IsPulse == false)
                 return;
 
-            this.pulseGfx.DrawImage(img, x, y);
+            var index = 0;
+            for (var vsize = 0; vsize < img.Height; vsize++) {
+                for (var hsize = 0; hsize < img.Width; hsize++) {
+                    this.pulseGfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
+                }
+            }
 #endif
         }
 

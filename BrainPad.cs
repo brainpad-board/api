@@ -1,6 +1,5 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
-using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;

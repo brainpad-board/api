@@ -36,13 +36,13 @@
   <ItemGroup>
     <Compile Include="Accel.cs" />
     <Compile Include="Analog.cs" />
-    <Compile Include="BasicGraphics.cs" />
     <Compile Include="BrainPad.cs" />
     <Compile Include="BrainPadType.cs" />
     <Compile Include="I2cBus.cs" />
     <Compile Include="Buttons.cs" />
     <Compile Include="Digital.cs" />
     <Compile Include="Display.cs" />
+    <Compile Include="Image.cs" />
     <Compile Include="Infrared.cs" />
     <Compile Include="IOModule.cs" />
     <Compile Include="MC3216Controller.cs" />
@@ -72,6 +72,9 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>.\packages\GHIElectronics.TinyCLR.Devices.Signals.2.1.0\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.BasicGraphics, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BrainDUE\GHIElectronics.BrainDUE.Application\packages\GHIElectronics.TinyCLR.Drivers.BasicGraphics.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.BasicGraphics.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Drivers.Infrared, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Infrared.2.1.0\lib\net452\GHIElectronics.TinyCLR.Drivers.Infrared.dll</HintPath>
