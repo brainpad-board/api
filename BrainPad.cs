@@ -162,42 +162,24 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
                     return SC13048.GpioPin.PB11;
             }
 
-            return -1;
-
+            return -1;            
         }
 
-        public static bool IsPulse() => BrainPad.Type.IsPulse == true ? true : false;
-
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
-
         public static IOModule Analog(string pin) => new Analog(pin);
-
         public static IOModule Digital(string pin, string pull) => new Digital(pin, pull);
-
         public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-
         public static IOModule Buttons(string button, double detectPeriod) => new Buttons(button, detectPeriod);
-
         public static IOModule Accel(string xyz) => new Accel(xyz);
-
         public static IOModule Servo(string pin) => new Servo(pin);
-
         public static IOModule Neopixel(string pin, int lednums) => new Neopixel(pin, lednums);
-
         public static IOModule I2cBus(int address) => new I2cBus(address);
-
         public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
-
         public static IOModule Touch(string touchPin, int senstitiveLevel) => new Touch(touchPin, senstitiveLevel);
         public static IOModule Infrared(string receivePin) => new Infrared(receivePin);
-
-        public static void Print(string text) => Display.Display.PrintText(text); 
-        
-        public static void Clear() => Display.Display.Clear();
-
+        public static void Print(string text) => Display.Display.PrintText(text);                
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
-
         public static void Out(IOModule module, double oValue) => module.Out(oValue);
         public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) => module.OutIn(dataOut, dataIn);
 
