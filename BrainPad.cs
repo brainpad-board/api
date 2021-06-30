@@ -177,7 +177,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
         public static IOModule Touch(string touchPin, int senstitiveLevel) => new Touch(touchPin, senstitiveLevel);
         public static IOModule Infrared(string receivePin) => new Infrared(receivePin);
-        public static void Print(string text) => Display.Display.PrintText(text);                
+        public static void Print(string text) => Display.Display.PrintText(text);
+        public static void Print(object obj) => Display.Display.PrintText(obj.ToString());
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
         public static void Out(IOModule module, double oValue) => module.Out(oValue);
