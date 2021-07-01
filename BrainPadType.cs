@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 
 namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
-    class BrainPadType {
+    public class BrainPadType {
         public bool IsPulse { get; } = false;
         public BrainPadType() {
             var pb15 = GpioController.GetDefault().OpenPin(SC13048.GpioPin.PB15);
