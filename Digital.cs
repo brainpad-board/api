@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     public class Digital : IOModule {
 
         private GpioPin gpioPin;

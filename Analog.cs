@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     public class Analog : IOModule {
         static AdcController adcController = AdcController.FromName(SC13048.Adc.Controller1.Id);
         private AdcChannel adcChannel;

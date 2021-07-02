@@ -1,6 +1,6 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
-using GHIElectronics.TinyCLR.Drivers.BrainPadController.Display;
+using BrainPad.Controller.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     public static class BrainPad {
         internal const string TEXT_BUILTIN = "builtin";
         internal const string TEXT_PULLUP = "pullup";

@@ -7,9 +7,9 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
-using static GHIElectronics.TinyCLR.Drivers.BrainPadController.Image;
+using static BrainPad.Controller.Image;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
+namespace BrainPad.Controller.Display {
 
     public static class Display {
         private static DisplayController displayController;
