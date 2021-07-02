@@ -17,6 +17,8 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         const int PRESS_CODE_NONE = 100;
 
         object locker;
+
+        static readonly byte[] keyMapTable = { 10, 12, 11, 0xFF, 14, 16, 15, 0xFF, 17, 13, 18, 0xFF, 19, 0, 20, 0xFF, 1, 2, 3, 0xFF, 4, 5, 6, 0xFF, 7, 8, 9 };
         public Infrared(string pinBp) {
             var pinNum = BrainPad.GetGpioFromString(pinBp);
 
@@ -42,68 +44,12 @@ namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
         public override double In() {
             lock (this.locker) {
                 if (this.index > 0)
-                    return GetKeyInTableMap(this.values[--this.index]);
+                    return keyMapTable[this.values[--this.index]];
             }
 
             return PRESS_CODE_NONE;
         }
-
-        static int GetKeyInTableMap(byte key) {
-            switch (key) {
-                case 0: // Power off
-                    return 10;
-
-                case 2: // Power on
-                    return 11;
-
-                case 1: // Up
-                    return 12;
-
-                case 9: // Down
-                    return 13;
-
-                case 4: // left
-                    return 14;
-
-                case 6: // right
-                    return 15;
-
-                case 5: // Center
-                    return 16;
-
-                case 8: // Back
-                    return 17;
-
-                case 10: // Next
-                    return 18;
-
-                case 12: // Plus
-                    return 19;
-
-                case 14: // Minus
-                    return 20;
-
-                case 13: // 0
-                    return 0;
-
-                case 16: // 1
-                case 17: // 2
-                case 18: // 3
-                    return key - 15;
-
-                case 20: // 4
-                case 21: // 5
-                case 22: // 6
-                    return key - 16;
-
-                case 24: // 7
-                case 25: // 8
-                case 26: // 9
-                    return key - 17;
-            }
-
-            return PRESS_CODE_NONE;
-        }
+       
         public override void Dispose() {
             this.gpioPin?.Dispose();
 
