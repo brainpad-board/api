@@ -1,11 +1,8 @@
+using System;
+using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Diagnostics;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public static class Controller {
@@ -169,7 +166,7 @@ namespace BrainPad {
                     return SC13048.GpioPin.PB11;
             }
 
-            return -1;            
+            return -1;
         }
 
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));

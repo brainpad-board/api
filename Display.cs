@@ -61,7 +61,7 @@ namespace BrainPad {
                 this.pulseGfx = new GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics(128, 64, ColorFormat.OneBpp);
                 for (var i = 0; i < 8; i++)
                     this.messages[i] = "";
-            }            
+            }
 
             this.Clear();
         }
@@ -119,7 +119,7 @@ namespace BrainPad {
             }
             else {
                 this.pulseGfx.Clear();
-                for(var i=0; i < 8; i++) {
+                for (var i = 0; i < 8; i++) {
                     this.messages[i] = "";
                 }
             }

@@ -1,8 +1,5 @@
-using GHIElectronics.TinyCLR.Devices.I2c;
 using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
+using GHIElectronics.TinyCLR.Devices.I2c;
 
 namespace BrainPad {
     internal class MC3216Controller {

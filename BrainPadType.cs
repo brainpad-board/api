@@ -1,9 +1,5 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public static class BrainPadType {

@@ -49,7 +49,7 @@ namespace BrainPad {
 
             return PRESS_CODE_NONE;
         }
-       
+
         public override void Dispose() {
             this.gpioPin?.Dispose();
 

@@ -1,9 +1,5 @@
-using GHIElectronics.TinyCLR.Devices.Gpio;
-using GHIElectronics.TinyCLR.Pins;
 using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 
 namespace BrainPad {
     public class Buttons : IOModule {
@@ -55,7 +51,7 @@ namespace BrainPad {
 
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid button.");
-            }            
+            }
 
             this.detectPeriod = detectPeriod * 1000;
 
@@ -65,7 +61,7 @@ namespace BrainPad {
 
             this.gpioPin.ValueChangedEdge = GpioPinEdge.FallingEdge;
 
-            this.gpioPin.ValueChanged += this.Btn_ValueChanged;            
+            this.gpioPin.ValueChanged += this.Btn_ValueChanged;
 
             this.lastPressed = DateTime.Now;
         }

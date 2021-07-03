@@ -1,9 +1,6 @@
+using System;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class Accel : IOModule {
@@ -28,12 +25,12 @@ namespace BrainPad {
             }
 
             if (this.doX == false && this.doY == false && this.doZ == false)
-                throw new ArgumentException("Argument must be X or Y or Z");            
+                throw new ArgumentException("Argument must be X or Y or Z");
 
             if (Controller.IsPulse) {
                 var i2ccon = I2cController.FromName(SC13048.I2cBus.I2c2);
                 this.accel = new MC3216Controller(i2ccon);
-            }            
+            }
         }
 
         private double GetX() {

@@ -1,10 +1,5 @@
-using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class I2cBus : IOModule {
@@ -15,12 +10,12 @@ namespace BrainPad {
         public I2cBus(int address) => this.Initialize(address);
 
         void Initialize(int address) {
-            var addr = (byte)(address & 0xFF);            
+            var addr = (byte)(address & 0xFF);
 
             this.controller = I2cController.FromName(SC13048.I2cBus.I2c4);
 
             var settings = new I2cConnectionSettings(addr, 100_000);
-            this.i2cDevice = this.controller.GetDevice(settings);            
+            this.i2cDevice = this.controller.GetDevice(settings);
         }
 
         public override void Out(double data) => this.i2cDevice.Write(new byte[] { (byte)data });

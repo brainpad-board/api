@@ -1,10 +1,7 @@
-using GHIElectronics.TinyCLR.Devices.Gpio;
+using System;
+using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class Sound : IOModule {

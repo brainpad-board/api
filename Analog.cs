@@ -1,10 +1,7 @@
+using System;
 using GHIElectronics.TinyCLR.Devices.Adc;
 using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class Analog : IOModule {
@@ -23,7 +20,7 @@ namespace BrainPad {
             if (pinNum < 0)
                 throw new ArgumentException("Invalid pin number.");
 
-            this.pinNum = pinNum;            
+            this.pinNum = pinNum;
         }
 
 

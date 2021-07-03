@@ -1,9 +1,5 @@
-using GHIElectronics.TinyCLR.Devices.Gpio;
 using System;
-using System.Collections;
-using System.Diagnostics;
-using System.Text;
-using System.Threading;
+using GHIElectronics.TinyCLR.Devices.Gpio;
 
 namespace BrainPad {
     public class Digital : IOModule {
@@ -32,9 +28,9 @@ namespace BrainPad {
         private void Initialize(int pinNum) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }            
+            }
 
-            this.gpioPin = Controller.Gpio.OpenPin(pinNum);            
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
         }
 

@@ -1,9 +1,6 @@
+using System;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Signals;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class DistanceSensor : IOModule {
@@ -20,7 +17,7 @@ namespace BrainPad {
         void Initialize(int triggerPin, int echoPin) {
             if (triggerPin < 0 || echoPin < 0) {
                 throw new ArgumentException("trigger or echo pin invalid.");
-            }            
+            }
 
             this.distanceTrigger = Controller.Gpio.OpenPin(triggerPin);
             this.distanceEcho = Controller.Gpio.OpenPin(echoPin);

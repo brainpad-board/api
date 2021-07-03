@@ -1,9 +1,6 @@
+using System;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 
 namespace BrainPad {
     public class Neopixel : IOModule {
@@ -20,11 +17,11 @@ namespace BrainPad {
         private void Initialize(int pinNum) {
             if (pinNum < 0) {
                 throw new ArgumentException("Invalid pin number.");
-            }            
+            }
 
             this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
-            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);            
+            this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);
         }
 
         public override void Out(double[] data) {

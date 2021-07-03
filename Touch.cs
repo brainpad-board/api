@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Signals;
 
@@ -32,7 +29,7 @@ namespace BrainPad {
         private int level;
         private PulseFeedback pulseFeedback;
         const double CalibrateMinValue = 0.008;
-        const double CalibrateMaxValue  = 0.015;
+        const double CalibrateMaxValue = 0.015;
 
         /// <summary>
         /// Capacitive Touch constructor
@@ -54,7 +51,7 @@ namespace BrainPad {
                 PulseValue = GpioPinValue.High,
             };
 
-        }        
+        }
         public bool IsTouched {
             get {
                 var scale = Controller.Scale(this.pulseFeedback.Trigger().TotalMilliseconds * 10000, (int)(CalibrateMinValue * 10000), (int)(CalibrateMaxValue * 10000), 0, 100);
@@ -67,6 +64,6 @@ namespace BrainPad {
 
         }
 
-       
+
     }
 }

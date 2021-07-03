@@ -2,7 +2,6 @@ using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
-using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 
 namespace BrainPad {
     internal class TickMatrixController : GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics {
@@ -80,7 +79,7 @@ namespace BrainPad {
                gpio.OpenPin(SC13048.GpioPin.PA0),
                gpio.OpenPin(SC13048.GpioPin.PH0),
             };
-            
+
             foreach (var pin in this.ledMatrix) {
                 pin.SetDriveMode(GpioPinDriveMode.Output);
                 pin.Write(GpioPinValue.Low);

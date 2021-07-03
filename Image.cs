@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Text;
-using System.Threading;
 
-namespace BrainPad {   
+namespace BrainPad {
     public class Image {
         public enum Transform {
             None,
