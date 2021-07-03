@@ -1,13 +1,11 @@
+using System;
+using System.Threading;
 using BrainPad.Controller;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 using GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306;
 using GHIElectronics.TinyCLR.Pins;
-using System;
-using System.Collections;
-using System.Text;
-using System.Threading;
 using static BrainPad.Controller.Image;
 
 namespace BrainPad.Display {
@@ -48,17 +46,15 @@ namespace BrainPad.Display {
     }
 
     internal class DisplayController : IOModule {
-#if !DEBUG
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
-        private BasicGraphics.BasicGraphics pulseGfx;
+        private BasicGraphics pulseGfx;
         private TickMatrixController tickGfx;
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
-#endif
+
         public DisplayController() {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false) {
+            if (Controller.BrainPad.Type.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
             }
             else {
@@ -69,22 +65,18 @@ namespace BrainPad.Display {
             }            
 
             this.Clear();
-#endif
         }
 
         public void SetBrightness(double brightness) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false) {
+            if (Controller.BrainPad.Type.IsPulse == false) {
                 this.tickGfx.SetBrightness(brightness);
             }
             else {
 
             }
-#endif
         }
 
         private void InitPulseDisplay() {
-#if !DEBUG
             this.lcdReset = GpioController.GetDefault().OpenPin(SC13048.GpioPin.PB2);
             this.lcdReset.SetDriveMode(GpioPinDriveMode.Output);
             this.lcdReset.Write(GpioPinValue.Low);
@@ -96,12 +88,10 @@ namespace BrainPad.Display {
             this.i2cDevice = i2c.GetDevice(SSD1306Controller.GetConnectionSettings());
 
             this.pulseLcd = new SSD1306Controller(this.i2cDevice);
-#endif
         }
 
         public void PrintText(string s) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false) {
+            if (Controller.BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
                 this.tickGfx.DrawText(s);
             }
@@ -113,23 +103,19 @@ namespace BrainPad.Display {
                     this.pulseGfx.DrawString(this.messages[i], 1, 0, i * 8);
             }
             this.Show();
-#endif
         }
 
         public void Show() {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false) {
+            if (Controller.BrainPad.Type.IsPulse == false) {
                 // nothing!
             }
             else {
                 this.pulseLcd.DrawBufferNative(this.pulseGfx.Buffer);
             }
-#endif
         }
 
         public void Clear() {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false) {
+            if (Controller.BrainPad.Type.IsPulse == false) {
                 this.tickGfx.Clear();
             }
             else {
@@ -138,63 +124,49 @@ namespace BrainPad.Display {
                     this.messages[i] = "";
                 }
             }
-#endif
         }
         public void Circle(int x, int y, int r, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawCircle((uint)c, x, y, r);
-#endif
         }
 
         public void Line(int x1, int y1, int x2, int y2, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawLine((uint)c, x1, y1, x2, y2);
-#endif
         }
 
         public void Rect(int x, int y, int w, int h, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawRectangle((uint)c, x, y, w, h);
-#endif
         }
 
         public void Point(int x, int y, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse)
+            if (Controller.BrainPad.Type.IsPulse)
                 this.pulseGfx.SetPixel(x, y, c);
             else {
                 this.tickGfx.SetPixel(x, y, c);
             }
-#endif
         }
 
         public void Text(string s, int x, int y, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y);
-#endif
         }
 
         public void TextEx(string s, int x, int y, int xs, int ys, uint c) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y, xs, ys);
-#endif
         }
 
         public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
-#if !DEBUG
-            if (BrainPad.Type.IsPulse == false)
+            if (Controller.BrainPad.Type.IsPulse == false)
                 return;
 
             var index = 0;
@@ -203,11 +175,9 @@ namespace BrainPad.Display {
                     this.pulseGfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
                 }
             }
-#endif
         }
 
         public override void Dispose() {
-#if !DEBUG
             this.lcdReset?.Dispose();
             this.pulseLcd?.Dispose();
             this.tickGfx?.Dispose();
@@ -217,7 +187,6 @@ namespace BrainPad.Display {
             this.pulseLcd = null;
             this.tickGfx = null;
             this.i2cDevice = null;
-#endif
         }
     }
 }
