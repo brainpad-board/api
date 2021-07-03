@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     internal class MC3216Controller {
         const int MC3216_Mode = 0x07;
         const int MC3216_Opstat = 0x04;

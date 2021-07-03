@@ -4,7 +4,7 @@ using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
 using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     internal class TickMatrixController : GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics {
         private PwmChannel brightnessChannel;
 
@@ -41,7 +41,7 @@ namespace BrainPad.Controller {
         }
         GpioPin[] ledMatrix;
         public TickMatrixController() {
-            var gpio = BrainPad.Gpio;
+            var gpio = Controller.Gpio;
             var pwmController1 = PwmController.FromName(SC13048.Timer.Pwm.Controller1.Id);
             this.brightnessChannel = pwmController1.OpenChannel(SC13048.Timer.Pwm.Controller1.PA9);
             this.brightnessChannel.Controller.SetDesiredFrequency(1000);

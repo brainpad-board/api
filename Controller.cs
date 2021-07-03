@@ -1,6 +1,5 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Pwm;
-using BrainPad.Display;
 using GHIElectronics.TinyCLR.Pins;
 using System;
 using System.Collections;
@@ -8,8 +7,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
-    public static class BrainPad {
+namespace BrainPad {
+    public static class Controller {
         internal const string TEXT_BUILTIN = "builtin";
         internal const string TEXT_PULLUP = "pullup";
         internal const string TEXT_PULLDOWN = "pulldown";
@@ -23,7 +22,15 @@ namespace BrainPad.Controller {
             B = SC13048.GpioPin.PB7,
         }
 
-        internal static BrainPadType Type = new BrainPadType();
+        private static bool isPulse;
+        static Controller() {
+            using (var pb15 = GpioController.GetDefault().OpenPin(SC13048.GpioPin.PB15)) {
+                pb15.SetDriveMode(GpioPinDriveMode.InputPullDown);
+                isPulse = pb15.Read() == GpioPinValue.High;
+            }
+        }
+
+        public static bool IsPulse => isPulse;
 
         public static int GetPwmChannelFromPin(int pin) {
             switch (pin) {
@@ -75,7 +82,7 @@ namespace BrainPad.Controller {
         public static bool IsPwmFromString(string pin) {
             pin = pin.ToLower();
 
-            if (Type.IsPulse) {
+            if (IsPulse) {
                 switch (pin) {
                     case "p3":
                     case "p0":
@@ -114,34 +121,34 @@ namespace BrainPad.Controller {
                     return SC13048.GpioPin.PA2;
 
                 case "p3":
-                    return Type.IsPulse ? SC13048.GpioPin.PA1 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA1 : -1;
 
                 case "p4":
-                    return Type.IsPulse ? SC13048.GpioPin.PA0 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA0 : -1;
 
                 case "p5":
-                    return Type.IsPulse ? SC13048.GpioPin.PA7 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA7 : -1;
 
                 case "p6":
-                    return Type.IsPulse ? SC13048.GpioPin.PA4 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA4 : -1;
 
                 case "p7":
-                    return Type.IsPulse ? SC13048.GpioPin.PB0 : -1;
+                    return IsPulse ? SC13048.GpioPin.PB0 : -1;
 
                 case "p8":
-                    return Type.IsPulse ? SC13048.GpioPin.PA9 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA9 : -1;
 
                 case "p9":
-                    return Type.IsPulse ? SC13048.GpioPin.PB1 : -1;
+                    return IsPulse ? SC13048.GpioPin.PB1 : -1;
 
                 case "p10":
-                    return Type.IsPulse ? SC13048.GpioPin.PA6 : -1;
+                    return IsPulse ? SC13048.GpioPin.PA6 : -1;
 
                 case "p11":
-                    return Type.IsPulse ? SC13048.GpioPin.PB6 : -1;
+                    return IsPulse ? SC13048.GpioPin.PB6 : -1;
 
                 case "p12":
-                    return Type.IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
+                    return IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
 
                 case "p13":
                     return SC13048.GpioPin.PB3;
@@ -153,7 +160,7 @@ namespace BrainPad.Controller {
                     return SC13048.GpioPin.PB5;
 
                 case "p16":
-                    return Type.IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
+                    return IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
 
                 case "p19":
                     return SC13048.GpioPin.PB10;
@@ -177,8 +184,8 @@ namespace BrainPad.Controller {
         public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
         public static IOModule Touch(string touchPin, int senstitiveLevel) => new Touch(touchPin, senstitiveLevel);
         public static IOModule Infrared(string receivePin) => new Infrared(receivePin);
-        public static void Print(string text) => Display.Display.PrintText(text);
-        public static void Print(object obj) => Display.Display.PrintText(obj.ToString());
+        public static void Print(string text) => Display.Print(text);
+        public static void Print(object obj) => Display.Print(obj.ToString());
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
         public static void Out(IOModule module, double oValue) => module.Out(oValue);
@@ -188,7 +195,7 @@ namespace BrainPad.Controller {
             if (o is IDisposable disposable) disposable.Dispose();
         }
 
-        public static int Scale(double value, int originalMin, int originalMax, int scaleMin, int scaleMax) {
+        internal static int Scale(double value, int originalMin, int originalMax, int scaleMin, int scaleMax) {
             var scale = (double)(scaleMax - scaleMin) / (originalMax - originalMin);
             var ret = (int)(scaleMin + ((value - originalMin) * scale));
 

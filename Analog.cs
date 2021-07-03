@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Analog : IOModule {
         static AdcController adcController = AdcController.FromName(SC13048.Adc.Controller1.Id);
         private AdcChannel adcChannel;
@@ -15,7 +15,7 @@ namespace BrainPad.Controller {
         private int pinNum;
 
         public Analog(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromString(bpPin);
+            var pinNum = Controller.GetGpioFromString(bpPin);
 
             this.Initialize(pinNum);
         }
@@ -63,9 +63,9 @@ namespace BrainPad.Controller {
 
             this.pwmChannel?.Dispose();
 
-            BrainPad.PwmSoftware.SetDesiredFrequency(1000);
+            Controller.PwmSoftware.SetDesiredFrequency(1000);
 
-            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(this.pinNum);
+            this.pwmChannel = Controller.PwmSoftware.OpenChannel(this.pinNum);
 
             this.pwmChannel.SetActiveDutyCyclePercentage(oValue / 100);
 
@@ -84,25 +84,25 @@ namespace BrainPad.Controller {
                     return SC13048.Adc.Controller1.PA2;
 
                 case SC13048.GpioPin.PA1:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA1 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PA1 : -1;
 
                 case SC13048.GpioPin.PA0:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA0 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PA0 : -1;
 
                 case SC13048.GpioPin.PA7:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA7 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PA7 : -1;
 
                 case SC13048.GpioPin.PA4:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA4 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PA4 : -1;
 
                 case SC13048.GpioPin.PB0:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB0 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PB0 : -1;
 
                 case SC13048.GpioPin.PB1:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PB1 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PB1 : -1;
 
                 case SC13048.GpioPin.PA6:
-                    return BrainPad.Type.IsPulse ? SC13048.Adc.Controller1.PA6 : -1;
+                    return Controller.IsPulse ? SC13048.Adc.Controller1.PA6 : -1;
             }
 
             return -1;

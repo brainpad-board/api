@@ -3,7 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public abstract class IOModule : IDisposable {
         public virtual double In() => 0;
         public virtual void Out(double data) { }

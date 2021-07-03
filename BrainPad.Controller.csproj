@@ -8,7 +8,7 @@
     <ProjectGuid>{82A92F70-C1DC-4A96-947B-25D8BA25BE9E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrainPad.Controller</RootNamespace>
+    <RootNamespace>BrainPad</RootNamespace>
     <AssemblyName>BrainPad.Controller</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -36,7 +36,7 @@
   <ItemGroup>
     <Compile Include="Accel.cs" />
     <Compile Include="Analog.cs" />
-    <Compile Include="BrainPad.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="BrainPadType.cs" />
     <Compile Include="I2cBus.cs" />
     <Compile Include="Buttons.cs" />

@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class I2cBus : IOModule {
 
         private I2cDevice i2cDevice;

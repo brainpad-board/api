@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Digital : IOModule {
 
         private GpioPin gpioPin;
@@ -13,14 +13,14 @@ namespace BrainPad.Controller {
         public GpioPinDriveMode DriverMode { get; set; } = GpioPinDriveMode.Input;
 
         public Digital(string bpPin, string driverMode) {
-            var pinNum = BrainPad.GetGpioFromString(bpPin);
+            var pinNum = Controller.GetGpioFromString(bpPin);
 
             driverMode = driverMode.ToLower();
 
-            if (driverMode.IndexOf(BrainPad.TEXT_PULLUP) >= 0) {
+            if (driverMode.IndexOf(Controller.TEXT_PULLUP) >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullUp;
             }
-            else if (driverMode.IndexOf(BrainPad.TEXT_PULLDOWN) >= 0) {
+            else if (driverMode.IndexOf(Controller.TEXT_PULLDOWN) >= 0) {
                 this.DriverMode = GpioPinDriveMode.InputPullDown;
             }
             else
@@ -34,7 +34,7 @@ namespace BrainPad.Controller {
                 throw new ArgumentException("Invalid pin number.");
             }            
 
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);            
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);            
 
         }
 

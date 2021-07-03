@@ -5,7 +5,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Neopixel : IOModule {
         private int numLeds;
         private GpioPin gpioPin;
@@ -13,7 +13,7 @@ namespace BrainPad.Controller {
         WS2812Controller ws2812;
         public Neopixel(string bpPin, int numleds) {
             this.numLeds = numleds;
-            var pinNum = BrainPad.GetGpioFromString(bpPin);
+            var pinNum = Controller.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 
@@ -22,7 +22,7 @@ namespace BrainPad.Controller {
                 throw new ArgumentException("Invalid pin number.");
             }            
 
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
             this.ws2812 = new WS2812Controller(this.gpioPin, (uint)this.numLeds, WS2812Controller.DataFormat.rgb888);            
         }

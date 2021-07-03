@@ -1,14 +1,12 @@
 using System;
 using System.Threading;
-using BrainPad.Controller;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 using GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306;
 using GHIElectronics.TinyCLR.Pins;
-using static BrainPad.Controller.Image;
 
-namespace BrainPad.Display {
+namespace BrainPad {
 
     public static class Display {
         private static DisplayController displayController;
@@ -23,25 +21,26 @@ namespace BrainPad.Display {
             }
         }
 
-        public static void PrintText(string text) {
-            if (text.IndexOf("\f") == 0) {
-                Controller?.Clear();
-                Controller?.Show();
+        internal static void Print(string text) {
+            if (text == "\\f") {
+                Controller.Clear();
+                Controller.Show();
             }
-            else
-                Controller?.PrintText(text);
+            else {
+                Controller.PrintText(text);
+            }
         }
-        public static void Clear() => Controller?.Clear();
-        public static void SetBrightness(double brightness) => Controller?.SetBrightness(brightness);
-        public static void Circle(int x, int y, int r) => Controller?.Circle(x, y, r, color);
-        public static void Line(int x1, int y1, int x2, int y2) => Controller?.Line(x1, y1, x2, y2, color);
-        public static void Rect(int x, int y, int w, int h) => Controller?.Rect(x, y, w, h, color);
-        public static void Point(int x, int y, uint c) => Controller?.Point(x, y, c);
-        public static void Text(string s, int x, int y) => Controller?.Text(s, x, y, color);
-        public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller?.TextEx(s, x, y, scalewidth, scaleheight, color);
-        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, int transform) => Controller?.CreateImage(width, height, data, hScale, vScale, (Transform)transform);
-        public static void Image(object img, int x, int y) => Controller?.DrawImage((Image)img, x, y);
-        public static void Show() => Controller?.Show();
+        public static void Clear() => Controller.Clear();
+        public static void SetBrightness(double brightness) => Controller.SetBrightness(brightness);
+        public static void Circle(int x, int y, int r) => Controller.Circle(x, y, r, color);
+        public static void Line(int x1, int y1, int x2, int y2) => Controller.Line(x1, y1, x2, y2, color);
+        public static void Rect(int x, int y, int w, int h) => Controller.Rect(x, y, w, h, color);
+        public static void Point(int x, int y, uint c) => Controller.Point(x, y, c);
+        public static void Text(string s, int x, int y) => Controller.Text(s, x, y, color);
+        public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller.TextEx(s, x, y, scalewidth, scaleheight, color);
+        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, int transform) => Controller.CreateImage(width, height, data, hScale, vScale, (Image.Transform)transform);
+        public static void Image(object img, int x, int y) => Controller.DrawImage((Image)img, x, y);
+        public static void Show() => Controller.Show();
         public static void Color(uint c) => color = c;
     }
 
@@ -54,7 +53,7 @@ namespace BrainPad.Display {
         private I2cDevice i2cDevice;
 
         public DisplayController() {
-            if (Controller.BrainPad.Type.IsPulse == false) {
+            if (Controller.IsPulse == false) {
                 this.tickGfx = new TickMatrixController();
             }
             else {
@@ -68,7 +67,7 @@ namespace BrainPad.Display {
         }
 
         public void SetBrightness(double brightness) {
-            if (Controller.BrainPad.Type.IsPulse == false) {
+            if (Controller.IsPulse == false) {
                 this.tickGfx.SetBrightness(brightness);
             }
             else {
@@ -91,7 +90,7 @@ namespace BrainPad.Display {
         }
 
         public void PrintText(string s) {
-            if (Controller.BrainPad.Type.IsPulse == false) {
+            if (Controller.IsPulse == false) {
                 this.tickGfx.Clear();
                 this.tickGfx.DrawText(s);
             }
@@ -106,7 +105,7 @@ namespace BrainPad.Display {
         }
 
         public void Show() {
-            if (Controller.BrainPad.Type.IsPulse == false) {
+            if (Controller.IsPulse == false) {
                 // nothing!
             }
             else {
@@ -115,7 +114,7 @@ namespace BrainPad.Display {
         }
 
         public void Clear() {
-            if (Controller.BrainPad.Type.IsPulse == false) {
+            if (Controller.IsPulse == false) {
                 this.tickGfx.Clear();
             }
             else {
@@ -126,25 +125,25 @@ namespace BrainPad.Display {
             }
         }
         public void Circle(int x, int y, int r, uint c) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
             this.pulseGfx.DrawCircle((uint)c, x, y, r);
         }
 
         public void Line(int x1, int y1, int x2, int y2, uint c) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
             this.pulseGfx.DrawLine((uint)c, x1, y1, x2, y2);
         }
 
         public void Rect(int x, int y, int w, int h, uint c) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
             this.pulseGfx.DrawRectangle((uint)c, x, y, w, h);
         }
 
         public void Point(int x, int y, uint c) {
-            if (Controller.BrainPad.Type.IsPulse)
+            if (Controller.IsPulse)
                 this.pulseGfx.SetPixel(x, y, c);
             else {
                 this.tickGfx.SetPixel(x, y, c);
@@ -152,21 +151,21 @@ namespace BrainPad.Display {
         }
 
         public void Text(string s, int x, int y, uint c) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y);
         }
 
         public void TextEx(string s, int x, int y, int xs, int ys, uint c) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
             this.pulseGfx.DrawString(s, c, x, y, xs, ys);
         }
 
-        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Transform transform) => new Image(data, width, height, hScale, vScale, transform);
+        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
-            if (Controller.BrainPad.Type.IsPulse == false)
+            if (Controller.IsPulse == false)
                 return;
 
             var index = 0;

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Accel : IOModule {
         MC3216Controller accel;
 
@@ -30,14 +30,14 @@ namespace BrainPad.Controller {
             if (this.doX == false && this.doY == false && this.doZ == false)
                 throw new ArgumentException("Argument must be X or Y or Z");            
 
-            if (BrainPad.Type.IsPulse) {
+            if (Controller.IsPulse) {
                 var i2ccon = I2cController.FromName(SC13048.I2cBus.I2c2);
                 this.accel = new MC3216Controller(i2ccon);
             }            
         }
 
         private double GetX() {
-            if (BrainPad.Type.IsPulse) {
+            if (Controller.IsPulse) {
                 var x = (double)this.accel.X;
 
                 return (x + 128) / 256;
@@ -45,7 +45,7 @@ namespace BrainPad.Controller {
             return 0;
         }
         private double GetY() {
-            if (BrainPad.Type.IsPulse) {
+            if (Controller.IsPulse) {
                 var y = (double)this.accel.Y;
 
                 return (y + 128) / 256;
@@ -53,7 +53,7 @@ namespace BrainPad.Controller {
             return 0;
         }
         private double GetZ() {
-            if (BrainPad.Type.IsPulse) {
+            if (Controller.IsPulse) {
                 var z = (double)this.accel.Z;
 
                 return (z + 128) / 256;

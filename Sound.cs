@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Sound : IOModule {
         private PwmChannel pwmChannel;
         private PwmController pwmController;
@@ -18,13 +18,13 @@ namespace BrainPad.Controller {
         public Sound(string pinBp, double playtime, double volume) {
             pinBp = pinBp.ToLower();
 
-            if (pinBp.CompareTo(BrainPad.TEXT_BUILTIN) == 0) {
+            if (pinBp.CompareTo(Controller.TEXT_BUILTIN) == 0) {
                 this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
-                var pin = BrainPad.GetGpioFromString(pinBp);
+                var pin = Controller.GetGpioFromString(pinBp);
 
-                if (!BrainPad.IsPwmFromString(pinBp)) {
+                if (!Controller.IsPwmFromString(pinBp)) {
                     throw new ArgumentException("Not support on this pin.");
                 }
 
@@ -38,14 +38,14 @@ namespace BrainPad.Controller {
                 throw new ArgumentException("Invalid pin number.");
             }
 
-            this.channel = BrainPad.GetPwmChannelFromPin(pinNum);
-            this.timer = BrainPad.GetPwmTimerFromPin(pinNum);
+            this.channel = Controller.GetPwmChannelFromPin(pinNum);
+            this.timer = Controller.GetPwmTimerFromPin(pinNum);
 
             if (this.channel < 0 || this.timer == null) {
                 throw new ArgumentException("Not supported on this pin.");
             }
 
-            this.volume = volume == 0 ? 0 : BrainPad.Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
+            this.volume = volume == 0 ? 0 : Controller.Scale(volume, 0, 100, 1, 50) / 100.0; // /100 to get 0.01 to 0.5
 
             this.playTime = playtime;
 

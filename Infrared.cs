@@ -1,7 +1,7 @@
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Drivers.Infrared;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Infrared : IOModule {
 
         private GpioPin gpioPin;
@@ -20,9 +20,9 @@ namespace BrainPad.Controller {
 
         static readonly byte[] keyMapTable = { 10, 12, 11, 0xFF, 14, 16, 15, 0xFF, 17, 13, 18, 0xFF, 19, 0, 20, 0xFF, 1, 2, 3, 0xFF, 4, 5, 6, 0xFF, 7, 8, 9 };
         public Infrared(string pinBp) {
-            var pinNum = BrainPad.GetGpioFromString(pinBp);
+            var pinNum = Controller.GetGpioFromString(pinBp);
 
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
             this.infrared = new NecIRDecoder(this.gpioPin);
 

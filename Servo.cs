@@ -6,12 +6,12 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Servo : IOModule {
         PwmChannel pwmChannel;
         ServoController servo;
         public Servo(string bpPin) {
-            var pinNum = BrainPad.GetGpioFromString(bpPin);
+            var pinNum = Controller.GetGpioFromString(bpPin);
             this.Initialize(pinNum);
         }
 
@@ -20,9 +20,9 @@ namespace BrainPad.Controller {
                 throw new ArgumentException("Invalid pin number.");
             }            
 
-            this.pwmChannel = BrainPad.PwmSoftware.OpenChannel(pinNum);
+            this.pwmChannel = Controller.PwmSoftware.OpenChannel(pinNum);
 
-            this.servo = new ServoController(BrainPad.PwmSoftware, this.pwmChannel);            
+            this.servo = new ServoController(Controller.PwmSoftware, this.pwmChannel);            
 
         }
         public override void Out(double oValue) => this.servo.Set(oValue);

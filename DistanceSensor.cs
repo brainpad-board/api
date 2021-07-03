@@ -5,14 +5,14 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class DistanceSensor : IOModule {
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
         GpioPin distanceEcho;
         public DistanceSensor(string trigger, string echo) {
-            var triggerPin = BrainPad.GetGpioFromString(trigger);
-            var echoPin = BrainPad.GetGpioFromString(echo);
+            var triggerPin = Controller.GetGpioFromString(trigger);
+            var echoPin = Controller.GetGpioFromString(echo);
 
             this.Initialize(triggerPin, echoPin);
         }
@@ -22,8 +22,8 @@ namespace BrainPad.Controller {
                 throw new ArgumentException("trigger or echo pin invalid.");
             }            
 
-            this.distanceTrigger = BrainPad.Gpio.OpenPin(triggerPin);
-            this.distanceEcho = BrainPad.Gpio.OpenPin(echoPin);
+            this.distanceTrigger = Controller.Gpio.OpenPin(triggerPin);
+            this.distanceEcho = Controller.Gpio.OpenPin(echoPin);
 
             this.pulseFeedback = new PulseFeedback(this.distanceTrigger, this.distanceEcho, PulseFeedbackMode.EchoDuration) {
                 DisableInterrupts = false,

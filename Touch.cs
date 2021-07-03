@@ -5,7 +5,7 @@ using System.Threading;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Signals;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Touch : IOModule {
 
         private GpioPin gpioPin;
@@ -13,9 +13,9 @@ namespace BrainPad.Controller {
         private CapacitiveTouchController touch;
 
         public Touch(string pinBp, int senstitiveLevel) {
-            var pinNum = BrainPad.GetGpioFromString(pinBp);
+            var pinNum = Controller.GetGpioFromString(pinBp);
 
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
             this.touch = new CapacitiveTouchController(this.gpioPin, senstitiveLevel);
         }
@@ -57,7 +57,7 @@ namespace BrainPad.Controller {
         }        
         public bool IsTouched {
             get {
-                var scale = BrainPad.Scale(this.pulseFeedback.Trigger().TotalMilliseconds * 10000, (int)(CalibrateMinValue * 10000), (int)(CalibrateMaxValue * 10000), 0, 100);
+                var scale = Controller.Scale(this.pulseFeedback.Trigger().TotalMilliseconds * 10000, (int)(CalibrateMinValue * 10000), (int)(CalibrateMaxValue * 10000), 0, 100);
 
                 if (scale >= this.level)
                     return true;

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace BrainPad.Controller {
+namespace BrainPad {
     public class Buttons : IOModule {
         private GpioPin gpioPin;
 
@@ -37,15 +37,15 @@ namespace BrainPad.Controller {
 
             switch (button) {
                 case "a":
-                    pinNum = (int)BrainPad.Button.A;
+                    pinNum = (int)Controller.Button.A;
                     break;
                 case "b":
-                    pinNum = (int)BrainPad.Button.B;
+                    pinNum = (int)Controller.Button.B;
                     break;
             }
 
             if (pinNum == -1) {
-                pinNum = BrainPad.GetGpioFromString(button);
+                pinNum = Controller.GetGpioFromString(button);
             }
 
             this.Initialize(pinNum, detectPeriod);
@@ -59,7 +59,7 @@ namespace BrainPad.Controller {
 
             this.detectPeriod = detectPeriod * 1000;
 
-            this.gpioPin = BrainPad.Gpio.OpenPin(pinNum);
+            this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
             this.gpioPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
 
