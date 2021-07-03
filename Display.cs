@@ -1,3 +1,4 @@
+using BrainPad.Controller;
 using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
@@ -7,9 +8,9 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
-using static GHIElectronics.TinyCLR.Drivers.BrainPadController.Image;
+using static BrainPad.Controller.Image;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController.Display {
+namespace BrainPad.Display {
 
     public static class Display {
         private static DisplayController displayController;

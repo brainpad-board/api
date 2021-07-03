@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     public class I2cBus : IOModule {
 
         private I2cDevice i2cDevice;

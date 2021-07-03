@@ -4,7 +4,7 @@ using GHIElectronics.TinyCLR.Devices.Pwm;
 using GHIElectronics.TinyCLR.Pins;
 using GHIElectronics.TinyCLR.Drivers.BasicGraphics;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     internal class TickMatrixController : GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics {
         private PwmChannel brightnessChannel;
 

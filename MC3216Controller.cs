@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace GHIElectronics.TinyCLR.Drivers.BrainPadController {
+namespace BrainPad.Controller {
     internal class MC3216Controller {
 #if !DEBUG
         const int MC3216_Mode = 0x07;
