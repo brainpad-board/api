@@ -39,6 +39,7 @@ namespace BrainPad {
         public static void Text(string s, int x, int y) => Controller.Text(s, x, y, color);
         public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller.TextEx(s, x, y, scalewidth, scaleheight, color);
         public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, int transform) => Controller.CreateImage(width, height, data, hScale, vScale, (Image.Transform)transform);
+        public static Image CreateImage(int width, int height, string data, int hScale, int vScale, int transform) => Controller.CreateImage(width, height, data, hScale, vScale, (Image.Transform)transform);
         public static void Image(object img, int x, int y) => Controller.DrawImage((Image)img, x, y);
         public static void Show() => Controller.Show();
         public static void Color(uint c) => color = c;
@@ -47,18 +48,17 @@ namespace BrainPad {
     internal class DisplayController : IOModule {
         private GpioPin lcdReset;
         private SSD1306Controller pulseLcd;
-        private BasicGraphics pulseGfx;
-        private TickMatrixController tickGfx;
+        private BasicGraphics gfx;
         private string[] messages = new string[8];
         private I2cDevice i2cDevice;
 
         public DisplayController() {
             if (Controller.IsPulse == false) {
-                this.tickGfx = new TickMatrixController();
+                this.gfx = new TickMatrixController();
             }
             else {
                 this.InitPulseDisplay();
-                this.pulseGfx = new GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics(128, 64, ColorFormat.OneBpp);
+                this.gfx = new BasicGraphics(128, 64, ColorFormat.OneBpp);
                 for (var i = 0; i < 8; i++)
                     this.messages[i] = "";
             }
@@ -68,10 +68,7 @@ namespace BrainPad {
 
         public void SetBrightness(double brightness) {
             if (Controller.IsPulse == false) {
-                this.tickGfx.SetBrightness(brightness);
-            }
-            else {
-
+                ((TickMatrixController)this.gfx).SetBrightness(brightness);
             }
         }
 
@@ -90,88 +87,66 @@ namespace BrainPad {
         }
 
         public void PrintText(string s) {
+            this.gfx.Clear();
             if (Controller.IsPulse == false) {
-                this.tickGfx.Clear();
-                this.tickGfx.DrawText(s);
+                ((TickMatrixController)this.gfx).DrawText(s);
             }
             else {
-                this.pulseGfx.Clear();
                 Array.Copy(this.messages, 1, this.messages, 0, this.messages.Length - 1);
                 this.messages[7] = s;
                 for (var i = 0; i < 8; i++)
-                    this.pulseGfx.DrawString(this.messages[i], 1, 0, i * 8);
+                    this.gfx.DrawString(this.messages[i], 1, 0, i * 8);
             }
             this.Show();
         }
 
         public void Show() {
-            if (Controller.IsPulse == false) {
-                // nothing!
-            }
-            else {
-                this.pulseLcd.DrawBufferNative(this.pulseGfx.Buffer);
+            if (Controller.IsPulse) {
+                this.pulseLcd.DrawBufferNative(this.gfx.Buffer);
             }
         }
 
         public void Clear() {
-            if (Controller.IsPulse == false) {
-                this.tickGfx.Clear();
-            }
-            else {
-                this.pulseGfx.Clear();
+            this.gfx.Clear();
+            if (Controller.IsPulse) { 
                 for (var i = 0; i < 8; i++) {
                     this.messages[i] = "";
                 }
             }
         }
-        public void Circle(int x, int y, int r, uint c) {
-            if (Controller.IsPulse == false)
-                return;
-            this.pulseGfx.DrawCircle((uint)c, x, y, r);
-        }
+        public void Circle(int x, int y, int r, uint c) => this.gfx.DrawCircle((uint)c, x, y, r);
 
-        public void Line(int x1, int y1, int x2, int y2, uint c) {
-            if (Controller.IsPulse == false)
-                return;
-            this.pulseGfx.DrawLine((uint)c, x1, y1, x2, y2);
-        }
+        public void Line(int x1, int y1, int x2, int y2, uint c) => this.gfx.DrawLine((uint)c, x1, y1, x2, y2);
 
-        public void Rect(int x, int y, int w, int h, uint c) {
-            if (Controller.IsPulse == false)
-                return;
-            this.pulseGfx.DrawRectangle((uint)c, x, y, w, h);
-        }
-
-        public void Point(int x, int y, uint c) {
-            if (Controller.IsPulse)
-                this.pulseGfx.SetPixel(x, y, c);
-            else {
-                this.tickGfx.SetPixel(x, y, c);
+        public void Rect(int x, int y, int w, int h, uint c)  => this.gfx.DrawRectangle((uint)c, x, y, w, h);
+    
+        public void Point(int x, int y, uint c) => this.gfx.SetPixel(x, y, c);
+           
+        public void Text(string s, int x, int y, uint c) {
+            if (Controller.IsPulse) {
+                this.gfx.DrawString(s, c, x, y);
+            } else {
+                ((TickMatrixController)this.gfx).DrawText(s);
             }
         }
 
-        public void Text(string s, int x, int y, uint c) {
-            if (Controller.IsPulse == false)
-                return;
-            this.pulseGfx.DrawString(s, c, x, y);
-        }
-
         public void TextEx(string s, int x, int y, int xs, int ys, uint c) {
-            if (Controller.IsPulse == false)
-                return;
-            this.pulseGfx.DrawString(s, c, x, y, xs, ys);
+            if (Controller.IsPulse) {
+                this.gfx.DrawString(s, c, x, y, xs, ys);
+            }
+            else {
+                ((TickMatrixController)this.gfx).DrawText(s);
+            }
         }
 
         public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) => new Image(data, width, height, hScale, vScale, transform);
+        public Image CreateImage(int width, int height, string data, int hScale, int vScale, Image.Transform transform) => new Image(data, width, height, hScale, vScale, transform);
 
         public void DrawImage(Image img, int x, int y) {
-            if (Controller.IsPulse == false)
-                return;
-
             var index = 0;
             for (var vsize = 0; vsize < img.Height; vsize++) {
                 for (var hsize = 0; hsize < img.Width; hsize++) {
-                    this.pulseGfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
+                    this.gfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
                 }
             }
         }
@@ -179,12 +154,12 @@ namespace BrainPad {
         public override void Dispose() {
             this.lcdReset?.Dispose();
             this.pulseLcd?.Dispose();
-            this.tickGfx?.Dispose();
+            if (this.gfx is IDisposable disposable) disposable.Dispose();
             this.i2cDevice?.Dispose();
 
             this.lcdReset = null;
             this.pulseLcd = null;
-            this.tickGfx = null;
+            this.gfx = null;
             this.i2cDevice = null;
         }
     }

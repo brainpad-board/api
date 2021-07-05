@@ -7,7 +7,7 @@ namespace BrainPad {
     internal class TickMatrixController : GHIElectronics.TinyCLR.Drivers.BasicGraphics.BasicGraphics {
         private PwmChannel brightnessChannel;
 
-        private uint white = ColorFromRgb(0xff, 0xff, 0xff);
+        private readonly uint white = ColorFromRgb(0xff, 0xff, 0xff);
         public void SetBrightness(double brightness) => this.brightnessChannel.SetActiveDutyCyclePercentage(brightness);
         public void DrawText(string text) {
             if (text.Length == 1) {

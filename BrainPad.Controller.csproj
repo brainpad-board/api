@@ -37,7 +37,6 @@
     <Compile Include="Accel.cs" />
     <Compile Include="Analog.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="BrainPadType.cs" />
     <Compile Include="I2cBus.cs" />
     <Compile Include="Buttons.cs" />
     <Compile Include="Digital.cs" />
