@@ -28,6 +28,7 @@ namespace BrainPad {
         }
 
         public static bool IsPulse => isPulse;
+        public static bool IsTick => !isPulse;
 
         public static int GetPwmChannelFromPin(int pin) {
             switch (pin) {
