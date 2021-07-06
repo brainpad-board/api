@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("BrainPad.Controller")]
+[assembly: AssemblyTitle("BrainPad.Drivers")]
 [assembly: AssemblyCompany("GHI Electronics, LLC")]
 [assembly: AssemblyProduct("TinyCLR OS")]
 [assembly: AssemblyCopyright("Copyright © GHI Electronics, LLC 2021")]
@@ -9,4 +9,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("82A92F70-C1DC-4A96-947B-25D8BA25BE9E")]
 [assembly: AssemblyVersion("2.1.0.0")]
 [assembly: AssemblyFileVersion("2.1.0.1003")]
-[assembly: AssemblyInformationalVersion("2.1.0-preview2")]
+[assembly: AssemblyInformationalVersion("2.1.0-preview3")]

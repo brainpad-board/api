@@ -2,7 +2,7 @@
 
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>BrainPad.Controller</id>
+    <id>BrainPad.Drivers</id>
     <version>2.1.0-preview3</version>
     <authors>GHI Electronics, LLC</authors>
     <owners>GHI Electronics, LLC</owners>
@@ -10,9 +10,9 @@
     <iconUrl>http://files.ghielectronics.com/downloads/Logos/GHIElectronicsTinyCLRNuGet.png</iconUrl>
     <licenseUrl>http://files.ghielectronics.com/downloads/TinyCLR/License.txt</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>BrainPad.Controller driver for TinyCLR OS.</description>
+    <description>BrainPad Drivers driver for TinyCLR OS.</description>
     <copyright>Copyright GHI Electronics, LLC 2021</copyright>
-    <tags>TinyCLR TinyCLROS BrainPadController</tags>
+    <tags>TinyCLR TinyCLROS BrainPad Drivers</tags>
     <dependencies>
 		<dependency id="GHIElectronics.TinyCLR.Core" version="2.1.0" />      
 		<dependency id="GHIElectronics.TinyCLR.Devices.Gpio" version="2.1.0" />
@@ -33,6 +33,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="$TargetDir$BrainPad.Controller.dll" target="lib\net452" />
+    <file src="$TargetDir$BrainPad.Drivers.dll" target="lib\net452" />
   </files>
 </package>
