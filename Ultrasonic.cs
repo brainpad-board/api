@@ -3,11 +3,11 @@ using GHIElectronics.TinyCLR.Devices.Gpio;
 using GHIElectronics.TinyCLR.Devices.Signals;
 
 namespace BrainPad {
-    public class DistanceSensor : IOModule {
+    public class Ultrasonic : IOModule {
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
         GpioPin distanceEcho;
-        public DistanceSensor(string trigger, string echo) {
+        public Ultrasonic(string trigger, string echo) {
             var triggerPin = Controller.GetGpioFromString(trigger);
             var echoPin = Controller.GetGpioFromString(echo);
 
