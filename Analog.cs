@@ -48,7 +48,9 @@ namespace BrainPad {
                 this.adcChannel = adcController.OpenChannel(channelNum);
             }
 
-            return this.adcChannel.ReadRatio();
+            var v = this.adcChannel.ReadRatio();
+            
+            return (int)BrainPad.Controller.Scale(v, 0, 1, 0, 100);
         }
 
         public override void Out(double oValue) {
