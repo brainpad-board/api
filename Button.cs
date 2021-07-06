@@ -1,8 +1,9 @@
 using System;
 using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Pins;
 
 namespace BrainPad {
-    public class Buttons : IOModule {
+    public class Button : IOModule {
         private GpioPin gpioPin;
 
         private bool wasPressed;
@@ -26,17 +27,17 @@ namespace BrainPad {
             set => this.wasPressed = value == false ? false : true;
         }
 
-        public Buttons(string button, double detectPeriod) {
+        public Button(string button, double detectPeriod) {
             var pinNum = -1;
 
             button = button.ToLower();
 
             switch (button) {
                 case "a":
-                    pinNum = (int)Controller.Button.A;
+                    pinNum = SC13048.GpioPin.PC13;
                     break;
                 case "b":
-                    pinNum = (int)Controller.Button.B;
+                    pinNum = SC13048.GpioPin.PB7;
                     break;
             }
 

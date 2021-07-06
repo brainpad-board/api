@@ -14,11 +14,6 @@ namespace BrainPad {
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
 
-        public enum Button {
-            A = SC13048.GpioPin.PC13,
-            B = SC13048.GpioPin.PB7,
-        }
-
         private static bool isPulse;
         static Controller() {
             using (var pb15 = GpioController.GetDefault().OpenPin(SC13048.GpioPin.PB15)) {
@@ -174,12 +169,12 @@ namespace BrainPad {
         public static IOModule Analog(string pin) => new Analog(pin);
         public static IOModule Digital(string pin, string pull) => new Digital(pin, pull);
         public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-        public static IOModule Buttons(string button, double detectPeriod) => new Buttons(button, detectPeriod);
+        public static IOModule Button(string button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
         public static IOModule Accel(string xyz) => new Accel(xyz);
         public static IOModule Servo(string pin) => new Servo(pin);
         public static IOModule Neopixel(string pin, int lednums) => new Neopixel(pin, lednums);
         public static IOModule I2cBus(int address) => new I2cBus(address);
-        public static IOModule DistanceSensor(string triggerPin, string echoPin) => new DistanceSensor(triggerPin, echoPin);
+        public static IOModule Ultrasonic(string triggerPin, string echoPin) => new Ultrasonic(triggerPin, echoPin);
         public static IOModule Touch(string touchPin, int senstitiveLevel) => new Touch(touchPin, senstitiveLevel);
         public static IOModule Infrared(string receivePin) => new Infrared(receivePin);
         public static void Print(string text) => Display.Print(text);
