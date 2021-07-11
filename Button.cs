@@ -14,17 +14,13 @@ namespace BrainPad {
                 if (this.wasPressed) {
                     this.wasPressed = false;
                     var diff = (DateTime.Now - this.lastPressed).TotalMilliseconds;
-
-                    if (diff <= this.detectPeriod)
-                        return true;
-                    else
-                        return false;
+                    return diff <= this.detectPeriod;
                 }
 
                 return false;
             }
 
-            set => this.wasPressed = value == false ? false : true;
+            set => this.wasPressed = value;
         }
 
         public Button(string button, double detectPeriod) {
