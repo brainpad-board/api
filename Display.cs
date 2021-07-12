@@ -64,6 +64,7 @@ namespace BrainPad {
             }
 
             this.Clear();
+            this.Show();
         }
 
         public void SetBrightness(double brightness) {
@@ -103,6 +104,9 @@ namespace BrainPad {
         public void Show() {
             if (Controller.IsPulse) {
                 this.pulseLcd.DrawBufferNative(this.gfx.Buffer);
+            }
+            else {
+                ((TickMatrixController)this.gfx).Show();
             }
         }
 
