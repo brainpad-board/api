@@ -143,8 +143,19 @@ namespace BrainPad {
             }
         }
 
-        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) => new Image(data, width, height, hScale, vScale, transform);
-        public Image CreateImage(int width, int height, string data, int hScale, int vScale, Image.Transform transform) => new Image(data, width, height, hScale, vScale, transform);
+        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) {
+            if (!Controller.IsPulse && (hScale !=1 || vScale !=1)) {
+                throw new ArgumentException("No scale on Tick");
+            }
+            return new Image(data, width, height, hScale, vScale, transform);
+        }
+        public Image CreateImage(int width, int height, string data, int hScale, int vScale, Image.Transform transform) {
+            if (!Controller.IsPulse && (hScale != 1 || vScale != 1)) {
+                throw new ArgumentException("No scale on Tick");
+            }
+
+            return new Image(data, width, height, hScale, vScale, transform);
+        }
 
         public void DrawImage(Image img, int x, int y) {
             var index = 0;
