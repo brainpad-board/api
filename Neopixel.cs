@@ -8,9 +8,9 @@ namespace BrainPad {
         private GpioPin gpioPin;
 
         WS2812Controller ws2812;
-        public Neopixel(string bpPin, int numleds) {
-            this.numLeds = numleds;
-            var pinNum = Controller.GetGpioFromString(bpPin);
+        public Neopixel(double bpPin, double numleds) {
+            this.numLeds = (int)numleds;
+            var pinNum = Controller.GetGpioFromPin(bpPin);
             this.Initialize(pinNum);
         }
 

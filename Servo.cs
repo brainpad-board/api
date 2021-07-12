@@ -6,8 +6,9 @@ namespace BrainPad {
     public class Servo : IOModule {
         PwmChannel pwmChannel;
         ServoController servo;
-        public Servo(string bpPin) {
-            var pinNum = Controller.GetGpioFromString(bpPin);
+
+        public Servo(double bpPin) {
+            var pinNum = Controller.GetGpioFromPin(bpPin);
             this.Initialize(pinNum);
         }
 

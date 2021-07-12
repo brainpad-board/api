@@ -19,8 +19,8 @@ namespace BrainPad {
         object locker;
 
         static readonly byte[] keyMapTable = { 10, 12, 11, 0xFF, 14, 16, 15, 0xFF, 17, 13, 18, 0xFF, 19, 0, 20, 0xFF, 1, 2, 3, 0xFF, 4, 5, 6, 0xFF, 7, 8, 9 };
-        public Infrared(string pinBp) {
-            var pinNum = Controller.GetGpioFromString(pinBp);
+        public Infrared(double pinBp) {
+            var pinNum = Controller.GetGpioFromPin(pinBp);
 
             this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
