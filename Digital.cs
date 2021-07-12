@@ -6,21 +6,8 @@ namespace BrainPad {
 
         private GpioPin gpioPin;
 
-        public GpioPinDriveMode DriverMode { get; set; } = GpioPinDriveMode.Input;
-
-        public Digital(string bpPin, string driverMode) {
-            var pinNum = Controller.GetGpioFromString(bpPin);
-
-            driverMode = driverMode.ToLower();
-
-            if (driverMode.IndexOf(Controller.TEXT_PULLUP) >= 0) {
-                this.DriverMode = GpioPinDriveMode.InputPullUp;
-            }
-            else if (driverMode.IndexOf(Controller.TEXT_PULLDOWN) >= 0) {
-                this.DriverMode = GpioPinDriveMode.InputPullDown;
-            }
-            else
-                this.DriverMode = GpioPinDriveMode.Input;
+        public Digital(string bpPin) {
+            var pinNum = Controller.GetGpioFromString(bpPin);                
 
             this.Initialize(pinNum);
         }
@@ -35,8 +22,7 @@ namespace BrainPad {
         }
 
         public override double In() {
-
-            this.gpioPin.SetDriveMode(this.DriverMode);
+            this.gpioPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
             return this.gpioPin.Read() == GpioPinValue.High ? 1 : 0;
         }
 

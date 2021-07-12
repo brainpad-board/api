@@ -7,9 +7,6 @@ using GHIElectronics.TinyCLR.Pins;
 namespace BrainPad {
     public static class Controller {
         internal const string TEXT_BUILTIN = "builtin";
-        internal const string TEXT_PULLUP = "pullup";
-        internal const string TEXT_PULLDOWN = "pulldown";
-        internal const string TEXT_NOPULL = "nopull";
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
@@ -167,7 +164,7 @@ namespace BrainPad {
 
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
         public static IOModule Analog(string pin) => new Analog(pin);
-        public static IOModule Digital(string pin, string pull) => new Digital(pin, pull);
+        public static IOModule Digital(string pin) => new Digital(pin);
         public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
         public static IOModule Button(string button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
         public static IOModule Accel(string xyz) => new Accel(xyz);
