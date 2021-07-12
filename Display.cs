@@ -32,15 +32,15 @@ namespace BrainPad {
         }
         public static void Clear() => Controller.Clear();
         public static void SetBrightness(double brightness) => Controller.SetBrightness(brightness);
-        public static void Circle(int x, int y, int r) => Controller.Circle(x, y, r, color);
-        public static void Line(int x1, int y1, int x2, int y2) => Controller.Line(x1, y1, x2, y2, color);
-        public static void Rect(int x, int y, int w, int h) => Controller.Rect(x, y, w, h, color);
-        public static void Point(int x, int y, uint c) => Controller.Point(x, y, c);
-        public static void Text(string s, int x, int y) => Controller.Text(s, x, y, color);
-        public static void TextEx(string s, int x, int y, int scalewidth, int scaleheight) => Controller.TextEx(s, x, y, scalewidth, scaleheight, color);
-        public static Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, int transform) => Controller.CreateImage(width, height, data, hScale, vScale, (Image.Transform)transform);
-        public static Image CreateImage(int width, int height, string data, int hScale, int vScale, int transform) => Controller.CreateImage(width, height, data, hScale, vScale, (Image.Transform)transform);
-        public static void Image(object img, int x, int y) => Controller.DrawImage((Image)img, x, y);
+        public static void Circle(double x, double y, double r) => Controller.Circle((int)x, (int)y, (int)r, color);
+        public static void Line(double x1, double y1, double x2, double y2) => Controller.Line((int)x1, (int)y1, (int)x2, (int)y2, color);
+        public static void Rect(double x, double y, double w, double h) => Controller.Rect((int)x, (int)y, (int)w, (int)h, color);
+        public static void Point(double x, double y, double c) => Controller.Point((int)x, (int)y, (uint)c);
+        public static void Text(string s, double x, double y) => Controller.Text(s, (int)x, (int)y, color);
+        public static void TextEx(string s, double x, double y, double scalewidth, double scaleheight) => Controller.TextEx(s, (int)x, (int)y, (int)scalewidth, (int)scaleheight, color);
+        public static Image CreateImage(double width, double height, byte[] data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
+        public static Image CreateImage(double width, double height, string data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
+        public static void Image(object img, double x, double y) => Controller.DrawImage((Image)img, (int)x, (int)y);
         public static void Show() => Controller.Show();
         public static void Color(uint c) => color = c;
     }
@@ -118,11 +118,11 @@ namespace BrainPad {
                 }
             }
         }
-        public void Circle(int x, int y, int r, uint c) => this.gfx.DrawCircle((uint)c, x, y, r);
+        public void Circle(int x, int y, int r, uint c) => this.gfx.DrawCircle(c, x, y, r);
 
-        public void Line(int x1, int y1, int x2, int y2, uint c) => this.gfx.DrawLine((uint)c, x1, y1, x2, y2);
+        public void Line(int x1, int y1, int x2, int y2, uint c) => this.gfx.DrawLine(c, x1, y1, x2, y2);
 
-        public void Rect(int x, int y, int w, int h, uint c)  => this.gfx.DrawRectangle((uint)c, x, y, w, h);
+        public void Rect(int x, int y, int w, int h, uint c)  => this.gfx.DrawRectangle(c, x, y, w, h);
     
         public void Point(int x, int y, uint c) => this.gfx.SetPixel(x, y, c);
            

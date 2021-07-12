@@ -170,9 +170,9 @@ namespace BrainPad {
         public static IOModule Accel(string xyz) => new Accel(xyz);
         public static IOModule Servo(string pin) => new Servo(pin);
         public static IOModule Neopixel(string pin, int lednums) => new Neopixel(pin, lednums);
-        public static IOModule I2cBus(int address) => new I2cBus(address);
+        public static IOModule I2cBus(double address) => new I2cBus((int)address);
         public static IOModule Ultrasonic(string triggerPin, string echoPin) => new Ultrasonic(triggerPin, echoPin);
-        public static IOModule Touch(string touchPin, int senstitiveLevel) => new Touch(touchPin, senstitiveLevel);
+        public static IOModule Touch(string touchPin, double senstitiveLevel) => new Touch(touchPin, (int)senstitiveLevel);
         public static IOModule Infrared(string receivePin) => new Infrared(receivePin);
         public static void Print(string text) => Display.Print(text);
         public static void Print(object obj) => Display.Print(obj.ToString());
