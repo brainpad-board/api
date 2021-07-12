@@ -35,6 +35,7 @@ namespace BrainPad {
         public static void Circle(double x, double y, double r) => Controller.Circle((int)x, (int)y, (int)r, color);
         public static void Line(double x1, double y1, double x2, double y2) => Controller.Line((int)x1, (int)y1, (int)x2, (int)y2, color);
         public static void Rect(double x, double y, double w, double h) => Controller.Rect((int)x, (int)y, (int)w, (int)h, color);
+        public static void FillRect(double x, double y, double w, double h) => Controller.FillRect((int)x, (int)y, (int)w, (int)h, color);
         public static void Point(double x, double y, double c) => Controller.Point((int)x, (int)y, (uint)c);
         public static void Text(string s, double x, double y) => Controller.Text(s, (int)x, (int)y, color);
         public static void TextEx(string s, double x, double y, double scalewidth, double scaleheight) => Controller.TextEx(s, (int)x, (int)y, (int)scalewidth, (int)scaleheight, color);
@@ -112,7 +113,7 @@ namespace BrainPad {
 
         public void Clear() {
             this.gfx.Clear();
-            if (Controller.IsPulse) { 
+            if (Controller.IsPulse) {
                 for (var i = 0; i < 8; i++) {
                     this.messages[i] = "";
                 }
@@ -122,14 +123,23 @@ namespace BrainPad {
 
         public void Line(int x1, int y1, int x2, int y2, uint c) => this.gfx.DrawLine(c, x1, y1, x2, y2);
 
-        public void Rect(int x, int y, int w, int h, uint c)  => this.gfx.DrawRectangle(c, x, y, w, h);
-    
+        public void Rect(int x, int y, int w, int h, uint c) => this.gfx.DrawRectangle(c, x, y, w, h);
+
+        public void FillRect(int x, int y, int w, int h, uint c) {
+            h += y;
+            w += x;
+            for (; y < h; y++)
+                for (var x1 = x; x1 < w; x1++)
+                    this.gfx.SetPixel(x1, y, c);
+
+        }
         public void Point(int x, int y, uint c) => this.gfx.SetPixel(x, y, c);
-           
+
         public void Text(string s, int x, int y, uint c) {
             if (Controller.IsPulse) {
                 this.gfx.DrawString(s, c, x, y);
-            } else {
+            }
+            else {
                 ((TickMatrixController)this.gfx).DrawText(s);
             }
         }
@@ -144,7 +154,7 @@ namespace BrainPad {
         }
 
         public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) {
-            if (!Controller.IsPulse && (hScale !=1 || vScale !=1)) {
+            if (!Controller.IsPulse && (hScale != 1 || vScale != 1)) {
                 throw new ArgumentException("No scale on Tick");
             }
             return new Image(data, width, height, hScale, vScale, transform);
