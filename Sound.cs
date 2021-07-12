@@ -12,6 +12,15 @@ namespace BrainPad {
         private string timer;
         private int channel;
 
+        public Sound(double pinBp, double playtime, double volume) {
+            var pin = Controller.GetGpioFromPin(pinBp);
+
+            if (!Controller.IsPwmFromPin(pinBp)) {
+                throw new ArgumentException("Not support on this pin.");
+            }
+
+            this.Initialize(playtime, pin, volume);
+        }
         public Sound(string pinBp, double playtime, double volume) {
             pinBp = pinBp.ToLower();
 
@@ -19,13 +28,7 @@ namespace BrainPad {
                 this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
-                var pin = Controller.GetGpioFromString(pinBp);
-
-                if (!Controller.IsPwmFromString(pinBp)) {
-                    throw new ArgumentException("Not support on this pin.");
-                }
-
-                this.Initialize(playtime, pin, volume);
+                throw new ArgumentException("Not support on this pin.");
             }
         }
 

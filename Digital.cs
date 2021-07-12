@@ -6,8 +6,8 @@ namespace BrainPad {
 
         private GpioPin gpioPin;
 
-        public Digital(string bpPin) {
-            var pinNum = Controller.GetGpioFromString(bpPin);                
+        public Digital(double bpPin) {
+            var pinNum = Controller.GetGpioFromPin(bpPin);                
 
             this.Initialize(pinNum);
         }

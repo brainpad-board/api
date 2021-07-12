@@ -23,6 +23,11 @@ namespace BrainPad {
             set => this.wasPressed = value;
         }
 
+        public Button(double button, double detectPeriod) {
+            var pinNum = Controller.GetGpioFromPin(button);
+
+            this.Initialize(pinNum, detectPeriod);
+        }
         public Button(string button, double detectPeriod) {
             var pinNum = -1;
 
@@ -35,11 +40,7 @@ namespace BrainPad {
                 case "b":
                     pinNum = SC13048.GpioPin.PB7;
                     break;
-            }
-
-            if (pinNum == -1) {
-                pinNum = Controller.GetGpioFromString(button);
-            }
+            }           
 
             this.Initialize(pinNum, detectPeriod);
         }

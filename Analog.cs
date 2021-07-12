@@ -11,8 +11,8 @@ namespace BrainPad {
         private PwmChannel pwmChannel;
         private int pinNum;
 
-        public Analog(string bpPin) {
-            var pinNum = Controller.GetGpioFromString(bpPin);
+        public Analog(double bpPin) {
+            var pinNum = Controller.GetGpioFromPin(bpPin);
 
             this.Initialize(pinNum);
         }

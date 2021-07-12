@@ -7,9 +7,9 @@ namespace BrainPad {
         PulseFeedback pulseFeedback;
         GpioPin distanceTrigger;
         GpioPin distanceEcho;
-        public Ultrasonic(string trigger, string echo) {
-            var triggerPin = Controller.GetGpioFromString(trigger);
-            var echoPin = Controller.GetGpioFromString(echo);
+        public Ultrasonic(double trigger, double echo) {
+            var triggerPin = Controller.GetGpioFromPin(trigger);
+            var echoPin = Controller.GetGpioFromPin(echo);
 
             this.Initialize(triggerPin, echoPin);
         }

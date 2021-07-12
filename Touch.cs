@@ -9,12 +9,12 @@ namespace BrainPad {
 
         private CapacitiveTouchController touch;
 
-        public Touch(string pinBp, int senstitiveLevel) {
-            var pinNum = Controller.GetGpioFromString(pinBp);
+        public Touch(double pinBp, double senstitiveLevel) {
+            var pinNum = Controller.GetGpioFromPin(pinBp);
 
             this.gpioPin = Controller.Gpio.OpenPin(pinNum);
 
-            this.touch = new CapacitiveTouchController(this.gpioPin, senstitiveLevel);
+            this.touch = new CapacitiveTouchController(this.gpioPin, (int)senstitiveLevel);
         }
 
         public override double In() => this.touch.IsTouched ? 1 : 0;
