@@ -43,7 +43,7 @@ namespace BrainPad {
         public static Image CreateImage(double width, double height, string data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
         public static void Image(object img, double x, double y) => Controller.DrawImage((Image)img, (int)x, (int)y);
         public static void Show() => Controller.Show();
-        public static void Color(uint c) => color = c;
+        public static void Color(double c) => color = (uint)c;
     }
 
     internal class DisplayController : IOModule {
