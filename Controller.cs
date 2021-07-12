@@ -15,7 +15,7 @@ namespace BrainPad {
         public const int P6 = 6;
         public const int P7 = 7;
         public const int P8 = 8;
-        public const int P9 = 8;
+        public const int P9 = 9;
         public const int P10 =10;
         public const int P11 = 11;
         public const int P12 = 12;
@@ -92,23 +92,23 @@ namespace BrainPad {
         public static bool IsPwmFromPin(double pin) {
             if (IsPulse) {
                 switch (pin) {
-                    case 3:
-                    case 0:
-                    case 1:
-                    case 8:
-                    case 12:
-                    case 2:
+                    case P3:
+                    case P0:
+                    case P1:
+                    case P8:
+                    case P12:
+                    case P2:
                         return true;
 
                 }
             }
             else {
                 switch (pin) {
-                    case 0:
-                    case 2:
-                    case 1:
-                    case 15:
-                    case 16:
+                    case P0:
+                    case P2:
+                    case P1:
+                    case P15:
+                    case P16:
                         return true;
                 }
             }
@@ -118,61 +118,61 @@ namespace BrainPad {
         public static int GetGpioFromPin(double pin) {            
 
             switch (pin) {
-                case 0:
+                case P0:
                     return SC13048.GpioPin.PA5; // same P12 on tick
 
-                case 1:
+                case P1:
                     return SC13048.GpioPin.PA3; // same P16 on tick
 
-                case 2:
+                case P2:
                     return SC13048.GpioPin.PA2;
 
-                case 3:
+                case P3:
                     return IsPulse ? SC13048.GpioPin.PA1 : -1;
 
-                case 4:
+                case P4:
                     return IsPulse ? SC13048.GpioPin.PA0 : -1;
 
-                case 5:
+                case P5:
                     return IsPulse ? SC13048.GpioPin.PA7 : -1;
 
-                case 6:
+                case P6:
                     return IsPulse ? SC13048.GpioPin.PA4 : -1;
 
-                case 7:
+                case P7:
                     return IsPulse ? SC13048.GpioPin.PB0 : -1;
 
-                case 8:
+                case P8:
                     return IsPulse ? SC13048.GpioPin.PA9 : -1;
 
-                case 9:
+                case P9:
                     return IsPulse ? SC13048.GpioPin.PB1 : -1;
 
-                case 10:
+                case P10:
                     return IsPulse ? SC13048.GpioPin.PA6 : -1;
 
-                case 11:
+                case P11:
                     return IsPulse ? SC13048.GpioPin.PB6 : -1;
 
-                case 12:
+                case P12:
                     return IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
 
-                case 13:
+                case P13:
                     return SC13048.GpioPin.PB3;
 
-                case 14:
+                case P14:
                     return SC13048.GpioPin.PB4;
 
-                case 15:
+                case P15:
                     return SC13048.GpioPin.PB5;
 
-                case 16:
+                case P16:
                     return IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
 
-                case 19:
+                case P19:
                     return SC13048.GpioPin.PB10;
 
-                case 20:
+                case P20:
                     return SC13048.GpioPin.PB11;
             }
 
