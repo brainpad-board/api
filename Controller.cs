@@ -192,8 +192,7 @@ namespace BrainPad {
         public static IOModule I2cBus(double address) => new I2cBus((int)address);
         public static IOModule Ultrasonic(double triggerPin, double echoPin) => new Ultrasonic(triggerPin, echoPin);
         public static IOModule Touch(double pin, double senstitiveLevel) => new Touch(pin, senstitiveLevel);
-        public static IOModule Infrared(double receivePin) => new Infrared(receivePin);
-        public static void Print(string text) => Display.Print(text);
+        public static IOModule Infrared(double receivePin) => new Infrared(receivePin);        
         public static void Print(object obj) => Display.Print(obj.ToString());
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
