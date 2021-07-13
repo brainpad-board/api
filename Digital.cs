@@ -1,13 +1,26 @@
 using System;
 using GHIElectronics.TinyCLR.Devices.Gpio;
+using GHIElectronics.TinyCLR.Pins;
 
 namespace BrainPad {
     public class Digital : IOModule {
 
         private GpioPin gpioPin;
+        const string BUILTIN_TEXT = "led";
 
+        public Digital(string bpPin) {
+            var pinNum = -1;
+
+            bpPin = bpPin.ToLower();
+
+            if (bpPin.CompareTo(BUILTIN_TEXT) == 0) {
+                pinNum = SC13048.GpioPin.PA8;
+            }
+
+            this.Initialize(pinNum);
+        }
         public Digital(double bpPin) {
-            var pinNum = Controller.GetGpioFromPin(bpPin);                
+            var pinNum = Controller.GetGpioFromPin(bpPin);
 
             this.Initialize(pinNum);
         }
