@@ -16,7 +16,7 @@ namespace BrainPad {
         public const int P7 = 7;
         public const int P8 = 8;
         public const int P9 = 9;
-        public const int P10 =10;
+        public const int P10 = 10;
         public const int P11 = 11;
         public const int P12 = 12;
         public const int P13 = 13;
@@ -24,9 +24,7 @@ namespace BrainPad {
         public const int P15 = 15;
         public const int P16 = 16;
         public const int P19 = 19;
-        public const int P20 = 20;        
-
-        internal const string TEXT_BUILTIN = "builtin";
+        public const int P20 = 20;
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
@@ -115,7 +113,7 @@ namespace BrainPad {
 
             return false;
         }
-        public static int GetGpioFromPin(double pin) {            
+        public static int GetGpioFromPin(double pin) {
 
             switch (pin) {
                 case P0:
@@ -182,6 +180,7 @@ namespace BrainPad {
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
         public static IOModule Analog(double pin) => new Analog(pin);
         public static IOModule Digital(double pin) => new Digital(pin);
+        public static IOModule Digital(string pin) => new Digital(pin);
         public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
         public static IOModule Sound(double pin, double playtime, double volume) => new Sound(pin, playtime, volume);
         public static IOModule Button(string button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
@@ -192,7 +191,7 @@ namespace BrainPad {
         public static IOModule I2cBus(double address) => new I2cBus((int)address);
         public static IOModule Distance(double triggerPin, double echoPin) => new Distance(triggerPin, echoPin);
         public static IOModule Touch(double pin, double senstitiveLevel) => new Touch(pin, senstitiveLevel);
-        public static IOModule Infrared(double receivePin) => new Infrared(receivePin);        
+        public static IOModule Infrared(double receivePin) => new Infrared(receivePin);
         public static void Print(object obj) => Display.Print(obj.ToString());
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);

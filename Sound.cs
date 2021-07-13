@@ -12,6 +12,7 @@ namespace BrainPad {
         private string timer;
         private int channel;
 
+        const string BUILTIN_TEXT = "buzzer";
         public Sound(double pinBp, double playtime, double volume) {
             var pin = Controller.GetGpioFromPin(pinBp);
 
@@ -24,7 +25,7 @@ namespace BrainPad {
         public Sound(string pinBp, double playtime, double volume) {
             pinBp = pinBp.ToLower();
 
-            if (pinBp.CompareTo(Controller.TEXT_BUILTIN) == 0) {
+            if (pinBp.CompareTo(BUILTIN_TEXT) == 0) {
                 this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
             }
             else {
