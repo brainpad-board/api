@@ -11,7 +11,7 @@ namespace BrainPad {
         private readonly uint white = ColorFromRgb(0xff, 0xff, 0xff);
 
         private byte[] buffer;
-        public void SetBrightness(double brightness) => this.brightnessChannel.SetActiveDutyCyclePercentage(brightness);
+        public void Brightness(double brightness) => this.brightnessChannel.SetActiveDutyCyclePercentage(brightness / 100.0);
         public void DrawText(string text) {
             if (text.Length == 1) {
                 this.DrawTinyCharacter(text[0], this.white, 0, 0, true);

@@ -31,14 +31,14 @@ namespace BrainPad {
             }
         }
         public static void Clear() => Controller.Clear();
-        public static void SetBrightness(double brightness) => Controller.SetBrightness(brightness);
+        public static void Brightness(double brightness) => Controller.Brightness(brightness);
         public static void Circle(double x, double y, double r) => Controller.Circle((int)x, (int)y, (int)r, color);
         public static void Line(double x1, double y1, double x2, double y2) => Controller.Line((int)x1, (int)y1, (int)x2, (int)y2, color);
         public static void Rect(double x, double y, double w, double h) => Controller.Rect((int)x, (int)y, (int)w, (int)h, color);
         public static void FillRect(double x, double y, double w, double h) => Controller.FillRect((int)x, (int)y, (int)w, (int)h, color);
         public static void Point(double x, double y, double c) => Controller.Point((int)x, (int)y, (uint)c);
-        public static void Text(string s, double x, double y) => Controller.Text(s, (int)x, (int)y, color);
-        public static void TextEx(string s, double x, double y, double scalewidth, double scaleheight) => Controller.TextEx(s, (int)x, (int)y, (int)scalewidth, (int)scaleheight, color);
+        public static void Text(object s, double x, double y) => Controller.Text(s.ToString(), (int)x, (int)y, color);
+        public static void TextEx(object s, double x, double y, double scalewidth, double scaleheight) => Controller.TextEx(s.ToString(), (int)x, (int)y, (int)scalewidth, (int)scaleheight, color);
         public static Image CreateImage(double width, double height, byte[] data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
         public static Image CreateImage(double width, double height, string data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
         public static void Image(object img, double x, double y) => Controller.DrawImage((Image)img, (int)x, (int)y);
@@ -68,10 +68,10 @@ namespace BrainPad {
             this.Show();
         }
 
-        public void SetBrightness(double brightness) {
+        public void Brightness(double brightness) {
             if (Controller.IsPulse == false) {
-                ((TickMatrixController)this.gfx).SetBrightness(brightness);
-            }
+                ((TickMatrixController)this.gfx).Brightness(brightness);
+            }            
         }
 
         private void InitPulseDisplay() {
