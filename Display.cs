@@ -31,7 +31,7 @@ namespace BrainPad {
             }
         }
         public static void Clear() => Controller.Clear();
-        public static void SetBrightness(double brightness) => Controller.SetBrightness(brightness);
+        public static void Brightness(double brightness) => Controller.Brightness(brightness);
         public static void Circle(double x, double y, double r) => Controller.Circle((int)x, (int)y, (int)r, color);
         public static void Line(double x1, double y1, double x2, double y2) => Controller.Line((int)x1, (int)y1, (int)x2, (int)y2, color);
         public static void Rect(double x, double y, double w, double h) => Controller.Rect((int)x, (int)y, (int)w, (int)h, color);
@@ -68,9 +68,9 @@ namespace BrainPad {
             this.Show();
         }
 
-        public void SetBrightness(double brightness) {
+        public void Brightness(double brightness) {
             if (Controller.IsPulse == false) {
-                ((TickMatrixController)this.gfx).SetBrightness(brightness);
+                ((TickMatrixController)this.gfx).Brightness(brightness);
             }            
         }
 
