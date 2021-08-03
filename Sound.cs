@@ -52,17 +52,16 @@ namespace BrainPad {
 
             this.pwmController = PwmController.FromName(this.timer);
             this.pwmChannel = this.pwmController.OpenChannel(this.channel);
-
+            this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
         }
 
         public override void Out(double oValue) {
             if (oValue > 0 && this.volume > 0) {
                 this.pwmController.SetDesiredFrequency(oValue);
-                this.pwmChannel.SetActiveDutyCyclePercentage(this.volume);
                 this.pwmChannel.Start();
 
-                var milisecond = this.playTime * 1000;
-                if (milisecond > 0) {
+                if (this.playTime > 0) {
+                    var milisecond = this.playTime * 1000;
                     Thread.Sleep((int)milisecond);
                     this.pwmChannel.Stop();
                 }
