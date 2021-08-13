@@ -25,6 +25,7 @@ namespace BrainPad {
         public const int P16 = 16;
         public const int P19 = 19;
         public const int P20 = 20;
+        public const string BUILTIN_TEXT_LED = "led";
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
@@ -179,6 +180,7 @@ namespace BrainPad {
 
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
         public static IOModule Analog(double pin) => new Analog(pin);
+        public static IOModule Analog(string pin) => new Analog(pin);
         public static IOModule Digital(double pin) => new Digital(pin);
         public static IOModule Digital(string pin) => new Digital(pin);
         public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);

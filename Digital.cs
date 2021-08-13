@@ -5,15 +5,14 @@ using GHIElectronics.TinyCLR.Pins;
 namespace BrainPad {
     public class Digital : IOModule {
 
-        private GpioPin gpioPin;
-        const string BUILTIN_TEXT = "led";
+        private GpioPin gpioPin;       
 
         public Digital(string bpPin) {
             var pinNum = -1;
 
             bpPin = bpPin.ToLower();
 
-            if (bpPin.CompareTo(BUILTIN_TEXT) == 0) {
+            if (bpPin.CompareTo(Controller.BUILTIN_TEXT_LED) == 0) {
                 pinNum = SC13048.GpioPin.PA8;
             }
 
