@@ -35,25 +35,27 @@ namespace BrainPad {
 
         private double GetX() {
             if (Controller.IsPulse) {
-                var x = (double)this.accel.X;
+                // Default 2g, range [-200..200], 8 bit ( 7 bit data + 1 bit sign) 
+                // 1.56 = 200 / 128
+                var d = (int)(this.accel.X * 1.56); 
 
-                return (x + 128) / 256;
+                return d;
             }
             return 0;
         }
         private double GetY() {
-            if (Controller.IsPulse) {
-                var y = (double)this.accel.Y;
+            if (Controller.IsPulse) {                
+                var d = (int)(this.accel.Y * 1.56);
 
-                return (y + 128) / 256;
+                return d;
             }
             return 0;
         }
         private double GetZ() {
             if (Controller.IsPulse) {
-                var z = (double)this.accel.Z;
+                var d = (int)(this.accel.Z * 1.56);
 
-                return (z + 128) / 256;
+                return d;
             }
             return 0;
         }
