@@ -12,7 +12,7 @@ namespace BrainPad {
         private string timer;
         private int channel;
 
-        const string BUILTIN_TEXT = "buzzer";
+        //const string BUILTIN_TEXT = "buzzer";
         public Sound(double pinBp, double playtime, double volume) {
             var pin = Controller.GetGpioFromPin(pinBp);
 
@@ -22,16 +22,16 @@ namespace BrainPad {
 
             this.Initialize(playtime, pin, volume);
         }
-        public Sound(string pinBp, double playtime, double volume) {
-            pinBp = pinBp.ToLower();
+        //public Sound(string pinBp, double playtime, double volume) {
+        //    pinBp = pinBp.ToLower();
 
-            if (pinBp.CompareTo(BUILTIN_TEXT) == 0) {
-                this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
-            }
-            else {
-                throw new ArgumentException("Not support on this pin.");
-            }
-        }
+        //    if (pinBp.CompareTo(BUILTIN_TEXT) == 0) {
+        //        this.Initialize(playtime, SC13048.GpioPin.PB8, volume);
+        //    }
+        //    else {
+        //        throw new ArgumentException("Not support on this pin.");
+        //    }
+        //}
 
 
         private void Initialize(double playtime, int pinNum, double volume) {

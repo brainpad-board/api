@@ -11,17 +11,17 @@ namespace BrainPad {
         private PwmChannel pwmChannel;
         private int pinNum;
 
-        public Analog(string bpPin) {
-            var pinNum = -1;
+        //public Analog(string bpPin) {
+        //    var pinNum = -1;
 
-            bpPin = bpPin.ToLower();
+        //    bpPin = bpPin.ToLower();
 
-            if (bpPin.CompareTo(Controller.BUILTIN_TEXT_LED) == 0) {
-                pinNum = SC13048.GpioPin.PA8;
-            }
+        //    if (bpPin.CompareTo(Controller.BUILTIN_TEXT_LED) == 0) {
+        //        pinNum = SC13048.GpioPin.PA8;
+        //    }
            
-            this.Initialize(pinNum);
-        }
+        //    this.Initialize(pinNum);
+        //}
         public Analog(double bpPin) {
             var pinNum = Controller.GetGpioFromPin(bpPin);
 

@@ -28,22 +28,22 @@ namespace BrainPad {
 
             this.Initialize(pinNum, detectPeriod);
         }
-        public Button(string button, double detectPeriod) {
-            var pinNum = -1;
+        //public Button(string button, double detectPeriod) {
+        //    var pinNum = -1;
 
-            button = button.ToLower();
+        //    button = button.ToLower();
 
-            switch (button) {
-                case "a":
-                    pinNum = SC13048.GpioPin.PC13;
-                    break;
-                case "b":
-                    pinNum = SC13048.GpioPin.PB7;
-                    break;
-            }           
+        //    switch (button) {
+        //        case "a":
+        //            pinNum = SC13048.GpioPin.PC13;
+        //            break;
+        //        case "b":
+        //            pinNum = SC13048.GpioPin.PB7;
+        //            break;
+        //    }           
 
-            this.Initialize(pinNum, detectPeriod);
-        }
+        //    this.Initialize(pinNum, detectPeriod);
+        //}
 
         private void Initialize(int pinNum, double detectPeriod) {
 
