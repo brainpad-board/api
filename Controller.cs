@@ -25,7 +25,71 @@ namespace BrainPad {
         public const int P16 = 16;
         public const int P19 = 19;
         public const int P20 = 20;
-        public const string BUILTIN_TEXT_LED = "led";
+
+        public const int LED = 21;
+        public const int BUZZER = 22;
+        public const int A = 23;
+        public const int B = 24;
+
+        public const int X = 25;
+        public const int Y = 26;
+        public const int Z = 27;
+
+        public static readonly int[] PinMapPulse = {
+            SC13048.GpioPin.PA5, //P0
+            SC13048.GpioPin.PA3, //P1
+            SC13048.GpioPin.PA2, //P2
+            SC13048.GpioPin.PA1, //P3
+            SC13048.GpioPin.PA0, //P4
+            SC13048.GpioPin.PA7, //P5
+            SC13048.GpioPin.PA4, //P6
+            SC13048.GpioPin.PB0, //P7
+            SC13048.GpioPin.PA9, //P8
+            SC13048.GpioPin.PB1, //P9
+            SC13048.GpioPin.PA6, //P10
+            SC13048.GpioPin.PB6, //P11
+            SC13048.GpioPin.PA10, //P12
+            SC13048.GpioPin.PB3, //P13
+            SC13048.GpioPin.PB4, //P14
+            SC13048.GpioPin.PB5, //P15
+            SC13048.GpioPin.PB12, //P16
+            -1                  , //P17
+            -1                  , //P18
+            SC13048.GpioPin.PB10, //P19
+            SC13048.GpioPin.PB11, //P20
+            SC13048.GpioPin.PA8, //LED
+            SC13048.GpioPin.PB8, //BUZZER
+            SC13048.GpioPin.PC13, //A
+            SC13048.GpioPin.PB7, //B
+        };
+
+        public static readonly int[] PinMapTick = {
+            SC13048.GpioPin.PA5, //P0
+            SC13048.GpioPin.PA3, //P1
+            SC13048.GpioPin.PA2, //P2
+            -1                 , //P3
+            -1                 , //P4
+            -1                 , //P5
+            -1                 , //P6
+            -1                 , //P7
+            -1                 , //P8
+            -1                 , //P9
+            -1                 , //P10
+            -1                 , //P11
+            SC13048.GpioPin.PA5, //P12
+            SC13048.GpioPin.PB3, //P13
+            SC13048.GpioPin.PB4, //P14
+            SC13048.GpioPin.PB5, //P15
+            SC13048.GpioPin.PA3, //P16
+            -1                 , //P17
+            -1                 , //P18
+            SC13048.GpioPin.PB10, //P19
+            SC13048.GpioPin.PB11, //P20
+            SC13048.GpioPin.PA8, //LED
+            SC13048.GpioPin.PB8, //BUZZER
+            SC13048.GpioPin.PC13, //A
+            SC13048.GpioPin.PB7, //B
+        };
 
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
@@ -97,6 +161,7 @@ namespace BrainPad {
                     case P8:
                     case P12:
                     case P2:
+                    case BUZZER:
                         return true;
 
                 }
@@ -108,86 +173,21 @@ namespace BrainPad {
                     case P1:
                     case P15:
                     case P16:
+                    case BUZZER:
                         return true;
                 }
             }
 
             return false;
         }
-        public static int GetGpioFromPin(double pin) {
-
-            switch (pin) {
-                case P0:
-                    return SC13048.GpioPin.PA5; // same P12 on tick
-
-                case P1:
-                    return SC13048.GpioPin.PA3; // same P16 on tick
-
-                case P2:
-                    return SC13048.GpioPin.PA2;
-
-                case P3:
-                    return IsPulse ? SC13048.GpioPin.PA1 : -1;
-
-                case P4:
-                    return IsPulse ? SC13048.GpioPin.PA0 : -1;
-
-                case P5:
-                    return IsPulse ? SC13048.GpioPin.PA7 : -1;
-
-                case P6:
-                    return IsPulse ? SC13048.GpioPin.PA4 : -1;
-
-                case P7:
-                    return IsPulse ? SC13048.GpioPin.PB0 : -1;
-
-                case P8:
-                    return IsPulse ? SC13048.GpioPin.PA9 : -1;
-
-                case P9:
-                    return IsPulse ? SC13048.GpioPin.PB1 : -1;
-
-                case P10:
-                    return IsPulse ? SC13048.GpioPin.PA6 : -1;
-
-                case P11:
-                    return IsPulse ? SC13048.GpioPin.PB6 : -1;
-
-                case P12:
-                    return IsPulse ? SC13048.GpioPin.PA10 : SC13048.GpioPin.PA5;
-
-                case P13:
-                    return SC13048.GpioPin.PB3;
-
-                case P14:
-                    return SC13048.GpioPin.PB4;
-
-                case P15:
-                    return SC13048.GpioPin.PB5;
-
-                case P16:
-                    return IsPulse ? SC13048.GpioPin.PB12 : SC13048.GpioPin.PA3;
-
-                case P19:
-                    return SC13048.GpioPin.PB10;
-
-                case P20:
-                    return SC13048.GpioPin.PB11;
-            }
-
-            return -1;
-        }
+        public static int GetGpioFromPin(double pin) => Controller.IsPulse ? Controller.PinMapPulse[(int)pin] : Controller.PinMapTick[(int)pin];
 
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
-        public static IOModule Analog(double pin) => new Analog(pin);
-        public static IOModule Analog(string pin) => new Analog(pin);
+        public static IOModule Analog(double pin) => new Analog(pin);        
         public static IOModule Digital(double pin) => new Digital(pin);
-        public static IOModule Digital(string pin) => new Digital(pin);
-        public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-        public static IOModule Sound(double pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-        public static IOModule Button(string button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
-        public static IOModule Button(double button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
-        public static IOModule Accel(string xyz) => new Accel(xyz);
+        public static IOModule Sound(double pin, double playtime, double volume) => new Sound(pin, playtime, volume);        
+        public static IOModule Button(double button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);        
+        public static IOModule Accel(double xyz) => new Accel(xyz);
         public static IOModule Servo(double pin) => new Servo(pin);
         public static IOModule Neopixel(double pin, double lednums) => new Neopixel(pin, lednums);
         public static IOModule I2cBus(double address) => new I2cBus((int)address);
@@ -198,7 +198,7 @@ namespace BrainPad {
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
         public static void Out(IOModule module, double oValue) => module.Out(oValue);
-        public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) => module.OutIn(dataOut, dataIn);
+        public static double OutIn(IOModule module, double[] dataOut, double[] dataIn) => module.OutIn(dataOut, dataIn);
 
         public static void Release(object o) {
             if (o is IDisposable disposable) disposable.Dispose();

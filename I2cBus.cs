@@ -1,3 +1,4 @@
+using System;
 using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Pins;
 
@@ -42,8 +43,19 @@ namespace BrainPad {
             this.i2cDevice = null;
         }
 
-        public override double OutIn(byte[] data, byte[] result) {
-            this.i2cDevice.WriteRead(data, result);
+        public override double OutIn(double[] data, double[] result) {
+            var write = new byte[data.Length];
+            var read = new byte[result.Length];
+
+            for (var i = 0; i < data.Length; i++) {
+                write[i] = (byte)data[i];
+            }
+
+            this.i2cDevice.WriteRead(write, read);
+
+            for (var i = 0; i < read.Length; i++) {
+                result[i] = read[i];
+            }
 
             return 0;
         }

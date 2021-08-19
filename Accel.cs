@@ -9,16 +9,15 @@ namespace BrainPad {
         bool doX = false;
         bool doY = false;
         bool doZ = false;
-        public Accel(string xyz) {
-            xyz = xyz.ToLower();
-            switch (xyz) {
-                case "x":
+        public Accel(double xyz) {            
+            switch ((int)xyz) {
+                case Controller.X:
                     this.doX = true;
                     break;
-                case "y":
+                case Controller.Y:
                     this.doY = true;
                     break;
-                case "z":
+                case Controller.Z:
                     this.doZ = true;
                     break;
 
