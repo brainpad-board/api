@@ -53,9 +53,12 @@ namespace BrainPad {
             SC13048.GpioPin.PB4, //P14
             SC13048.GpioPin.PB5, //P15
             SC13048.GpioPin.PB12, //P16
+            -1                  , //P17
+            -1                  , //P18
             SC13048.GpioPin.PB10, //P19
             SC13048.GpioPin.PB11, //P20
             SC13048.GpioPin.PA8, //LED
+            SC13048.GpioPin.PB8, //BUZZER
             SC13048.GpioPin.PC13, //A
             SC13048.GpioPin.PB7, //B
         };
@@ -78,9 +81,12 @@ namespace BrainPad {
             SC13048.GpioPin.PB4, //P14
             SC13048.GpioPin.PB5, //P15
             SC13048.GpioPin.PA3, //P16
+            -1                 , //P17
+            -1                 , //P18
             SC13048.GpioPin.PB10, //P19
             SC13048.GpioPin.PB11, //P20
             SC13048.GpioPin.PA8, //LED
+            SC13048.GpioPin.PB8, //BUZZER
             SC13048.GpioPin.PC13, //A
             SC13048.GpioPin.PB7, //B
         };
@@ -155,6 +161,7 @@ namespace BrainPad {
                     case P8:
                     case P12:
                     case P2:
+                    case BUZZER:
                         return true;
 
                 }
@@ -166,6 +173,7 @@ namespace BrainPad {
                     case P1:
                     case P15:
                     case P16:
+                    case BUZZER:
                         return true;
                 }
             }
@@ -175,15 +183,10 @@ namespace BrainPad {
         public static int GetGpioFromPin(double pin) => Controller.IsPulse ? Controller.PinMapPulse[(int)pin] : Controller.PinMapTick[(int)pin];
 
         public static void Wait(double seconds) => Thread.Sleep((int)(seconds * 1000));
-        public static IOModule Analog(double pin) => new Analog(pin);
-        // public static IOModule Analog(string pin) => new Analog(pin);
+        public static IOModule Analog(double pin) => new Analog(pin);        
         public static IOModule Digital(double pin) => new Digital(pin);
-        // public static IOModule Digital(string pin) => new Digital(pin);
-        //public static IOModule Sound(string pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-        public static IOModule Sound(double pin, double playtime, double volume) => new Sound(pin, playtime, volume);
-        // public static IOModule Button(string button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
-        public static IOModule Button(double button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);
-        // public static IOModule Accel(string xyz) => new Accel(xyz);
+        public static IOModule Sound(double pin, double playtime, double volume) => new Sound(pin, playtime, volume);        
+        public static IOModule Button(double button, double detectPeriod) => new BrainPad.Button(button, detectPeriod);        
         public static IOModule Accel(double xyz) => new Accel(xyz);
         public static IOModule Servo(double pin) => new Servo(pin);
         public static IOModule Neopixel(double pin, double lednums) => new Neopixel(pin, lednums);
