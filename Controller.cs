@@ -85,9 +85,6 @@ namespace BrainPad {
             SC13048.GpioPin.PB7, //B
         };
 
-
-        //public const string BUILTIN_TEXT_LED = "led";
-
         internal static GpioController Gpio = GpioController.GetDefault();
         internal static PwmController PwmSoftware = PwmController.FromName(SC13048.Timer.Pwm.Software.Id);
 

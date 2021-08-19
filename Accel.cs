@@ -9,30 +9,6 @@ namespace BrainPad {
         bool doX = false;
         bool doY = false;
         bool doZ = false;
-        //public Accel(string xyz) {
-        //    xyz = xyz.ToLower();
-        //    switch (xyz) {
-        //        case "x":
-        //            this.doX = true;
-        //            break;
-        //        case "y":
-        //            this.doY = true;
-        //            break;
-        //        case "z":
-        //            this.doZ = true;
-        //            break;
-
-        //    }
-
-        //    if (this.doX == false && this.doY == false && this.doZ == false)
-        //        throw new ArgumentException("Argument must be X or Y or Z");
-
-        //    if (Controller.IsPulse) {
-        //        var i2ccon = I2cController.FromName(SC13048.I2cBus.I2c2);
-        //        this.accel = new MC3216Controller(i2ccon);
-        //    }
-        //}
-
         public Accel(double xyz) {            
             switch ((int)xyz) {
                 case Controller.X:
