@@ -27,13 +27,14 @@ namespace BrainPad {
         public const int P20 = 20;
 
         public const int LED = 21;
-        public const int BUZZER = 22;
-        public const int A = 23;
-        public const int B = 24;
+        public const int Led = 21;
+        public const int Buzzer = 22;
+        public const int ButtonA = 23;
+        public const int ButtonB = 24;
 
-        public const int X = 25;
-        public const int Y = 26;
-        public const int Z = 27;
+        public const int AccelX = 25;
+        public const int AccelY = 26;
+        public const int AccelZ = 27;
 
         public static readonly int[] PinMapPulse = {
             SC13048.GpioPin.PA5, //P0
@@ -161,7 +162,7 @@ namespace BrainPad {
                     case P8:
                     case P12:
                     case P2:
-                    case BUZZER:
+                    case Buzzer:
                         return true;
 
                 }
@@ -173,7 +174,7 @@ namespace BrainPad {
                     case P1:
                     case P15:
                     case P16:
-                    case BUZZER:
+                    case Buzzer:
                         return true;
                 }
             }
