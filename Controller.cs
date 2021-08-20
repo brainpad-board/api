@@ -28,12 +28,12 @@ namespace BrainPad {
 
         public const int LED = 21;
         public const int BUZZER = 22;
-        public const int A = 23;
-        public const int B = 24;
+        public const int BUTTONA = 23;
+        public const int BUTTONB = 24;
 
-        public const int X = 25;
-        public const int Y = 26;
-        public const int Z = 27;
+        public const int ACCELX = 25;
+        public const int ACCELY = 26;
+        public const int ACCELZ = 27;
 
         public static readonly int[] PinMapPulse = {
             SC13048.GpioPin.PA5, //P0
