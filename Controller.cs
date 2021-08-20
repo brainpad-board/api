@@ -27,7 +27,8 @@ namespace BrainPad {
         public const int P20 = 20;
 
         public const int LED = 21;
-        public const int BUZZER = 22;
+        public const int Led = 21;
+        public const int Buzzer = 22;
         public const int ButtonA = 23;
         public const int ButtonB = 24;
 
@@ -161,7 +162,7 @@ namespace BrainPad {
                     case P8:
                     case P12:
                     case P2:
-                    case BUZZER:
+                    case Buzzer:
                         return true;
 
                 }
@@ -173,7 +174,7 @@ namespace BrainPad {
                     case P1:
                     case P15:
                     case P16:
-                    case BUZZER:
+                    case Buzzer:
                         return true;
                 }
             }
