@@ -11,13 +11,13 @@ namespace BrainPad {
         bool doZ = false;
         public Accel(double xyz) {            
             switch ((int)xyz) {
-                case Controller.ACCELX:
+                case Controller.AccelX:
                     this.doX = true;
                     break;
-                case Controller.ACCELY:
+                case Controller.AccelY:
                     this.doY = true;
                     break;
-                case Controller.ACCELZ:
+                case Controller.AccelZ:
                     this.doZ = true;
                     break;
 
