@@ -39,9 +39,10 @@ namespace BrainPad {
         public const uint Red = 0xFF0000;
         public const uint Green = 0x00FF00;
         public const uint Blue = 0x0000FF;
-        public const uint While = 0xFFFFFF;
+        public const uint White = 0xFFFFFF;
         public const uint Yellow = 0xFFFF00;
         public const uint Black = 0x000000;
+        public const uint Purple = 0x800080;
 
         public static readonly int[] PinMapPulse = {
             SC13048.GpioPin.PA5, //P0
