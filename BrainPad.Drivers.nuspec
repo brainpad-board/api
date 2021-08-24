@@ -10,7 +10,7 @@
     <iconUrl>http://files.ghielectronics.com/downloads/Logos/GHIElectronicsTinyCLRNuGet.png</iconUrl>
     <licenseUrl>http://files.ghielectronics.com/downloads/TinyCLR/License.txt</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>BrainPad Drivers driver for TinyCLR OS.</description>
+    <description>BrainPad driver for TinyCLR OS.</description>
     <copyright>Copyright GHI Electronics, LLC 2021</copyright>
     <tags>TinyCLR TinyCLROS BrainPad Drivers</tags>
     <dependencies>
