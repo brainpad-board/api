@@ -39,7 +39,7 @@ namespace BrainPad {
         public static void Point(double x, double y, double c) => Controller.Point((int)x, (int)y, (uint)c);
         public static void Text(object s, double x, double y) => Controller.Text(s.ToString(), (int)x, (int)y, color);
         public static void TextEx(object s, double x, double y, double scalewidth, double scaleheight) => Controller.TextEx(s.ToString(), (int)x, (int)y, (int)scalewidth, (int)scaleheight, color);
-        public static Image CreateImage(double width, double height, byte[] data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
+        public static Image CreateImage(double width, double height, double[] data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
         public static Image CreateImage(double width, double height, string data, double hScale, double vScale, double transform) => Controller.CreateImage((int)width, (int)height, data, (int)hScale, (int)vScale, (Image.Transform)transform);
         public static void Image(object img, double x, double y) => Controller.DrawImage((Image)img, (int)x, (int)y);
         public static void Show() => Controller.Show();
@@ -153,10 +153,11 @@ namespace BrainPad {
             }
         }
 
-        public Image CreateImage(int width, int height, byte[] data, int hScale, int vScale, Image.Transform transform) {
+        public Image CreateImage(int width, int height, double[] data, int hScale, int vScale, Image.Transform transform) {
             if (!Controller.IsPulse && (hScale != 1 || vScale != 1)) {
                 throw new ArgumentException("No scale on Tick");
             }
+            
             return new Image(data, width, height, hScale, vScale, transform);
         }
         public Image CreateImage(int width, int height, string data, int hScale, int vScale, Image.Transform transform) {
@@ -171,7 +172,7 @@ namespace BrainPad {
             var index = 0;
             for (var vsize = 0; vsize < img.Height; vsize++) {
                 for (var hsize = 0; hsize < img.Width; hsize++) {
-                    this.gfx.SetPixel(x + hsize, y + vsize, img.Data[index++]);
+                    this.gfx.SetPixel(x + hsize, y + vsize, (uint)img.Data[index++]);
                 }
             }
         }
