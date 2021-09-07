@@ -44,7 +44,12 @@ namespace BrainPad {
         }
 
         public override double OutIn(byte[] write, byte[] read) {
-            this.i2cDevice.WriteRead(write, read);
+            if (write != null && write.Length != 0 && read !=null && read.Length != 0)    
+                this.i2cDevice.WriteRead(write, read);
+            else if (write != null && write.Length != 0)
+                this.i2cDevice.Write(write);
+            else
+                this.i2cDevice.Read(read);
 
             return 0;
         }
