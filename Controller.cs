@@ -208,7 +208,7 @@ namespace BrainPad {
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
         public static void Out(IOModule module, double oValue) => module.Out(oValue);
-        public static double OutIn(IOModule module, double[] dataOut, double[] dataIn) => module.OutIn(dataOut, dataIn);
+        public static double OutIn(IOModule module, byte[] dataOut, byte[] dataIn) => module.OutIn(dataOut, dataIn);
 
         public static void Release(object o) {
             if (o is IDisposable disposable) disposable.Dispose();
