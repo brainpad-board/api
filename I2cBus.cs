@@ -43,19 +43,8 @@ namespace BrainPad {
             this.i2cDevice = null;
         }
 
-        public override double OutIn(double[] data, double[] result) {
-            var write = new byte[data.Length];
-            var read = new byte[result.Length];
-
-            for (var i = 0; i < data.Length; i++) {
-                write[i] = (byte)data[i];
-            }
-
+        public override double OutIn(byte[] write, byte[] read) {
             this.i2cDevice.WriteRead(write, read);
-
-            for (var i = 0; i < read.Length; i++) {
-                result[i] = read[i];
-            }
 
             return 0;
         }
