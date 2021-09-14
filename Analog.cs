@@ -57,13 +57,13 @@ namespace BrainPad {
                 this.adcChannel.Dispose();
                 this.adcChannel = null;
 
+            }            
+
+            if (this.pwmChannel == null) {
+                Controller.PwmSoftware.SetDesiredFrequency(1000);
+
+                this.pwmChannel = Controller.PwmSoftware.OpenChannel(this.pinNum);
             }
-
-            this.pwmChannel?.Dispose();
-
-            Controller.PwmSoftware.SetDesiredFrequency(1000);
-
-            this.pwmChannel = Controller.PwmSoftware.OpenChannel(this.pinNum);
 
             this.pwmChannel.SetActiveDutyCyclePercentage(oValue / 100);
 
