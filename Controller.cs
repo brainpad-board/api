@@ -36,6 +36,9 @@ namespace BrainPad {
         public const int AccelY = 26;
         public const int AccelZ = 27;
 
+        public const uint Celsius = 28;
+        public const uint Fahrenheit = 29;
+
         public const uint Red = 0xFF0000;
         public const uint Green = 0x00FF00;
         public const uint Blue = 0x0000FF;
@@ -44,7 +47,7 @@ namespace BrainPad {
         public const uint Yellow = 0xFFFF00;
         public const uint Magenta = 0xFF00FF;
         public const uint Cyan = 0x00FFFF;
-
+        
         public static readonly int[] PinMapPulse = {
             SC13048.GpioPin.PA5, //P0
             SC13048.GpioPin.PA3, //P1
@@ -204,6 +207,7 @@ namespace BrainPad {
         public static IOModule Distance(double triggerPin, double echoPin) => new Distance(triggerPin, echoPin);
         public static IOModule Touch(double pin, double senstitiveLevel) => new Touch(pin, senstitiveLevel);
         public static IOModule Infrared(double receivePin) => new Infrared(receivePin);
+        public static IOModule Temperature(double unit) => new Temperature(unit);
         public static void Print(object obj) => Display.Print(obj.ToString());
         public static double In(IOModule module) => module.In();
         public static void Out(IOModule module, double[] oValue) => module.Out(oValue);
