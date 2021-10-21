@@ -50,6 +50,7 @@
     <Compile Include="Servo.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="Sound.cs" />
+    <Compile Include="Temperature.cs" />
     <Compile Include="TickMatrixController.cs" />
     <Compile Include="Touch.cs" />
   </ItemGroup>
