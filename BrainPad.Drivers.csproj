@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project=".\packages\GHIElectronics.TinyCLR.Core.2.2.0.5000\build\net452\GHIElectronics.TinyCLR.Core.props" Condition="Exists('.\packages\GHIElectronics.TinyCLR.Core.2.2.0.5000\build\net452\GHIElectronics.TinyCLR.Core.props')" />
+  <Import Project=".\packages\GHIElectronics.TinyCLR.Core.2.2.0.4200\build\net452\GHIElectronics.TinyCLR.Core.props" Condition="Exists('.\packages\GHIElectronics.TinyCLR.Core.2.2.0.4200\build\net452\GHIElectronics.TinyCLR.Core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -58,41 +58,41 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Adc, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Adc.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Devices.Adc.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Adc, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Adc.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Devices.Adc.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Gpio, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Gpio.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Devices.Gpio.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Gpio, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Gpio.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Devices.Gpio.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.I2c, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Devices.I2c.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Devices.I2c.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.I2c, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Devices.I2c.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Devices.I2c.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Pwm.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Devices.Pwm.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Pwm.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Devices.Pwm.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Signals.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Signals, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Devices.Signals.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Devices.Signals.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.BasicGraphics, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.BasicGraphics.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Drivers.BasicGraphics.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.BasicGraphics, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.BasicGraphics.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Drivers.BasicGraphics.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.Infrared, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Infrared.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Drivers.Infrared.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Infrared, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Infrared.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Drivers.Infrared.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.Motor.Servo, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Motor.Servo.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Drivers.Motor.Servo.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Motor.Servo, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Motor.Servo.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Drivers.Motor.Servo.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Drivers.Worldsemi.WS2812.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Native.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Native.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
     </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Pins, Version=2.2.0.5000, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GHIElectronics.TinyCLR.Pins.2.2.0.5000\lib\net452\GHIElectronics.TinyCLR.Pins.dll</HintPath>
+    <Reference Include="GHIElectronics.TinyCLR.Pins, Version=2.2.0.4200, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GHIElectronics.TinyCLR.Pins.2.2.0.4200\lib\net452\GHIElectronics.TinyCLR.Pins.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
